@@ -1,0 +1,3 @@
+# ignore vim tmp files and swp files
+*~
+*.swp
