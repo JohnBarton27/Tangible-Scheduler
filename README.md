@@ -6,7 +6,7 @@ Automated scheduler for Tangible Productions (official UF Student Organization) 
 Team Members:
 
 * John Barton (johnrbarton)
-* Aaron Abbott (aabmass)
+* Aaron Abbott (aabbott1)
 * Justin Schoeff (jschoeff81690)
 * Juan Jimenez (juandi007)
 * Richard Matthews (idkyoutellme)
