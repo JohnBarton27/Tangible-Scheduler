@@ -10,3 +10,4 @@ Team Members:
 * Justin Schoeff (jschoeff81690)
 * Juan Jimenez (juandi007)
 * Richard Matthews (idkyoutellme)
+* Tyler Fink (tfink419)
