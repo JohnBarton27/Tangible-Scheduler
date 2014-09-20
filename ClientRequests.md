@@ -1,5 +1,9 @@
 Client Requests
 ===============
+Main Site:
+- Flat UI
+- Simple
+- Clean
 For Members
 - user homepage
 	+ Dynamic links like tangible/2KE0k230s02k sent in email or txt to the user so they can view there page
