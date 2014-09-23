@@ -13,7 +13,7 @@ For Members
 			- event list where past events fade over time
 	+ send messages to admin/ questions
 	+ authorize with email to make changes to availability, skills, etc.
-
+	+ event page
 For Admin:
 - create event
 	+ choose skills needed. like 4 actors, 2 prodcuers...
