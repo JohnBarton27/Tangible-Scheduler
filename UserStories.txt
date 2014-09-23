@@ -1,0 +1,17 @@
+1. As an Admin i want to disperse messages to Users so they can get
+	updates using their prefered means.
+
+2. As an Admin i want to be able to create projects to organize
+	the different events for which the users will attend.
+
+3. As an Admin i want to be able to create events for projects
+	so my users will know what is coming up.
+
+4. As an Admin i want to be able to create and add users to groups
+	so they can be organized by skillsets.
+
+5. As a User i want to be able to view projects of which i am a
+	part of and upcoming events for them.
+
+6. As a User i want to have a news feed that shows me current
+	announcements for the events and projects i am a part of.
