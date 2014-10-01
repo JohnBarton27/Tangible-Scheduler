@@ -3,14 +3,14 @@ Database
 
 ##Users
 
-- _id : number
+- _id : objectId 
 - firstname : string
 - lastname : string
 - phone : string
 - email : string
 - events : array of event Documents	
   * event_object : document 
-	  + event_id : number
+	  + event_id : objectId
 	  + event_date : string
 - skills : array
   * skill_name
@@ -18,17 +18,17 @@ Database
 
 ##Projects
 
-- _id : number
+- _id : objectId
 - name : string
 - description : string
 - due_date : date
 - events : array of event ids	
-  + event_id : number
+  + event_id : objectId
 
 ##Events
 
-- _id : number
-- project_id
+- _id : object_id
+- project : object_id, reference to 'project' collection
 - name : string
 - description : string
 - date : date
@@ -36,11 +36,11 @@ Database
   + skill : Document
     * skill : string
 	* required : string
-	* user_id : string
+	* user_id : ObjectId
 
 ##Posts
 
-- _id : number
+- _id : ObjectId
 - subject : string
 - body : string
 - date_sent : date
@@ -48,6 +48,6 @@ Database
   + skill_name : string
 - events : array of documents
   + event : document
-    * event_id
-	* event_name
+    * event_id : objectId
+	* event_name : String
 
