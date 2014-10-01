@@ -1,8 +1,7 @@
 Database
 =================================
 
-Users
-=================================
+##Users
 
 - _id : number
 - firstname : string
@@ -17,8 +16,7 @@ Users
   * skill_name
 - role : string
 
-Projects
-================================
+##Projects
 
 - _id : number
 - name : string
@@ -27,8 +25,7 @@ Projects
 - events : array of event ids	
   + event_id : number
 
-Events
-================================
+##Events
 
 - _id : number
 - project_id
@@ -41,8 +38,7 @@ Events
 	* required : string
 	* user_id : string
 
-Posts
-================================
+##Posts
 
 - _id : number
 - subject : string
