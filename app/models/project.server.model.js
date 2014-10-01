@@ -12,18 +12,24 @@ var mongoose = require('mongoose'),
 var ProjectSchema = new Schema({
 	name: {
 		type: String,
-		default: '',
-		required: 'Please fill Project name',
+		required: 'Please include Project name',
 		trim: true
 	},
+	desription: {
+		type: String,
+		required: 'Please include Project description',
+		trim: true
+	},
+	dueDate: Date,
+	events: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Event'
+	}],
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
 	}
 });
 
 mongoose.model('Project', ProjectSchema);
+console.log("Project collection created");

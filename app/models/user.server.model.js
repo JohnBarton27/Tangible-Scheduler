@@ -37,9 +37,11 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
-	displayName: {
+	phone: {
 		type: String,
-		trim: true
+		trim: true,
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
 	},
 	email: {
 		type: String,
@@ -48,12 +50,11 @@ var UserSchema = new Schema({
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
-	username: {
-		type: String,
-		unique: 'testing error message',
-		required: 'Please fill in a username',
-		trim: true
-	},
+	events: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Event'
+	}],
+	skills: [String],
 	password: {
 		type: String,
 		default: '',

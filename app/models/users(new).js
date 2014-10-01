@@ -7,7 +7,7 @@ var UserSchema = new mongoose.Schema({
 	phone: String,
 	events: [{
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Events'
+		ref: 'Event'
 	}],
 	skills: [String],
 	role: [String]
