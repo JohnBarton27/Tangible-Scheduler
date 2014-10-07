@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 // Configuring the Articles module
@@ -9,3 +10,4 @@ angular.module('events').run(['Menus',
 		Menus.addSubMenuItem('Events', 'events', 'New Event', 'events/create');
 	}
 ]);
+*/
