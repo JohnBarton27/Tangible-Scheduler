@@ -46,4 +46,4 @@ var EventSchema = new Schema({
 });
 
 mongoose.model('Event', EventSchema);
-console.log("Event collection created");
+console.log('Event collection created');

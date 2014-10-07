@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose');
 
 var ProjectsSchema = new mongoose.Schema({
@@ -12,3 +13,6 @@ var ProjectsSchema = new mongoose.Schema({
 
 var Projects = mongoose.model('Projects', ProjectsSchema);
 console.log("Projects collection created");
+
+*/
+

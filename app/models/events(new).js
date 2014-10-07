@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose');
 
 var EventsSchema = new mongoose.Schema({
@@ -20,3 +21,4 @@ var EventsSchema = new mongoose.Schema({
 
 var Events = mongoose.model('Events', EventsSchema);
 console.log("Events collection created");
+*/

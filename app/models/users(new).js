@@ -1,3 +1,4 @@
+/*
 var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
@@ -15,3 +16,5 @@ var UserSchema = new mongoose.Schema({
 
 var Users = mongoose.model('Users', UserSchema);
 console.log("Users collection created");
+
+*/

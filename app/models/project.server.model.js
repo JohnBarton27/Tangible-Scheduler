@@ -32,4 +32,4 @@ var ProjectSchema = new Schema({
 });
 
 mongoose.model('Project', ProjectSchema);
-console.log("Project collection created");
+console.log('Project collection created');
