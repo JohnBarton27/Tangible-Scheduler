@@ -21,6 +21,10 @@
     margin-right: 5px
 }
 
+.section-heading {
+    font-size: 20px;
+}
+
 .events-list {
     border-style: solid;
     padding: 10px;
@@ -36,9 +40,8 @@
 
 .home-container {
     position: relative;
-    border-style: dashed;
-    height: 90vh;
-    width: 90vw;
+    height: 100%;
+    width: 100%;
 }
 
 .home-table {
