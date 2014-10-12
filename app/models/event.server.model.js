@@ -19,12 +19,12 @@ var EventSchema = new Schema({
 	description: {
 		type: String,
 		default: '',
-		required: 'Please include an Event description',
+		//required: 'Please include an Event description',
 		trim: true
 	},
 	date: {
 		type: Date,
-		required: 'Please include Event date',
+		//required: 'Please include Event date',
 		trim: true
 	},
 	project: {
