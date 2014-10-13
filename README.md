@@ -11,7 +11,6 @@ Team Members:
 * Juan Jimenez (juandi007)
 * Richard Matthews (idkyoutellme)
 * Tyler Fink (tfink419)
-* 
 
 ###Class Files
 All files required by software engineering are located in Tangible-Sceduler/class_files/
