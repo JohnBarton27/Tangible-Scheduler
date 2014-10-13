@@ -3,7 +3,6 @@
 .sass-cache/
 npm-debug.log
 node_modules/
-public/lib
 app/tests/coverage/
 .bower-*/
 .idea/
@@ -11,3 +10,4 @@ app/tests/coverage/
 # For editors
 *~
 *.swp
+/.project
