@@ -13,3 +13,39 @@
 .ng-valid.ng-dirty{
     border-color:#78FA89;
 }
+
+.news-feed {
+    border-style: solid;
+    padding: 10px;
+    margin-top: 10px;
+    margin-right: 5px
+}
+
+.section-heading {
+    font-size: 20px;
+    color: #F3EC19;
+}
+
+.events-list {
+    border-style: solid;
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.faq {
+    border-style: solid;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.home-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.home-table {
+    display: inline-table;
+    width: 100%;
+}
