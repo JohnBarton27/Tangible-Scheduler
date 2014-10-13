@@ -27,6 +27,9 @@ exports.signup = function(req, res) {
 	// Then save the user 
 	user.save(function(err) {
 		if (err) {
+			console.log("ERROR TESTING");
+			console.log(req);
+			console.log(user);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
@@ -34,7 +37,9 @@ exports.signup = function(req, res) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
-
+			console.log("ERROR TESTING");
+			console.log(req);
+			console.log(user);
 			req.login(user, function(err) {
 				if (err) {
 					res.status(400).send(err);

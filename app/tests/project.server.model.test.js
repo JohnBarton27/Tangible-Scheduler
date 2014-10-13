@@ -53,6 +53,16 @@ describe('Project Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should show an error when try to save without description', function(done) { 
+			project.description = '';
+
+			return project.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	afterEach(function(done) { 

@@ -54,6 +54,22 @@ describe('Event Model Unit Tests:', function() {
 				done();
 			});
 		});
+		it('should show an error when try to save without description', function(done) { 
+			event.description = '';
+
+			return event.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		it('should show an error when try to save without event date', function(done) { 
+			event.date = '';
+
+			return event.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 

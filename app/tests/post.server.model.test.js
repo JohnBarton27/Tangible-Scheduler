@@ -52,6 +52,16 @@ describe('Post Model Unit Tests:', function() {
 				done();
 			});
 		});
+		
+		it('should show an error when try to save without content', function(done) { 
+			post.content = '';
+
+			return post.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	afterEach(function(done) { 
