@@ -28,6 +28,7 @@ describe('Post Model Unit Tests:', function() {
 		user.save(function() { 
 			post = new Post({
 				name: 'Post Name',
+				content: 'This is test Content',
 				user: user
 			});
 

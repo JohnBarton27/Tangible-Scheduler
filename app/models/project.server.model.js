@@ -15,7 +15,7 @@ var ProjectSchema = new Schema({
 		required: 'Please include Project name',
 		trim: true
 	},
-	desription: {
+	description: {
 		type: String,
 		required: 'Please include Project description',
 		trim: true
