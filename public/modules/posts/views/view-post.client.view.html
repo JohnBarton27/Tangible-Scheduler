@@ -2,6 +2,8 @@
 	<div class="page-header">
 		<h1 data-ng-bind="post.name"></h1>
 	</div>
+	<h3>Content: </h3>
+	<p class="" data-ng-bind="post.content"></p>
 	<div class="pull-right" data-ng-show="authentication.user._id == post.user._id">
 		<a class="btn btn-primary" href="/#!/posts/{{post._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
