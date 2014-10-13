@@ -6,8 +6,6 @@ angular.module('events').run(['Menus',
 		// Set top bar menu items
 		Menus.addMenuItem('topbar', 'Events', 'events', 'dropdown', '/events(/create)?');
 		Menus.addSubMenuItem('topbar', 'events', 'List Events', 'events');
-		Menus.addSubMenuItem('topbar', 'events', 'List Events', 'events');
-		Menus.addSubMenuItem('topbar', 'events', 'List Events', 'events');
 		Menus.addSubMenuItem('topbar', 'events', 'New Event', 'events/create');
 	}
 ]);
