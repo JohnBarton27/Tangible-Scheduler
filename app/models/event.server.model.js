@@ -42,6 +42,10 @@ var EventSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
+	},
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
 });
 
