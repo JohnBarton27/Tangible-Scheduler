@@ -30,7 +30,7 @@ describe('Event Model Unit Tests:', function() {
 			event = new Event({
 				name: 'Event Name',
 				description: 'this is a test description',
-				date: new Date,
+				date: new Date(),
 				user: user
 			});
 
