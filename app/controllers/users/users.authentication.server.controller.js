@@ -16,8 +16,6 @@ exports.signup = function(req, res) {
 	// For security measurement we remove the roles from the req.body object
 	delete req.body.roles;
 
-    console.log("req.body:\n" + JSON.stringify(req.body));
-
 	// Init Variables
 	var user = new User(req.body);
 	var message = null;
@@ -29,7 +27,6 @@ exports.signup = function(req, res) {
 	// Then save the user 
 	user.save(function(err) {
 		if (err) {
-            console.log(err);
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
