@@ -54,3 +54,13 @@
     display: inline-table;
     width: 100%;
 }
+
+.event-date {
+    color: #ffffff;
+    font-size: 20px;
+}
+
+.event-location {
+    color: #008080;
+    font-size: 18px;
+}
