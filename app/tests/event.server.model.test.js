@@ -31,6 +31,8 @@ describe('Event Model Unit Tests:', function() {
 				name: 'Event Name',
 				description: 'this is a test description',
 				date: new Date(),
+                time: '10:00 AM',
+                location: 'this is a test location',
 				user: user
 			});
 

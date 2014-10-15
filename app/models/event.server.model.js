@@ -27,6 +27,16 @@ var EventSchema = new Schema({
 		required: 'Please include Event date',
 		trim: true
 	},
+    time: {
+        type: String,
+        required: 'Please include a start time',
+        trim: true
+    },
+    location: {
+        type: String,
+        required: 'Please include a location',
+        trim: true
+    },
 	project: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Project'

@@ -72,7 +72,7 @@ exports.delete = function(req, res) {
 /**
  * List of Projects
  */
-exports.list = function(req, res) { Project.find().sort('-created').populate('user', 'displayName').exec(function(err, projects) {
+exports.list = function(req, res) { Project.find().sort('-created').populate('user').exec(function(err, projects) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,7 +86,7 @@ exports.list = function(req, res) { Project.find().sort('-created').populate('us
 /**
  * Project middleware
  */
-exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user', 'displayName').exec(function(err, project) {
+exports.projectByID = function(req, res, next, id) { Project.findById(id).populate('user').exec(function(err, project) {
 		if (err) return next(err);
 		if (! project) return next(new Error('Failed to load Project ' + id));
 		req.project = project ;
