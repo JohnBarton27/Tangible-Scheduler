@@ -72,7 +72,7 @@ exports.delete = function(req, res) {
 /**
  * List of Posts
  */
-exports.list = function(req, res) { Post.find().sort('-created').populate('user', 'firstName').exec(function(err, posts) {
+exports.list = function(req, res) { Post.find().sort('-created').populate('user').exec(function(err, posts) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,13 +86,15 @@ exports.list = function(req, res) { Post.find().sort('-created').populate('user'
 /**
  * Post middleware
  */
-exports.postByID = function(req, res, next, id) { Post.findById(id).populate('user', 'firstName').exec(function(err, post) {
+exports.postByID = function(req, res, next, id) { Post.findById(id).populate('user').exec(function(err, post) {
 		if (err) return next(err);
 		if (! post) return next(new Error('Failed to load Post ' + id));
 		req.post = post ;
 		next();
 	});
 };
+
+
 
 /**
  * Post authorization middleware
