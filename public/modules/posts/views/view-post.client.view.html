@@ -1,8 +1,7 @@
 <section data-ng-controller="PostsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="post.name"></h1>
+		<h3 data-ng-bind="post.name"></h3>
 	</div>
-	<h3>Content: </h3>
 	<p class="" data-ng-bind="post.content"></p>
 	<div class="pull-right" data-ng-show="authentication.user._id == post.user._id">
 		<a class="btn btn-primary" href="/#!/posts/{{post._id}}/edit">
@@ -17,7 +16,7 @@
 			Posted on
 			<span data-ng-bind="post.created | date:'mediumDate'"></span>
             by
-            <span data-ng-bind="post.user.firstName"></span>
+            <span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
 		</em>
 	</small>
 </section>

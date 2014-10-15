@@ -1,30 +1,27 @@
-<section data-ng-controller="HomeController">
-
-    <div class="home-container">
-    <table id="home-table" class="home-table">
-        <tr>
-            <td width=35%>
-                <div class="news-feed">
-                    <a href="#!/posts"><u class="section-heading">News Feed</u></a>
-                    <p>Post #1</p>    
-                </div>
-            </td>
-            <td>
-                <div class="events-list">
-                    <a href="#!/events"><u class="section-heading">Events List</u></a>
-                    <p>Event #1</p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="faq">
-                    <a href="#!/"><u class="section-heading">Questions (FAQ)</u></a>
-                    <p>Question #1</p>
-
-                </div>
-            </td>
-        </tr>
-    </table>
+ 
+<div class="container-fluid" style="margin-top:10px">
+  <!--First row: for newsfeed and eventslist -->
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="newsfeed">
+            <a href="#!/posts"><u class="section-heading">News Feed</u></a>
+            <p>Post #1</p>    
+        </div>
+                    
+      </div>
+      <div class="col-sm-8">
+          <div class="eventslist">
+              <a href="#!/events"><u class="section-heading">Events List</u></a>
+              <p>Event #1</p>
+          </div>   
+      </div>
     </div>
-</section>
+    <!-- second row for faq section -->
+    <div class="row">
+      <div class="newfaq col-xs-12">
+          <a href="#!/"><u class="section-heading">Questions (FAQ)</u></a>
+          <p>Question #1</p>
+
+      </div>
+    </div>
+  </div>

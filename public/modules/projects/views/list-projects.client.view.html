@@ -8,7 +8,7 @@
 				Posted on
 				<span data-ng-bind="project.created | date:'medium'"></span>
 				by
-				<span data-ng-bind="project.user.displayName"></span>
+				<span data-ng-bind="project.user.firstName"></span> <span data-ng-bind="project.user.lastName"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="project.name"></h4>
         </a>
