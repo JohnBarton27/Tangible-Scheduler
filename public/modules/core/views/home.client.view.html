@@ -5,14 +5,48 @@
       <div class="col-sm-4">
         <div class="newsfeed">
             <a href="#!/posts"><u class="section-heading">News Feed</u></a>
-            <p>Post #1</p>    
+            <section data-ng-controller="PostsController" data-ng-init="find()">
+    <div class="list-group">
+        <a data-ng-repeat="post in posts" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="post.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
+			</small>
+			<h5 class="list-group-item-heading" data-ng-bind="post.name"></h5>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!posts.$resolved || posts.length">
+    	No Posts yet, why don't you <a href="/#!/posts/create">create one</a>?
+    </div>
+</section>
+  
         </div>
                     
       </div>
       <div class="col-sm-8">
           <div class="eventslist">
               <a href="#!/events"><u class="section-heading">Events List</u></a>
-              <p>Event #1</p>
+              <section data-ng-controller="EventsController" data-ng-init="find()">
+        <div class="list-group">
+        <a data-ng-repeat="event in events | orderBy:'date'" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+			<h4 class="list-group-item-heading" data-ng-bind="event.name"></h4>
+            <small class="list-group-item-text">
+				Starts at 
+				<span data-ng-bind="event.time"></span>
+				on
+				<span data-ng-bind="event.date | date: 'shortDate'"></span>
+                at
+                <span data-ng-bind="event.location"></span>
+			</small>
+			
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!events.$resolved || events.length">
+    	No Events yet, why don't you <a class="alert-warning" href="/#!/events/create">create one</a>?
+    </div>
+</section>
           </div>   
       </div>
     </div>
