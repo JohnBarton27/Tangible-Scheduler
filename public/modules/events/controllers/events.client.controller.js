@@ -11,6 +11,7 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 			var event = new Events ({
 				name:           this.name,
                 description:    this.description,
+                projectName:    this.projectName,
                 date:           this.date,
                 time:           this.time,
                 location:       this.location
@@ -23,6 +24,7 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 				// Clear form fields
 				$scope.name = '';
                 $scope.description = '';
+                $scope.projectName = '';
                 $scope.date = '';
                 $scope.time = '';
                 $scope.location = '';
