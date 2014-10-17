@@ -28,7 +28,11 @@ var ProjectSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
-	}
+	},
+    type: {
+        type: String,
+        required: 'Please include Project type',
+    }
 });
 
 mongoose.model('Project', ProjectSchema);

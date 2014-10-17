@@ -37,9 +37,14 @@ var EventSchema = new Schema({
         required: 'Please include a location',
         trim: true
     },
-	project: {
+    projectName: {
+        type: String,
+        required: 'Please include a Project Name',
+        trim: true
+    },
+    project: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Project'
+        ref: 'Project'
 	},
 	skillsNeeded: [{
 		skill: String,
