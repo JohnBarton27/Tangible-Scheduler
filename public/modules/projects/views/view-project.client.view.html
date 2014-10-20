@@ -1,8 +1,14 @@
 <section data-ng-controller="ProjectsController" data-ng-init="findOne()">
 	<div class="page-header">
-		<h1 data-ng-bind="project.name"></h1>
-	</div>
-   <p class="" data-ng-bind="project.description"></p>
+        <div class="row" style="position: relative; margin-top: 80px">
+			<div class="col-sm-8 yellow-header">
+				<h3 data-ng-bind="project.name"></h3>
+			</div>
+			<div class="col-sm-4 top-right top-right-project" data-ng-bind="project.type">
+			</div>
+	    </div>
+    </div>
+    <p class="" data-ng-bind="project.description"></p>
 	<div class="pull-right" data-ng-show="authentication.user._id == project.user._id">
 		<a class="btn btn-primary" href="/#!/projects/{{project._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
@@ -12,10 +18,14 @@
 		</a>
 	</div>
     
-	<small>
-		<em class="text-muted">
-			Launched on
-			<span data-ng-bind="project.created | date:'longDate'"></span>
-		</em>
-	</small>
+    <div>
+		<small>
+			<em class="text-muted">
+				Launched on
+				<span data-ng-bind="project.created | date:'longDate'"></span>
+				by
+				<span data-ng-bind="project.user.id"></span>
+			</em>
+		</small>
+    </div>
 </section>
