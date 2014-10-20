@@ -2,14 +2,7 @@
 	<div class="page-header">
 		<h1 data-ng-bind="project.name"></h1>
 	</div>
-<<<<<<< HEAD
-	<div class="row">
-		<div class="well col-md-6" data-ng-bind="project.description">
-		</div>
-	</div>
-=======
-    <p class="" data-ng-bind="project.description"></p>
->>>>>>> 0e32957f7f29fb2ca2943169815ba7d65ef10bfe
+   <p class="" data-ng-bind="project.description"></p>
 	<div class="pull-right" data-ng-show="authentication.user._id == project.user._id">
 		<a class="btn btn-primary" href="/#!/projects/{{project._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
@@ -21,15 +14,8 @@
     
 	<small>
 		<em class="text-muted">
-<<<<<<< HEAD
-			Posted on
-			<span data-ng-bind="project.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="project.user.firstName"></span>
-=======
 			Launched on
 			<span data-ng-bind="project.created | date:'longDate'"></span>
->>>>>>> 0e32957f7f29fb2ca2943169815ba7d65ef10bfe
 		</em>
 	</small>
 </section>

@@ -6,8 +6,9 @@
         <span class="event-date" data-ng-bind="event.time"> </span> <b>&middot;</b> <span class="event-date" data-ng-bind="event.date | date:'longDate'"> </span> 
         <div class="event-location" data-ng-bind="event.location"></div>
 	</div>
-    <p class="" data-ng-bind="event.description"></p>
-    
+    Description: <p class="" data-ng-bind="event.description"></p>
+   	Project: <p class="" data-ng-bind="event.project"></p>
+
 	<div class="pull-right" data-ng-show="authentication.user._id == event.user._id">
 		<a class="btn btn-primary" href="/#!/events/{{event._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>

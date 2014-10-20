@@ -4,17 +4,19 @@
 angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects',
 	function($scope, $stateParams, $location, Authentication, Events, Projects ) {
 		$scope.authentication = Authentication;
-		$scope.projects = Projects.query();
-		console.log($scope.projects);
+		//$scope.projects = Projects.query();
 		// Create new Event
 		$scope.create = function() {
-			// Create new Event object
+		
+		console.log($scope);
+		// Create new Event object
 			var event = new Events ({
 				name:           this.name,
                 description:    this.description,
                 date:           this.date,
                 time:           this.time,
-                location:       this.location
+                location:       this.location,
+				project:		this.project
 			});
 
 			// Redirect after save
@@ -63,6 +65,11 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 		$scope.find = function() {
 			$scope.events = Events.query();
 		};
+		// Find a list of Events
+		$scope.findProjects = function() {
+			$scope.projects = Projects.query();
+		};
+
 
 		// Find existing Event
 		$scope.findOne = function() {
