@@ -9,7 +9,9 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 		$scope.create = function() {
 			// Create new Project object
 			var project = new Projects ({
-				name: this.name
+				name: this.name,
+                description: this.description,
+                type: this.type
 			});
 
 			// Redirect after save
@@ -18,6 +20,8 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 
 				// Clear form fields
 				$scope.name = '';
+                $scope.description = '';
+                $scope.type = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

@@ -15,7 +15,7 @@ var ProjectSchema = new Schema({
 		required: 'Please include Project name',
 		trim: true
 	},
-	desription: {
+	description: {
 		type: String,
 		required: 'Please include Project description',
 		trim: true
@@ -28,7 +28,11 @@ var ProjectSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
-	}
+	},
+    type: {
+        type: String,
+        required: 'Please include Project type',
+    }
 });
 
 mongoose.model('Project', ProjectSchema);

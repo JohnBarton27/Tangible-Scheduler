@@ -21,7 +21,6 @@ describe('Project Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
 			password: 'password'
@@ -30,6 +29,7 @@ describe('Project Model Unit Tests:', function() {
 		user.save(function() { 
 			project = new Project({
 				name: 'Project Name',
+				description: 'this is a project description',
 				user: user
 			});
 
@@ -53,6 +53,16 @@ describe('Project Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should show an error when try to save without description', function(done) { 
+			project.description = '';
+
+			return project.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	afterEach(function(done) { 

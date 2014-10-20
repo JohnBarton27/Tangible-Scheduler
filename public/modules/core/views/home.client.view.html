@@ -1,41 +1,61 @@
-<link href="file:///E|/Web Design/start_dreamweaver_first-website/core.css" rel="stylesheet" type="text/css">
-<section data-ng-controller="HomeController">
-
-    <div class="home-container">
-    <table id="home-table" class="home-table">
-        <tr>
-            <td width=35%>
-                <div class="news-feed">
-                    <a href="#!/posts"><u class="section-heading">News Feed</u></a>
-                        <div class="list-group">
-                            <a data-ng-repeat="post in posts" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
-                                <small class="list-group-item-text">
-				                 Posted on
-				                 <span data-ng-bind="post.created | date:'medium'"></span>
-				                 by
-				                 <span data-ng-bind="post.user.displayName"></span>
-			                     </small>
-			                 <h4 class="list-group-item-heading" data-ng-bind="post.name"></h4>
-                            </a>
-                        </div>
-                </div>
-            </td>
-            <td>
-                <div class="events-list">
-                    <a href="#!/events"><u class="section-heading">Events List</u></a>
-                    <p>Event #1</p>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="faq">
-                    <a href="#!/"><u class="section-heading">Questions (FAQ)</u></a>
-                    <p>Question 1</p>
-
-                </div>
-            </td>
-        </tr>
-    </table>
+ 
+<div class="container-fluid" style="margin-top:10px">
+  <!--First row: for newsfeed and eventslist -->
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="newsfeed">
+            <a href="#!/posts"><u class="section-heading">News Feed</u></a>
+            <section data-ng-controller="PostsController" data-ng-init="find()">
+    <div class="list-group">
+        <a data-ng-repeat="post in posts | limitTo : 5" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
+			<h5 class="list-group-item-heading" data-ng-bind="post.name"></h5>
+            <small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="post.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
+			</small>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!posts.$resolved || posts.length">
+    	No Posts yet, why don't you <a href="/#!/posts/create">create one</a>?
     </div>
 </section>
+  
+        </div>
+                    
+      </div>
+      <div class="col-sm-8">
+          <div class="eventslist">
+              <a href="#!/events"><u class="section-heading">Events List</u></a>
+              <section data-ng-controller="EventsController" data-ng-init="find()">
+        <div class="list-group">
+        <a data-ng-repeat="event in events | orderBy:'date' | limitTo : 5" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+			<h4 class="list-group-item-heading" data-ng-bind="event.name"></h4>
+            <small class="list-group-item-text">
+				Starts at 
+				<span data-ng-bind="event.time"></span>
+				on
+				<span data-ng-bind="event.date | date: 'shortDate'"></span>
+                at
+                <span data-ng-bind="event.location"></span>
+			</small>
+			
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!events.$resolved || events.length">
+    	No Events yet, why don't you <a class="alert-warning" href="/#!/events/create">create one</a>?
+    </div>
+</section>
+          </div>   
+      </div>
+    </div>
+    <!-- second row for faq section -->
+    <div class="row">
+      <div class="newfaq col-xs-12">
+          <a href="#!/"><u class="section-heading">Questions (FAQ)</u></a>
+          <p>Question #1</p>
+
+      </div>
+    </div>
+  </div>

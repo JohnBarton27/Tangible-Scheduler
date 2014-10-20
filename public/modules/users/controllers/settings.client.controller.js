@@ -43,8 +43,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			if (isValid){
 				$scope.success = $scope.error = null;
 				var phoneNumber = $scope.user.phone;
-				$scope.user.phone = phoneNumber.replace(/\D/g, "");
-				console.log($scope.user.phone);
+				$scope.user.phone = phoneNumber.replace(/\D/g, '');
 				var user = new Users($scope.user);
 	
 				user.$update(function(response) {

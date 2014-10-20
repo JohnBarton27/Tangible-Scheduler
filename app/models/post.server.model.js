@@ -16,6 +16,12 @@ var PostSchema = new Schema({
 		required: 'Please fill Post name',
 		trim: true
 	},
+	content: {
+		type: String,
+		default: '',
+		required: 'Please add content to your post',
+		trim: true
+	},
 	created: {
 		type: Date,
 		default: Date.now

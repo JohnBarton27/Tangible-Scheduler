@@ -21,8 +21,6 @@ describe('Post Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
-			email: 'test@test.com',
 			username: 'username',
 			password: 'password'
 		});
@@ -30,6 +28,7 @@ describe('Post Model Unit Tests:', function() {
 		user.save(function() { 
 			post = new Post({
 				name: 'Post Name',
+				content: 'This is test Content',
 				user: user
 			});
 
@@ -53,6 +52,16 @@ describe('Post Model Unit Tests:', function() {
 				done();
 			});
 		});
+		
+		it('should show an error when try to save without content', function(done) { 
+			post.content = '';
+
+			return post.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	afterEach(function(done) { 

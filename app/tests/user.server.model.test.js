@@ -20,19 +20,19 @@ describe('User Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
 			password: 'password',
+			phone: '9546143525',
 			provider: 'local'
 		});
 		user2 = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
 			password: 'password',
+			phon: '9546143525',
 			provider: 'local'
 		});
 
@@ -66,6 +66,49 @@ describe('User Model Unit Tests:', function() {
 				done();
 			});
 		});
+		it('should be able to show an error when try to save without last name', function(done) {
+			user.lastName = '';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to show an error when try to save without phone number', function(done) {
+			user.phone = '';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+
+		it('should be able to show an error when try to save without password', function(done) {
+			user.password = '';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+
+		it('should be able to show an error when try to save without email', function(done) {
+			user.email = '';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+
+		it('should show an error when try to save with invalid email ', function(done) {
+			user.email = 'bob.com';
+			return user.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	after(function(done) {

@@ -21,7 +21,6 @@ describe('Event Model Unit Tests:', function() {
 		user = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
 			email: 'test@test.com',
 			username: 'username',
 			password: 'password'
@@ -30,6 +29,10 @@ describe('Event Model Unit Tests:', function() {
 		user.save(function() { 
 			event = new Event({
 				name: 'Event Name',
+				description: 'this is a test description',
+				date: new Date(),
+                time: '10:00 AM',
+                location: 'this is a test location',
 				user: user
 			});
 
@@ -47,6 +50,22 @@ describe('Event Model Unit Tests:', function() {
 
 		it('should be able to show an error when try to save without name', function(done) { 
 			event.name = '';
+
+			return event.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		it('should show an error when try to save without description', function(done) { 
+			event.description = '';
+
+			return event.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		it('should show an error when try to save without event date', function(done) { 
+			event.date = '';
 
 			return event.save(function(err) {
 				should.exist(err);

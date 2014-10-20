@@ -89,7 +89,7 @@ var UserSchema = new Schema({
 	},
   	resetPasswordExpires: {
   		type: Date
-  	}
+  	} 
 });
 
 /**
@@ -130,7 +130,7 @@ UserSchema.statics.findUniqueUsername = function(username, suffix, callback) {
 	var possibleUsername = username + (suffix || '');
 
 	_this.findOne({
-		username: possibleUsername
+		email: possibleUsername
 	}, function(err, user) {
 		if (!err) {
 			if (!user) {

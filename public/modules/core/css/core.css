@@ -1,3 +1,8 @@
+
+.menu-logo {
+	height:100%;
+	margin:5px;
+}
 .content {
 	margin-top: 50px;
 }
@@ -48,4 +53,35 @@
 .home-table {
     display: inline-table;
     width: 100%;
+}
+
+.event-date {
+    color: #ffffff;
+    font-size: 20px;
+    text-align: right;
+}
+
+.top-right{
+    color: #008080;
+    font-size: 18px;
+    text-align: right;
+}
+
+.top-right-project {
+    position: absolute; 
+    right: 0; 
+    bottom: 0;
+}
+
+.yellow-header {
+    position: absolute; 
+    bottom: 0; 
+    margin-bottom: -10px;
+}
+
+.event-project-name {
+    color: #008080;
+    margin-top: -15px;
+    font-size: 18px;
+    font-style: italic;
 }

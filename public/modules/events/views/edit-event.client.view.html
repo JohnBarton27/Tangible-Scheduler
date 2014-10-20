@@ -8,14 +8,31 @@
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
                     <div class="controls">
-                        <input type="text" data-ng-model="event.name" id="name" class="form-control" placeholder="Name" required>
+                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
                     </div>
+                    <label class="control-label" for="name">Description</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="description" id="description" class="form-control" placeholder="Description" required>
+                    </div>
+                    <label class="control-label" for="name">Date</label>
+                    <div class="controls">
+                        <input type="date" data-ng-model="date" id="date" class="form-control" placeholder="MM/DD/YYYY" required>
+                    </div>
+                    <label class="control-label" for="name">Time</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="time" id="date" class="form-control" placeholder="HH:MM AM/PM" required>
+                    </div>
+                    <label class="control-label" for="name">Location</label>
+                    <div class="controls">
+                        <input type="text" data-ng-model="location" id="location" class="form-control" placeholder="Location" required>
+                    </div>
+
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
+                <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
 				</div>
             </fieldset>
         </form>

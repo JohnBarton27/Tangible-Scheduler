@@ -27,9 +27,24 @@ var EventSchema = new Schema({
 		//required: 'Please include Event date',
 		trim: true
 	},
-	project: {
+    time: {
+        type: String,
+        required: 'Please include a start time',
+        trim: true
+    },
+    location: {
+        type: String,
+        required: 'Please include a location',
+        trim: true
+    },
+    projectName: {
+        type: String,
+        required: 'Please include a Project Name',
+        trim: true
+    },
+    project: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Project'
+        ref: 'Project'
 	},
 	skillsNeeded: [{
 		skill: String,
@@ -42,6 +57,10 @@ var EventSchema = new Schema({
 	created: {
 		type: Date,
 		default: Date.now
+	},
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
 	}
 });
 
