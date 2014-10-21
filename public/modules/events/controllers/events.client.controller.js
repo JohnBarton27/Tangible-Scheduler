@@ -1,20 +1,21 @@
 'use strict';
 
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events',
-	function($scope, $stateParams, $location, Authentication, Events ) {
+angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects',
+	function($scope, $stateParams, $location, Authentication, Events, Projects ) {
 		$scope.authentication = Authentication;
-
+		//$scope.projects = Projects.query();
 		// Create new Event
 		$scope.create = function() {
-			// Create new Event object
+		
+		// Create new Event object
 			var event = new Events ({
 				name:           this.name,
                 description:    this.description,
-                projectName:    this.projectName,
                 date:           this.date,
                 time:           this.time,
-                location:       this.location
+                location:       this.location,
+				project:		this.project
 			});
 
 			// Redirect after save
@@ -24,7 +25,6 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 				// Clear form fields
 				$scope.name = '';
                 $scope.description = '';
-                $scope.projectName = '';
                 $scope.date = '';
                 $scope.time = '';
                 $scope.location = '';
@@ -64,6 +64,11 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 		$scope.find = function() {
 			$scope.events = Events.query();
 		};
+		// Find a list of Events
+		$scope.findProjects = function() {
+			$scope.projects = Projects.query();
+		};
+
 
 		// Find existing Event
 		$scope.findOne = function() {

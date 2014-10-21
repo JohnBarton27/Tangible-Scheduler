@@ -1,10 +1,11 @@
 <section data-ng-controller="ProjectsController" data-ng-init="findOne()">
 	<div class="page-header">
         <div class="row" style="position: relative; margin-top: 80px">
-        <div class="col-sm-8 yellow-header">
-        <h3 data-ng-bind="project.name"></h3>
-        </div>
-        <div class="col-sm-4 top-right top-right-project" data-ng-bind="project.type"></div>
+			<div class="col-sm-8 yellow-header">
+				<h3 data-ng-bind="project.name"></h3>
+			</div>
+			<div class="col-sm-4 top-right top-right-project" data-ng-bind="project.type">
+			</div>
 	    </div>
     </div>
     <p class="" data-ng-bind="project.description"></p>
@@ -18,13 +19,22 @@
 	</div>
     
     <div>
-	<small>
-		<em class="text-muted">
-			Launched on
-			<span data-ng-bind="project.created | date:'longDate'"></span>
-            by
-            <span data-ng-bind="project.user.id"></span>
-		</em>
-	</small>
+		<small>
+			<em class="text-muted">
+				Launched on
+				<span data-ng-bind="project.created | date:'longDate'"></span>
+				by
+				<span data-ng-bind="project.user.id"></span>
+			</em>
+		</small>
     </div>
+	<div class="row">
+		<h4>Events: </h4>
+	</div>
+	<div class="row" data-ng-repeat="event in project.events">
+		<div class="col-md-8 list-group">
+			<a href="/#!/events/{{event._id}}" class="list-group-item">{{event.name}}</a>
+		</div>
+	</div>
+
 </section>
