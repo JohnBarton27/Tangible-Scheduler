@@ -1,35 +1,39 @@
 <section data-ng-controller="ProjectsController">
-    <div class="page-header">
-        <h1>New Project</h1>
+    <div clas="row">
+        <div class="page-header col-md-8">
+            <h1>New Project</h1>
+        </div>
     </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Project Name" required>
+    <div class="row">
+        <div class="col-md-6">
+            <form class="form-horizontal" data-ng-submit="create()" novalidate>
+                <fieldset>
+                    <div class="form-group">
+                        <label class="control-label" for="name">Name</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Project Name" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="type">Type of Project</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="type" id="type" class="form-control" placeholder="Sketch, Music Video, etc." required>
+                    <div class="form-group">
+                        <label class="control-label" for="type">Type of Project</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="type" id="type" class="form-control" placeholder="Sketch, Music Video, etc." required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label" for="name">Description</label>
-                    <div class="controls">
-                        <textarea data-ng-model="description" id="name" class="form-control col-md-5" placeholder="Project Description" required></textarea>
+                    <div class="form-group">
+                        <label class="control-label" for="name">Description</label>
+                        <div class="controls">
+                            <textarea data-ng-model="description" id="name" class="form-control col-md-5" placeholder="Project Description" required></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default">
+                    </div>
+    				<div data-ng-show="error" class="text-danger">
+    					<strong data-ng-bind="error"></strong>
+    				</div>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </section>

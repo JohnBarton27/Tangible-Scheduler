@@ -1,22 +1,37 @@
 <section data-ng-controller="PostsController" data-ng-init="findOne()">
-	<div class="page-header">
+	<div clas="row">
+		<div class="page-header col-md-8">
 		<h3 data-ng-bind="post.name"></h3>
+		</div>
 	</div>
-	<p class="" data-ng-bind="post.content"></p>
-	<div class="pull-right" data-ng-show="authentication.user._id == post.user._id">
-		<a class="btn btn-primary" href="/#!/posts/{{post._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
+
+	<div class="row">
+		<div class="col-md-8">
+			<p class="" data-ng-bind="post.content"></p>
+		</div>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="post.created | date:'mediumDate'"></span>
-            by
-            <span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
-		</em>
-	</small>
+	
+	<div class="row">
+		<div class="col-md-4">
+			<small>
+				<em class="text-muted">
+					Posted on
+					<span data-ng-bind="post.created | date:'mediumDate'"></span>
+			        by
+			        <span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
+				</em>
+			</small>
+		</div>
+		<div class="col-md-6"></div>
+		<div class="col-md-2">
+			<div data-ng-show="authentication.user._id == post.user._id">
+				<a class="btn btn-primary" href="/#!/posts/{{post._id}}/edit">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+				<a class="btn btn-primary" data-ng-click="remove();">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</div>
+		</div>
+	</div>
 </section>
