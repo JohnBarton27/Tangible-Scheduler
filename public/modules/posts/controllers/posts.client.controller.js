@@ -19,6 +19,7 @@ angular.module('posts').controller('PostsController', ['$scope', '$stateParams',
 
 				// Clear form fields
 				$scope.name = '';
+				$scope.content = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
