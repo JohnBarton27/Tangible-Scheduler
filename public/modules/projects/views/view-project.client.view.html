@@ -28,4 +28,13 @@
 			</em>
 		</small>
     </div>
+	<div class="row">
+		<h4>Events: </h4>
+	</div>
+	<div class="row" data-ng-repeat="event in project.events">
+		<div class="col-md-8 list-group">
+			<a href="/#!/events/{{event._id}}" class="list-group-item">{{event.name}}</a>
+		</div>
+	</div>
+
 </section>

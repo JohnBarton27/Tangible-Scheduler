@@ -24,8 +24,8 @@
     
     <p class="" data-ng-bind="event.description"></p>
     
-   	Project: <p class="" data-ng-bind="event.project"></p>
-    
+   	Project: <a href="/#!/projects/{{event.project._id}}" data-ng-bind="event.project.name"></a>
+   <br> 
     
 	<div class="pull-right" data-ng-show="authentication.user._id == event.user._id">
 		<a class="btn btn-primary" href="/#!/events/{{event._id}}/edit">
