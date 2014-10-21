@@ -7,9 +7,6 @@
         <div class="event-date"><span data-ng-bind="event.time"> </span> <b>&middot;</b> <span data-ng-bind="event.date | date:'longDate'"> </span>  </div>
         <div class="top-right" data-ng-bind="event.location"></div>
 	</div>
-<<<<<<< HEAD
-	<div class="pull-right">
-=======
     <p class="event-project-name" data-ng-bind="event.projectName"></p>
     
     <!-- Accept/Reject Buttons -->
@@ -28,7 +25,6 @@
     
     
 	<div class="pull-right" data-ng-show="authentication.user._id == event.user._id">
->>>>>>> refs/heads/master
 		<a class="btn btn-primary" href="/#!/events/{{event._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
