@@ -1,3 +1,58 @@
 <section data-ng-controller="EventsController" data-ng-init="findOne()">
-
+	<div class="row page-header">
+		<div class="col-sm-6">
+			<h3 data-ng-bind="event.name"></h3>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-4 event-date">
+			<span data-ng-bind="event.time"> </span> 
+			<b>&middot;</b> 
+			<span data-ng-bind="event.date | date:'longDate'"> </span>  
+			<div class="top-right" data-ng-bind="event.location"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<p class="" data-ng-bind="event.description"></p>
+		</div>
+	</div>
+    
+	<div class="row">
+		<div class="col-md-12">
+	    	<p class="event-project-name" data-ng-bind="event.projectName"></p>
+    	</div>
+	</div>
+    <!-- Accept/Reject Buttons 
+    <div class="form-group" align="center">
+        <input type="button" class="btn btn-default" value="Accept" style="margin-right: 30px">
+        <input type="button" class="btn btn-reject" value="Reject">
+    </div>
+        
+    <!-- Errors for Accept/Reject Buttons 
+    <div data-ng-show="error" class="text-danger">
+        <strong data-ng-bind="error"></strong>
+	</div>
+    -->
+	<div class="row">
+		<div class="col-md-4">
+			<small>
+				<em class="text-muted">
+					Posted on
+					<span data-ng-bind="event.created | date:'mediumDate'"></span>
+					by
+					<span data-ng-bind="event.user.firstName"></span> <span data-ng-bind="event.user.lastName"></span>
+				</em>
+			</small>
+		</div>
+		<div class="col-md-6"></div>
+		<div class="col-md-2">
+			<div data-ng-show="authentication.user._id == event.user._id">
+				<a class="btn btn-primary" href="/#!/events/{{event._id}}/edit">
+					<i class="glyphicon glyphicon-edit"></i>
+				</a>
+				<a class="btn btn-primary" data-ng-click="remove();">
+					<i class="glyphicon glyphicon-trash"></i>
+				</a>
+			</div>
+		</div>
 </section>
