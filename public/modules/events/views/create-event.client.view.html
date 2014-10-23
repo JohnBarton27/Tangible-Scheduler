@@ -22,12 +22,15 @@
 							<input type="text" data-ng-model="description" id="description" class="form-control" placeholder="Description" required>
 						</div>
 					</div>
+
 					<div class="form-group">
-						<label class="control-label" for="projectName">Project</label>
-						<div class="controls">
-							<input type="text" data-ng-model="projectName" id="projectName" class="form-control" placeholder="Associated Project" required>
-						</div>
+						<label class="control-label" for="project">Project</label>
+						<select class="form-control" data-ng-model="project" id="project" data-ng-init="findProjects()">
+							<option data-ng-repeat="project in projects" ng-if="project!=undefined" data-ng-value="project._id">{{project.name}} </option>
+						</select>
 					</div>
+
+
 					<div class="form-group">
 						<label class="control-label" for="date">Date</label>
 						<div class="controls">

@@ -19,8 +19,8 @@
     
 	<div class="row">
 		<div class="col-md-12">
-	    	<p class="event-project-name" data-ng-bind="event.projectName"></p>
-    	</div>
+			Project: <a href="/#!/projects/{{event.project._id}}" data-ng-bind="event.project.name"></a>
+		</div>
 	</div>
     <!-- Accept/Reject Buttons 
     <div class="form-group" align="center">
