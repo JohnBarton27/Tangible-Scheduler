@@ -85,3 +85,18 @@
     font-size: 18px;
     font-style: italic;
 }
+
+.event-title {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #ffffff;
+}
+
+.event-project {
+    font-size: 22px;
+    float: right;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #F3EC19;
+}
