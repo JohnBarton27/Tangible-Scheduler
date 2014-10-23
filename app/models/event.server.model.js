@@ -23,9 +23,8 @@ var EventSchema = new Schema({
 		trim: true
 	},
 	date: {
-		type: Date,
-		required: 'Please include Event date',
-		trim: true
+		type: String,
+		required: 'Please include Event date'
 	},
     time: {
         type: String,
@@ -35,11 +34,6 @@ var EventSchema = new Schema({
     location: {
         type: String,
         required: 'Please include a location',
-        trim: true
-    },
-    projectName: {
-        type: String,
-        required: 'Please include a Project Name',
         trim: true
     },
     project: {

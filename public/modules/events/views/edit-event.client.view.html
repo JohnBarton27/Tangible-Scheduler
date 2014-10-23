@@ -1,8 +1,12 @@
 <section data-ng-controller="EventsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Event</h1>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="page-header">
+                <h1>Edit Event</h1>
+            </div>
+        </div>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
@@ -10,30 +14,37 @@
                     <div class="controls">
                         <input type="text" data-ng-model="event.name" id="name" class="form-control" placeholder="Name" required>
                     </div>
-                    <label class="control-label" for="description">Description</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Description</label>
                     <div class="controls">
                         <input type="text" data-ng-model="event.description" id="description" class="form-control" placeholder="Description" required>
                     </div>
-                    <label class="control-label" for="date">Date</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Date</label>
                     <div class="controls">
                         <input type="date" data-ng-model="event.date" id="date" class="form-control" placeholder="MM/DD/YYYY" required>
                     </div>
-                    <label class="control-label" for="time">Time</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Time</label>
                     <div class="controls">
                         <input type="text" data-ng-model="event.time" id="date" class="form-control" placeholder="HH:MM AM/PM" required>
                     </div>
-                    <label class="control-label" for="location">Location</label>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="name">Location</label>
                     <div class="controls">
                         <input type="text" data-ng-model="event.location" id="location" class="form-control" placeholder="Location" required>
                     </div>
-
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>
                 <div data-ng-show="error" class="text-danger">
                     <strong data-ng-bind="error"></strong>
-				</div>
+                </div>
             </fieldset>
         </form>
     </div>

@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Event = mongoose.model('Event'),
+	Project = mongoose.model('Project'),
 	_ = require('lodash');
 
 /**
@@ -14,7 +15,19 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var event = new Event(req.body);
 	event.user = req.user;
-
+	
+	//if the event has a project also add it to the project
+	if(event.project) {
+		Project.findByIdAndUpdate(
+			event.project,
+			{$push: {'events': event}},
+			{safe: true, upsert: true},
+			function(err, model) {
+				console.log(err);
+			}
+		);
+	}
+	
 	event.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -72,7 +85,7 @@ exports.delete = function(req, res) {
 /**
  * List of Events
  */
-exports.list = function(req, res) { Event.find().sort('-created').populate('user').exec(function(err, events) {
+exports.list = function(req, res) { Event.find().sort('-created').populate('user').populate('project').exec(function(err, events) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,7 +99,7 @@ exports.list = function(req, res) { Event.find().sort('-created').populate('user
 /**
  * Event middleware
  */
-exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').exec(function(err, event) {
+exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').populate('project').exec(function(err, event) {
 		if (err) return next(err);
 		if (! event) return next(new Error('Failed to load Event ' + id));
 		req.event = event ;
