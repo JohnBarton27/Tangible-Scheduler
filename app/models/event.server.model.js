@@ -23,9 +23,8 @@ var EventSchema = new Schema({
 		trim: true
 	},
 	date: {
-		type: Date,
-		required: 'Please include Event date',
-		trim: true
+		type: String,
+		required: 'Please include Event date'
 	},
     time: {
         type: String,
