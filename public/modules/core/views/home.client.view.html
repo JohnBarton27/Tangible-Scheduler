@@ -1,7 +1,7 @@
  
 <div class="container-fluid" style="margin-top:10px">
   <!--First row: for newsfeed and eventslist -->
-    <div class="row">
+    <div class="row" data-ng-controller="HomeController" data-ng-show="authentication.user._id">
       <div class="col-sm-4">
         <div class="newsfeed">
             <a href="#!/posts"><u class="section-heading">News Feed</u></a>
