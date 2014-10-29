@@ -36,6 +36,5 @@ angular.module('users').run(['Menus',
 		// Set top bar menu items
 		Menus.addMenuItem('topbar', 'Users', 'user', 'dropdown', '/roster');
 		Menus.addSubMenuItem('topbar', 'user', 'Roster', 'roster');
-		//Menus.addSubMenuItem('topbar', 'skillsets', 'New Skillset', 'skillsets/create');
 	}
 ]);
