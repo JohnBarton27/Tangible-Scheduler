@@ -1,11 +1,11 @@
-<section data-ng-controller="RosterController" data-ng-init="find()">
+<section data-ng-controller="RosterController" data-ng-init="findUsers()">
     <div class="page-header">
-        <h1>Roster</h1>
+        <h3>Roster</h3>
     </div>
     <div class="list-group">
         <!-- data-ng-href="#!/users/{{user._id}}" -->
-        <a data-ng-repeat="user in users" class="list-group-item">
-			<h4 class="list-group-item-heading" data-ng-bind="user.id">a</h4>
+        <a data-ng-repeat="user in users" data-ng-href="#!/users/{{user._id}}" class="list-group-item">
+            <h4 class="list-group-item-heading" data-ng-bind="user.firstName">a {{user.firstName}}</h4>
         </a>
     </div>
     

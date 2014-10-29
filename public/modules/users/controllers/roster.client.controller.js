@@ -1,17 +1,10 @@
 'use strict';
 
-angular.module('users').controller('RosterController', ['$scope',
+angular.module('users').controller('RosterController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
 	function($scope) {
 		// Find a list of Users
-		$scope.find = function() {
+		$scope.findUsers = function() {
 			$scope.users = Users.query();
 		};
 	}
-                                                        
-        // Find existing User
-		$scope.findOne = function() {
-			$scope.user = Users.get({ 
-				userId: $stateParams.userId
-			});
-		};
 ]);
