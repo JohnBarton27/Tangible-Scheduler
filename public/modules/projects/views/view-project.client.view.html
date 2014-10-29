@@ -33,7 +33,20 @@
 	</div>
 	<div class="row" data-ng-repeat="event in project.events">
 		<div class="col-md-8 list-group">
-			<a href="/#!/events/{{event._id}}" class="list-group-item">{{event.name}}</a>
+			<a href="/#!/events/{{event._id}}" class="list-group-item">
+            <div id="info">
+                <span class="event-title" data-ng-bind="event.name"></span>
+                <span class="event-project" data-ng-bind="event.project.name"></span>
+            </div>
+            <small class="list-group-item-text">
+				Starts at 
+				<span data-ng-bind="event.time"></span>
+				on
+				<span data-ng-bind="event.date | date: 'shortDate'"></span>
+                at
+                <span data-ng-bind="event.location"></span>
+			</small>
+            </a>
 		</div>
 	</div>
 
