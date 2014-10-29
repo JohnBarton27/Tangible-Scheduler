@@ -1,8 +1,8 @@
 'use strict';
 
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects',
-	function($scope, $stateParams, $location, Authentication, Events, Projects ) {
+angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects',
+	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects ) {
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
@@ -113,5 +113,16 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 
         $scope.formats = ['dd/MMMM/yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
         $scope.format = $scope.formats[3];        
-	}
-]);
+        
+        $scope.mytime = new Date();
+
+		$scope.hstep = 1;
+		$scope.mstep = 1;
+		$scope.time = $filter('date')($scope.mytime, 'shortTime');
+
+
+		$scope.ismeridian = true;
+		$scope.timeChanged = function () {
+			$scope.time = $filter('date')($scope.mytime, 'shortTime');
+		};
+}]);
