@@ -1,8 +1,8 @@
 'use strict';
 
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects',
-	function($scope, $stateParams, $location, Authentication, Events, Projects ) {
+angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
+	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users) {
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
@@ -64,9 +64,20 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 		$scope.find = function() {
 			$scope.events = Events.query();
 		};
-		// Find a list of Events
+		// Find a list of Projects
 		$scope.findProjects = function() {
 			$scope.projects = Projects.query();
+		};
+		
+		// Find a list of Skills
+		$scope.findSkills = function() {
+			$scope.skills = Skillsets.query();
+		};
+
+
+		// Find a list of Users
+		$scope.findUsers = function() {
+			$scope.users = Users.query();
 		};
 
 
