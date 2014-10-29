@@ -6,11 +6,11 @@ module.exports = function(app) {
 
 	// Posts Routes
 	app.route('/posts')
-		.get(posts.list)
+		.get(users.requiresLogin, posts.list)
 		.post(users.requiresLogin, posts.create);
 
 	app.route('/posts/:postId')
-		.get(posts.read)
+		.get(users.requiresLogin, posts.read)
 		.put(users.requiresLogin, posts.hasAuthorization, posts.update)
 		.delete(users.requiresLogin, posts.hasAuthorization, posts.delete);
 
