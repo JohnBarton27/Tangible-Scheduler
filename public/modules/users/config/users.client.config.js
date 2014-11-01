@@ -34,7 +34,8 @@ angular.module('users').config(['$httpProvider',
 angular.module('users').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Users', 'user', 'dropdown', '/roster');
+		Menus.addMenuItem('topbar', 'Users', 'user', 'dropdown', '/roster', '/createuser');
 		Menus.addSubMenuItem('topbar', 'user', 'Roster', 'roster');
+		Menus.addSubMenuItem('topbar', 'user', 'Create User', 'createuser');
 	}
 ]);
