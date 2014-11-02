@@ -1,5 +1,31 @@
 'use strict';
 
+/*
+ * getSkills will take the result of the submitted form from Event.create()
+ * parsing the skills and users to match the mongo event model
+ *
+ * Model:
+ * 	skillsNeeded [{
+ *		skillset: refercnce _id to a skill,
+ *		isRequired: boolean for is the skillset requied,
+ *		users[{user._id}] is an array of userIds to reference
+ * 	}]
+ */
+function getSkills(form){
+	var skills = [];
+	var skillsChosen = form.skillsChosen;
+	var usersChosen = form.usersChosen;
+	//console.log(form);
+	var i;
+	for(i=0; i < skillsChosen.length; i++){
+		var skill = {};
+		skill.skillSet = skillsChosen[i];
+		skill.isRequired = true;
+		skill.users = [usersChosen[0]];
+	skills.push(skill);
+	}
+	return skills;
+}
 // Events controller
 angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
 	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users) {
@@ -7,7 +33,8 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 		//$scope.projects = Projects.query();
 		// Create new Event
 		$scope.create = function() {
-		
+	    var skills = getSkills(this);	
+		console.log(skills);
 		// Create new Event object
 			var event = new Events ({
 				name:           this.name,
@@ -15,7 +42,8 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 date:           this.date,
                 time:           this.time,
                 location:       this.location,
-				project:		this.project
+				project:		this.project,
+				skillsNeeded:   this.skills
 			});
 
 			// Redirect after save
