@@ -59,8 +59,9 @@
 					</div>
 <div class="form-group">
 <label class="control-label" for="skills">Users Needed</label>
+    
 <select multiple="multiple" class="form-control" data-ng-model="usersChosen" id="users" data-ng-init="findUsers()" multiselect-dropdown>
-	<option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">{{user.firstName}}</option>
+	<option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">{{user.firstName}} {{user.lastName}}</option>
 </select>
 </div>
 
