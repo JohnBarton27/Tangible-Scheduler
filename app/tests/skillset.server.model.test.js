@@ -29,7 +29,7 @@ describe('Skillset Model Unit Tests:', function() {
 
 		user.save(function() { 
 			skillset = new Skillset({
-				name: 'Skillset Name',
+				skill: 'Skillset Name',
 				user: user
 			});
 
@@ -46,10 +46,28 @@ describe('Skillset Model Unit Tests:', function() {
 		});
 
 		it('should be able to show an error when try to save without name', function(done) { 
-			skillset.name = '';
+			skillset.skill = '';
 
 			return skillset.save(function(err) {
 				should.exist(err);
+				done();
+			});
+		});
+	});
+
+	describe('Method Update', function() {
+		it('should be able to update without problems', function(done) {
+			return skillset.update(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
+	describe('Method Remove', function() {
+		it('should be able to remove without problems', function(done) {
+			return skillset.remove(function(err) {
+				should.not.exist(err);
 				done();
 			});
 		});

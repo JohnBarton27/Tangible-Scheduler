@@ -9,7 +9,7 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 		$scope.create = function() {
 			// Create new Event request object
 			var eventRequest = new EventRequests ({
-				name: this.name
+				response: this.response
 			});
 
 			// Redirect after save
@@ -17,7 +17,7 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 				$location.path('event-requests/' + response._id);
 
 				// Clear form fields
-				$scope.name = '';
+				$scope.response = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
