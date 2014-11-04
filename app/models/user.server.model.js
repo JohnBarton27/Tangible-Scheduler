@@ -70,6 +70,11 @@ var UserSchema = new Schema({
 		type: String,
 		required: 'Provider is required'
 	},
+	isAdmin:
+	{
+		type: Boolean,
+		default: false
+	},
 	providerData: {},
 	additionalProvidersData: {},
 	roles: {
