@@ -15,7 +15,9 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 date:           this.date,
                 time:           this.time,
                 location:       this.location,
-				project:		this.project
+				project:		this.project,
+				skill:   		this.skill,
+				requsers: 		this.requsers
 			});
 
 			// Redirect after save
@@ -28,6 +30,9 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 $scope.date = '';
                 $scope.time = '';
                 $scope.location = '';
+                $scope.project = '';
+                $scope.skill = '';
+                $scope.requsers = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
