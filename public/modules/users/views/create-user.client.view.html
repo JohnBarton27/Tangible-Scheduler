@@ -19,8 +19,8 @@
 					<input type="text" id="phone" name="phone" class="form-control" data-ng-model="credentials.phone" placeholder="123-1234-678">
 				</div>
 				<div class="form-group">
-						<label class="control-label" for="skills">Skillsets Needed</label>
-						<select multiple="multiple" class="form-control" data-ng-model="skillsChosen" id="skills" data-ng-init="findSkills()" multiselect-dropdown>
+						<label class="control-label" for="skills">Skills</label>
+						<select multiple="multiple" class="form-control" data-ng-model="credentials.skills" id="skills" data-ng-init="findSkills()" multiselect-dropdown>
 							<option data-ng-repeat="skill in skills" ng-if="skill!=undefined" data-ng-value="skill._id">{{skill.skill}}</option>
 						</select>
 				</div>
@@ -31,7 +31,7 @@
 				<div class="form-group">
 						<label class="control-label" for="roles">Admin?</label>
 						<div class="controls">
-							<input type="checkbox" data-ng-model="credentials.roles.admin" ng-true-value="admin" ng-false-value="admin" id="roles" class="form-control">
+							<input type="checkbox" data-ng-model="credentials.isAdmin" ng-true-value="true" ng-false-value="false" id="roles" class="form-control">
 						</div>
 						
 					</div>
