@@ -91,20 +91,51 @@
 		}));
 
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Events) {
-			// Create a sample Event object
+
+            description:    this.description,
+                date:           this.date,
+                time:           this.time,
+                location:       this.location,
+				project:		this.project,
+				skill:   		this.skill,
+				requsers: 		this.requsers
+            
+            // Create a sample Event object
 			var sampleEventPostData = new Events({
-				name: 'New Event'
+				name: 'New Event',
+                description: 'New event description',
+                date: '11/4/2014',
+                time: '10:15 AM',
+                location: 'Event location',
+                project: 'Event project',
+                skill: 'Event Required Skill',
+                requsers: 'Required user'
 			});
 
 			// Create a sample Event response
 			var sampleEventResponse = new Events({
 				_id: '525cf20451979dea2c000001',
-				name: 'New Event'
+				name: 'New Event',                
+                description: 'New event description',
+                date: '11/4/2014',
+                time: '10:15 AM',
+                location: 'Event location',
+                project: 'Event project',
+                skill: 'Event Required Skill',
+                requsers: 'Required user'
 			});
 
 			// Fixture mock form input values
 			scope.name = 'New Event';
-
+            scope.description: 'New event description';
+            scope.date: '11/4/2014';
+            scope.time: '10:15 AM';
+            scope.location: 'Event location';
+            scope.project: 'Event project';
+            scope.skill: 'Event Required Skill';
+            scope.requsers: 'Required user';
+            
+            
 			// Set POST response
 			$httpBackend.expectPOST('events', sampleEventPostData).respond(sampleEventResponse);
 
