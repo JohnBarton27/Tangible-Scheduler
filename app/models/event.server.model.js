@@ -46,8 +46,11 @@ var EventSchema = new Schema({
 		}],
 		//Isrequired: Boolean,
 	requsers: [{
+		isRequired: Boolean,
+		users: [{
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User'
+        }]
 		}],
 	created: {
 		type: Date,
