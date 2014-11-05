@@ -13,7 +13,12 @@
 			scope = $rootScope.$new();
 
 			HomeController = $controller('HomeController', {
-				$scope: scope
+				$scope: scope,
+                Authentication: {
+                    user: {
+                        _id: 666
+                    }
+                }
 			});
 		}));
 
