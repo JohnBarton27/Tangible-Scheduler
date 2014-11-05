@@ -59,12 +59,7 @@
 					</div>
 <div class="form-group">
 <!-- END -->
-    <label class="control-label" for="requsers">Users Needed</label>
     
-<select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
-
-	<option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">{{user.firstName}} {{user.lastName}}</option>
-</select>
 </div>
 <!-- BEGINNING OF ACCORDION IMPLEMENTATION -->
     <div class="col-md-15">
@@ -84,8 +79,11 @@
 						<div class="controls">
 							<input type="text" data-ng-model="numRequired" id="numRequired" class="form-control" placeholder="0" required>
 						</div>
+                        <label class="control-label" for="requsers">Users Required:</label>    
+                            <select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
+                                <option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">{{user.firstName}} {{user.lastName}}</option>
+                            </select>
 					</div>
-
                   </div>
               </accordion-group>
           </accordion>

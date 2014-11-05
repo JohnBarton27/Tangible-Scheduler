@@ -8,8 +8,11 @@
             <h4 class="list-group-item-heading">
                 <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
             </h4>
+            <span style="float:right; color:#f3ec19;" onclick="location.href='/#/';"> Add Skill </span>
             <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
             <div>Email: <span data-ng-bind="user.email"></span></div>
+            <div>Skills: <span data-ng-bind="user.skills"></span></div>
+            
         </a> 
     
     <div class="alert alert-warning text-center" data-ng-hide="!users.$resolved || users.length">
