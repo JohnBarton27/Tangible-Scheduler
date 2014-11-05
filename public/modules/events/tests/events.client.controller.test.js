@@ -92,6 +92,7 @@
 
 		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Events) {
 
+            /*
             description:    this.description,
                 date:           this.date,
                 time:           this.time,
@@ -99,6 +100,7 @@
 				project:		this.project,
 				skill:   		this.skill,
 				requsers: 		this.requsers
+               */
             
             // Create a sample Event object
 			var sampleEventPostData = new Events({
@@ -127,6 +129,7 @@
 
 			// Fixture mock form input values
 			scope.name = 'New Event';
+            /*
             scope.description: 'New event description';
             scope.date: '11/4/2014';
             scope.time: '10:15 AM';
@@ -134,6 +137,7 @@
             scope.project: 'Event project';
             scope.skill: 'Event Required Skill';
             scope.requsers: 'Required user';
+           */
             
             
 			// Set POST response
