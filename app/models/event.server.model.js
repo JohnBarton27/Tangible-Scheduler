@@ -41,7 +41,7 @@ var EventSchema = new Schema({
         ref: 'Project'
 	},
 	skillsNeeded: [{
-		skill: {
+		skillSet: {
 			type: mongoose.Schema.Types.ObjectId,
         	ref: 'Skillset'
 		},
