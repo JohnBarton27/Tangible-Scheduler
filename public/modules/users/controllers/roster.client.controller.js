@@ -7,6 +7,11 @@ angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skil
 			$scope.users = Users.query();
 		};
         
+        $scope.findSkills = function() {
+            $scope.skills = Skillsets.query();
+        }
+        
+        
         $scope.addSkill = function(skillset) {
             var user = $scope.user;
             
