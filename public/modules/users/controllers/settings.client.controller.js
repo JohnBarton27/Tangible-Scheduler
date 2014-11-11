@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$stateParams', '$location', 'Users', 'Authentication',
+	function($scope, $http, $stateParams, $location, Users, Authentication) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -39,12 +39,37 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		};
 
 		// Update a user profile
-		$scope.updateUserProfile = function(isValid) {
+		$scope.updateCurrentUserProfile = function(isValid) {
 			if (isValid){
 				$scope.success = $scope.error = null;
 				var phoneNumber = $scope.user.phone;
 				$scope.user.phone = phoneNumber.replace(/\D/g, '');
 				var user = new Users($scope.user);
+	
+				user.$update(function(response) {
+					$scope.success = true;
+					Authentication.user = response;
+				}, function(response) {
+					$scope.error = response.data.message;
+				});
+			} else {
+				$scope.submitted = true;
+			}
+		};
+		
+		$scope.getUserForEdit = function() {
+			$scope.edituser = Users.get({ 
+				_id: $stateParams.userId
+			});
+		};
+		
+		//Update user profile, not the current user
+		$scope.updateOtherUserProfile = function(isValid) {
+			if (isValid){
+				$scope.success = $scope.error = null;
+				var phoneNumber = $scope.edituser.phone;
+				$scope.edituser.phone = phoneNumber.replace(/\D/g, '');
+				var user = new Users($scope.edituser);
 	
 				user.$update(function(response) {
 					$scope.success = true;

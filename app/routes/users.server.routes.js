@@ -36,6 +36,11 @@ module.exports = function(app) {
 	// Setting the twitter oauth routes
 	app.route('/auth/twitter').get(passport.authenticate('twitter'));
 	app.route('/auth/twitter/callback').get(users.oauthCallback('twitter'));
+	
+	app.route('/users/:userID') // Will need to check for admin
+		.get(users.requiresLogin)
+		.put(users.requiresLogin);
+//		.delete(users.requiresLogin, events.hasAuthorization, events.delete);
 
 	// Setting the google oauth routes
 	app.route('/auth/google').get(passport.authenticate('google', {
