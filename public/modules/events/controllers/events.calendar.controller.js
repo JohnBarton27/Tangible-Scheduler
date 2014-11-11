@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('ui.bootstrap.datepicker').controller('DatepickerDemoCtrl', function ($scope) {
+angular.module('ui.bootstrap.datepicker').controller('EventsController', function ($scope) {
   $scope.today = function() {
     $scope.dt = new Date();
   };
