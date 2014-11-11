@@ -1,13 +1,40 @@
 'use strict';
 
+/*
+ * getSkills will take the result of the submitted form from Event.create()
+ * parsing the skills and users to match the mongo event model
+ *
+ * Model:
+ * 	skillsNeeded [{
+ *		skillset: refercnce _id to a skill,
+ *		isRequired: boolean for is the skillset requied,
+ *		users[{user._id}] is an array of userIds to reference
+ * 	}]
+ */
+function getSkills(form){
+	var skills = [];
+	var skillsChosen = form.skillsChosen;
+	//var usersChosen = form.usersChosen;
+	//console.log(form);
+	var i;
+	for(i=0; i < skillsChosen.length; i++){
+		var skill = {};
+		skill.skillSet = skillsChosen[i];
+		skill.isRequired = true;
+		//skill.users = [usersChosen[0]];
+	skills.push(skill);
+	}
+	return skills;
+}
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects',
-	function($scope, $stateParams, $location, Authentication, Events, Projects ) {
+angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
+	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users) {
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
 		$scope.create = function() {
-		
+	    var skills = getSkills(this);	
+		console.log(skills);
 		// Create new Event object
 			var event = new Events ({
 				name:           this.name,
@@ -15,7 +42,10 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 date:           this.date,
                 time:           this.time,
                 location:       this.location,
-				project:		this.project
+				project:		this.project,
+				skill:   		this.skill,
+				requsers: 		this.requsers,
+				skillsNeeded:   this.skills
 			});
 
 			// Redirect after save
@@ -28,6 +58,9 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 $scope.date = '';
                 $scope.time = '';
                 $scope.location = '';
+                $scope.project = '';
+                $scope.skill = '';
+                $scope.requsers = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -64,9 +97,20 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 		$scope.find = function() {
 			$scope.events = Events.query();
 		};
-		// Find a list of Events
+		// Find a list of Projects
 		$scope.findProjects = function() {
 			$scope.projects = Projects.query();
+		};
+		
+		// Find a list of Skills
+		$scope.findSkills = function() {
+			$scope.skills = Skillsets.query();
+		};
+
+
+		// Find a list of Users
+		$scope.findUsers = function() {
+			$scope.users = Users.query();
 		};
 
 

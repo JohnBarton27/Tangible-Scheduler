@@ -64,6 +64,24 @@ describe('Post Model Unit Tests:', function() {
 
 	});
 
+	describe('Method Update', function() {
+		it('should be able to update without problems', function(done) {
+			return post.update(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
+	describe('Method Remove', function() {
+		it('should be able to remove without problems', function(done) {
+			return post.remove(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
 	afterEach(function(done) { 
 		Post.remove().exec();
 		User.remove().exec();
