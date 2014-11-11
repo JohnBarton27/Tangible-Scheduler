@@ -11,7 +11,7 @@
  *		users[{user._id}] is an array of userIds to reference
  * 	}]
  */
-function getSkills(form){
+/*function getSkills(form){
 	var skills = [];
 	var skillsChosen = form.skillsChosen;
 	//var usersChosen = form.usersChosen;
@@ -25,7 +25,7 @@ function getSkills(form){
 	skills.push(skill);
 	}
 	return skills;
-}
+}*/
 // Events controller
 angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
 	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users) {
@@ -33,8 +33,8 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 		//$scope.projects = Projects.query();
 		// Create new Event
 		$scope.create = function() {
-	    var skills = getSkills(this);	
-		console.log(skills);
+	    //var skills = getSkills(this);	
+		//console.log(skills);
 		// Create new Event object
 			var event = new Events ({
 				name:           this.name,
@@ -45,7 +45,6 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 				project:		this.project,
 				skill:   		this.skill,
 				requsers: 		this.requsers,
-				skillsNeeded:   this.skills
 			});
 
 			// Redirect after save

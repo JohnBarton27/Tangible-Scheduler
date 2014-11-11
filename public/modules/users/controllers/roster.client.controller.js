@@ -9,7 +9,7 @@ angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skil
         
         $scope.findSkills = function() {
             $scope.skills = Skillsets.query();
-        }
+        };
         
         
         $scope.addSkill = function(skillset) {
