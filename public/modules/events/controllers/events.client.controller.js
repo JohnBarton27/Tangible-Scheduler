@@ -14,14 +14,14 @@
 function getSkills(form){
 	var skills = [];
 	var skillsChosen = form.skillsChosen;
-	var usersChosen = form.usersChosen;
+	//var usersChosen = form.usersChosen;
 	//console.log(form);
 	var i;
 	for(i=0; i < skillsChosen.length; i++){
 		var skill = {};
 		skill.skillSet = skillsChosen[i];
 		skill.isRequired = true;
-		skill.users = [usersChosen[0]];
+		//skill.users = [usersChosen[0]];
 	skills.push(skill);
 	}
 	return skills;

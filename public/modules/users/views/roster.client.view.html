@@ -12,10 +12,14 @@
             <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
             <div>Email: <span data-ng-bind="user.email"></span></div>
             
-            <div data-ng-controller="SkillsetsController" data-ng-init="findOne(user.skills)">
-                Skills: 
-                <span data-ng-repeat="skill in skillsets" class="list-group-item">a</span>
-                <span data-ng-bind="user.skills"></span>
+            <div>
+                Skills:
+                <span data-ng-repeat="userskill in user.skills">
+                    <span data-ng-repeat="skill in skills| filter: skill._id=userskill">
+                        <span data-ng-bind="skill.skill"></span>
+                    </span>
+                    <span ng-if="!$last">,&nbsp;</span>
+                </span>
             </div>
             
         </a> 
