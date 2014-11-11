@@ -37,16 +37,14 @@
 			</div>
 		</div>
 	</div>
-
-	<div class="row">
-		<div class="col-md-6">
-		<h4>Events: </h4>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-8 list-group">
-			<a href="/#!/events/{{event._id}}" class="list-group-item">
-            <div id="info">
+    
+<div class="col-sm-8">
+          <div class="eventslist">
+              <a href="#!/events"><u class="section-heading">Events</u></a>
+              <section data-ng-controller="EventsController" data-ng-init="find()">
+    <div class="list-group">
+        <a data-ng-repeat="event in project.events | orderBy:'date' " data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+			<div id="info">
                 <span class="event-title" data-ng-bind="event.name"></span>
                 <span class="event-project" data-ng-bind="event.project.name"></span>
             </div>
@@ -58,8 +56,10 @@
                 at
                 <span data-ng-bind="event.location"></span>
 			</small>
-            </a>
-		</div>
-	</div>
+        </a>
+    </div>
+</section>
+          </div>   
+      </div>
 
 </section>
