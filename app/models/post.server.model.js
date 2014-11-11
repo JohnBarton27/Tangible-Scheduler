@@ -22,6 +22,10 @@ var PostSchema = new Schema({
 		required: 'Please add content to your post',
 		trim: true
 	},
+	skill: [{
+		type: String,
+        ref: 'Skillset'
+	}],
 	created: {
 		type: Date,
 		default: Date.now
