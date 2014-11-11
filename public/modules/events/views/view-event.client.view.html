@@ -22,6 +22,19 @@
 			Project: <a href="/#!/projects/{{event.project._id}}" data-ng-bind="event.project.name"></a>
 		</div>
 	</div>
+    
+    <div class="row">
+		<div class="col-md-12">
+			Skills: 
+			<div class="list-group-item" data-ng-repeat="skill in event.skill">{{skill}}</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			Users: <div class="list-group-item" data-ng-repeat="user in event.requsers">{{user.firstName}} {{user.lastName}}</div>
+		</div>
+	</div>
+    
     <!-- Accept/Reject Buttons 
     <div class="form-group" align="center">
         <input type="button" class="btn btn-default" value="Accept" style="margin-right: 30px">

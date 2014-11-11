@@ -54,7 +54,10 @@ var UserSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Event'
 	}],
-	skills: [String],
+	skills: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Skillset'
+	}],
 	password: {
 		type: String,
 		default: '',
@@ -66,6 +69,11 @@ var UserSchema = new Schema({
 	provider: {
 		type: String,
 		required: 'Provider is required'
+	},
+	isAdmin:
+	{
+		type: Boolean,
+		default: false
 	},
 	providerData: {},
 	additionalProvidersData: {},

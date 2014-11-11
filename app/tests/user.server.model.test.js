@@ -59,6 +59,26 @@ describe('User Model Unit Tests:', function() {
 			});
 		});
 
+
+		it('should be able to add admin', function(done) {
+			user.roles = 'admin';
+			return user.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+
+		it('should be able to add normal user', function(done) {
+			user.roles = 'user';
+			return user.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+
+
 		it('should be able to show an error when try to save without first name', function(done) {
 			user.firstName = '';
 			return user.save(function(err) {
@@ -108,6 +128,8 @@ describe('User Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+
 
 	});
 
