@@ -30,8 +30,8 @@ describe('Project Model Unit Tests:', function() {
 			project = new Project({
 				name: 'Project Name',
 				description: 'this is a project description',
-				type: 'type',
-				user: user
+				type:  'Type',
+				//user: user
 			});
 
 			done();
@@ -48,6 +48,15 @@ describe('Project Model Unit Tests:', function() {
 
 		it('should be able to show an error when try to save without name', function(done) { 
 			project.name = '';
+
+			return project.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
+		it('should show an error when try to save without type', function(done) { 
+			project.type = '';
 
 			return project.save(function(err) {
 				should.exist(err);
