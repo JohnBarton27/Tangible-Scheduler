@@ -15,11 +15,12 @@
             <div>
                 Skills:
                 <span data-ng-repeat="userskill in user.skills">
-                    <span data-ng-repeat="skill in skills| filter: skill._id=userskill">
+                    <span data-ng-repeat="skill in skills | filter: skill._id=userskill">
                         <span data-ng-bind="skill.skill"></span>
                     </span>
-                    <span ng-if="!$last">,&nbsp;</span>
+                    <span ng-if="!$last">&nbsp; - &nbsp;</span>
                 </span>
+                
             </div>
             
         </a> 
