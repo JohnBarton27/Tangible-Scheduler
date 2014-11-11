@@ -1,0 +1,9 @@
+tree f1bdb8c7fbea2a4ce336cb05023d2be86f30a622
+parent 1381e839e1c3f44657e68cb01501057b5bf7d7de
+parent 70c1455f82c7157847766f796f1c1717d24bdb39
+author aabmass <aabmass@gmail.com> 1414123785 -0400
+committer aabmass <aabmass@gmail.com> 1414123785 -0400
+
+Merge pull request #19 from JohnBarton27/need-auth-for-data
+
+Don't give any backend data unless a valid user has authenticated
