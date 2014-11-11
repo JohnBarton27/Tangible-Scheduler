@@ -54,8 +54,15 @@
 					<!--REPLACE WITH ACTUAL IMPLEMENTATION/ USED FOR TESTING -->
 					<div class="form-group">
                         <label class="control-label" for="skill">Skills Needed</label>
-						<select multiple="multiple" class="form-control" data-ng-model="skillsChosen" id="skill" data-ng-init="findSkills()" multiselect-dropdown>
+						<select multiple="multiple" class="form-control" data-ng-model="skill" id="skill" data-ng-init="findSkills()" multiselect-dropdown>
 							<option data-ng-repeat="skill in skills" ng-if="skill!=undefined" data-ng-value="skill.skill">{{skill.skill}}</option>
+						</select>
+					</div>
+
+					<div class="form-group">
+                        <label class="control-label" for="requsers">Users Needed</label>
+						<select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
+							<option data-ng-repeat="requser in users" ng-if="requser!=undefined" data-ng-value="requser._id">{{requser.firstName}} {{requser.lastName}}</option>
 						</select>
 					</div>
                     
@@ -79,7 +86,7 @@
                   </accordion-heading>
  
                   <div class="col-md-6">
-                      <div class="form-group">
+                      <div class="form-group" >
 						<label class="control-label" for="numRequired">Number Required:</label>
 						<div class="controls">
 							<input type="text" data-ng-model="numRequired" id="numRequired" class="form-control" placeholder="0" required>
