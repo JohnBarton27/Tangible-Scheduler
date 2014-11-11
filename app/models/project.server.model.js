@@ -32,7 +32,12 @@ var ProjectSchema = new Schema({
     type: {
         type: String,
         required: 'Please include Project type',
-    }
+    },
+	user: {
+		type: Schema.ObjectId,
+		ref: 'User'
+	}
+
 });
 
 mongoose.model('Project', ProjectSchema);

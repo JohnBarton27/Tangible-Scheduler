@@ -1,7 +1,8 @@
  
-<div class="container-fluid" style="margin-top:10px">
+<div class="container-fluid" style="margin-top:10px" data-ng-controller="HomeController">
   <!--First row: for newsfeed and eventslist -->
-    <div class="row">
+    <!-- Don't even try and load data without authentication -->
+    <div class="row" data-ng-if="hasAuth">
       <div class="col-sm-4">
         <div class="newsfeed">
             <a href="#!/posts"><u class="section-heading">News Feed</u></a>

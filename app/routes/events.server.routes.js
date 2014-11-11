@@ -6,11 +6,11 @@ module.exports = function(app) {
 
 	// Events Routes
 	app.route('/events')
-		.get(events.list)
+		.get(users.requiresLogin, events.list)
 		.post(users.requiresLogin, events.create);
 
 	app.route('/events/:eventId')
-		.get(events.read)
+		.get(users.requiresLogin, events.read)
 		.put(users.requiresLogin, events.hasAuthorization, events.update)
 		.delete(users.requiresLogin, events.hasAuthorization, events.delete);
 
