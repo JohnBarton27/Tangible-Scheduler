@@ -7,7 +7,15 @@ angular.module('posts').factory('Posts', ['$resource',
 		}, {
 			update: {
 				method: 'PUT'
-			}
+			},
+            findBySkill: {
+                method: 'GET',
+                url: 'posts/skill/:skillString',
+                params: {
+                    skillString: 'skillString'
+                },
+                isArray: true
+            }
 		});
 	}
 ]);
