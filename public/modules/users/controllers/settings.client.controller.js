@@ -57,10 +57,24 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 			}
 		};
 		
+		$scope.getUsers = function() {
+		};
+		
 		$scope.getUserForEdit = function() {
-			$scope.edituser = Users.get({ 
-				_id: $stateParams.userId
+			Users.query(function(response) {	//Not ideal
+				for(var i = 0; i < response.length; i++)
+				{
+					if(response[i]._id === $stateParams.userId)
+					{
+						$scope.edituser = response[i];
+					}
+				}
 			});
+			/* This should work but it doesnt
+			 * Users.get({ _id: $stateParams.userId },function(response) {
+			 *	$scope.edituser = response;
+			 *});*/
+			
 		};
 		
 		//Update user profile, not the current user

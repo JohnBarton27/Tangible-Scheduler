@@ -36,11 +36,11 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
         var curr_month = d.getMonth()+1;
         var curr_year = d.getFullYear();
 
-        $scope.dateToday = Date.parse(curr_month + "/" + curr_date + "/" + curr_year);
+        $scope.dateToday = Date.parse(curr_month + '/' + curr_date + '/' + curr_year);
         
         $scope.eventDateFilter = function() {
             $scope.dateRange = $scope.dateToday;
-        }
+        };
         
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
@@ -73,7 +73,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
                 $scope.project = '';
                 $scope.skill = '';
                 $scope.requsers = '';
-                $scope.dateRange = ""; 
+                $scope.dateRange = ''; 
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
