@@ -92,6 +92,12 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 			});
 		};
 
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
+		};
+
 		// Find a list of Events
 		$scope.find = function() {
 			$scope.events = Events.query();

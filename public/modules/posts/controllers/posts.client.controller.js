@@ -54,6 +54,12 @@ angular.module('posts').controller('PostsController', ['$scope', '$stateParams',
 			});
 		};
 
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
+		};
+
 		// Find a list of Posts
 		$scope.find = function() {
 			$scope.posts = Posts.query();

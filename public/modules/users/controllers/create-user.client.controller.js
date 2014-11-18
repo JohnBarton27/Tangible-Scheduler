@@ -16,6 +16,12 @@ angular.module('users').controller('create-user', ['$scope', '$http', '$location
 			});
 		};
 
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
+		};
+
 				// Find a list of Skills
 		$scope.findSkills = function() {
 			$scope.skills = Skillsets.query();
