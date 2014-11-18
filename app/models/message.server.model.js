@@ -40,3 +40,4 @@ var MessageSchema = new Schema({
 });
 
 mongoose.model('Message', MessageSchema);
+console.log('Message collection created');

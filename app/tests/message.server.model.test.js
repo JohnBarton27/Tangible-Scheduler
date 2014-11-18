@@ -11,29 +11,39 @@ var should = require('should'),
 /**
  * Globals
  */
-var user, message;
+var userFrom, userTo, message;
 
 /**
  * Unit tests
  */
 describe('Message Model Unit Tests:', function() {
 	beforeEach(function(done) {
-		user = new User({
+		userFrom = new User({
 			firstName: 'Full',
 			lastName: 'Name',
-			displayName: 'Full Name',
-			email: 'test@test.com',
-			username: 'username',
-			password: 'password'
+			email: 'juandis007@gmail.com',
+			emailPassword: '$n00ppYY007'
+			phone: '9546735988'
 		});
 
-		user.save(function() { 
-			message = new Message({
-				name: 'Message Name',
-				user: user
-			});
+		userTo = new User({
+			firstName: 'Hot',
+			lastName: 'Mail',
+			email: 'juandis_007@hotmail.com',
+			phone: '7589632156',
+			password: 'passda'
+		});
 
-			done();
+		userFrom.save(function() { 
+		});
+		userTo.save(function() {
+		});
+
+		message = new Message({
+			from: userFrom._id,
+			to: userTo._id,
+			subject: 'TESTING',
+			text: 'HOLY SHIT THIS IS A TEST'
 		});
 	});
 
@@ -45,14 +55,33 @@ describe('Message Model Unit Tests:', function() {
 			});
 		});
 
-		it('should be able to show an error when try to save without name', function(done) { 
-			message.name = '';
-
-			return message.save(function(err) {
-				should.exist(err);
-				done();
+		it('should be able to send the message', function(dont) {
+			var transporter = nodemailer.createTransport({
+				service: 'Gmail',
+				auth: {
+					user: message.from.email,
+					pass: message.from.emailPassword
+				}
 			});
-		});
+
+			var mailOptions = {
+				from: message.from.email,
+				to: message.to.email,
+				subject: message.subject,
+				text: message.text
+			};
+
+			transporter.sendMail(mailOptions, function(err, info) {
+				if (err) {
+					console.log(err);
+					done();
+				}
+				else {
+					console.log('Message send: ' + info.response);
+					done();
+				}
+			});
+		})
 	});
 
 	afterEach(function(done) { 

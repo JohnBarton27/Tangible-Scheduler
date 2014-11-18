@@ -9,7 +9,10 @@ angular.module('messages').controller('MessagesController', ['$scope', '$statePa
 		$scope.create = function() {
 			// Create new Message object
 			var message = new Messages ({
-				name: this.name
+				from: 'Juandis007@gmail.com',
+				to: this.to,
+				subject: this.subject,
+				text: this.message
 			});
 
 			// Redirect after save

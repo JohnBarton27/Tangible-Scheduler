@@ -96,6 +96,38 @@ exports.messageByID = function(req, res, next, id) { Message.findById(id).popula
 };
 
 exports.sendMessage = function(req, res, next, id) {
+
+	/* The following code was used to test the emailing function. The transporter object
+	 * creates an SMTP connection everytime a message is sent using the gmail account
+	 * credentials within the object passed into createTransport(). Just replace the
+	 * fake info with a correct account to test. NODE THAT YOU MIGHT NEED TO DISABLE
+	 * ANTIVIRUS SOFTWARE FOR IT TO WORK
+	var transporter = nodemailer.createTransport({
+		service: 'Gmail',
+		auth: {
+			user: 'user@gmail.com',
+			pass: 'password'
+		}
+	});
+
+	var mailOptions = {
+		from: 'juandis007@gmail.com',
+		to: 'juandis_007@hotmail.com',
+		subject: 'ttest2',
+		text: 'YOOOOOOO'
+	};
+
+	transporter.sendMail(mailOptions, function(err, info) {
+		if (err) {
+			console.log(err);
+		}
+		else {
+			console.log('Message send: ' + info.response);
+			transporter.close();
+		}
+	});
+	*/
+
 	Message.findById(id).populate('to').populate('from').exec(function(err, message) {
 		if (err) return next(err);
 
@@ -103,7 +135,7 @@ exports.sendMessage = function(req, res, next, id) {
 			service: 'Gmail',
 			auth: {
 				user: message.from.email,
-				pass: message.from.password
+				pass: message.from.emailPassword
 			}
 		});
 
@@ -120,6 +152,7 @@ exports.sendMessage = function(req, res, next, id) {
 			}
 			else {
 				console.log('Message send: ' + info.response);
+				transporter.close();
 			}
 		});
 	});
