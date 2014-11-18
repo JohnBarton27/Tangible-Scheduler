@@ -2,14 +2,14 @@
 
 /*
  * getSkills will take the result of the submitted form from Event.create()
- * parsing the skills and users to match the mongo event model
+ * It will parse the data from form and turn bring together the users, skills and whether theyre required or not into skill-request objects.
  *
  * Model:
- * 	skillsNeeded [{
- *		skillset: refercnce _id to a skill,
- *		isRequired: boolean for is the skillset requied,
- *		users[{user._id}] is an array of userIds to reference
- * 	}]
+ * skillsNeeded [{
+	 * skillset: refercnce _id to a skill,
+	 * isRequired: boolean for is the skillset requied,
+	 * users[{user._id}] is an array of userIds to reference
+ * }]
  */
 function getSkills(form){
 	var skills = [];
@@ -22,20 +22,21 @@ function getSkills(form){
 		skill.skillSet = skillsChosen[i];
 		skill.isRequired = true;
 		skill.users = [usersChosen[0]];
-	skills.push(skill);
+		skills.push(skill);
 	}
 	return skills;
 }
+
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
-	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users) {
+angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
+	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users) {
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
 		$scope.create = function() {
-	    var skills = getSkills(this);	
-		console.log(skills);
-		// Create new Event object
+			var chosenSkills = getSkills(this);	
+			console.log(chosenSkills);
+			// Create new Event object
 			var event = new Events ({
 				name:           this.name,
                 description:    this.description,
@@ -43,7 +44,8 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 time:           this.time,
                 location:       this.location,
 				project:		this.project,
-				skillsNeeded:   this.skills
+				skills:			chosenSkills,
+				skillsNeeded:   this.skillRequestIds
 			});
 
 			// Redirect after save
