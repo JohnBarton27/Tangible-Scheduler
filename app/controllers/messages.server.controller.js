@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+var nodemailer = require('nodemailer');
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	Message = mongoose.model('Message'),
@@ -72,7 +73,7 @@ exports.delete = function(req, res) {
 /**
  * List of Messages
  */
-exports.list = function(req, res) { Message.find().sort('-created').populate('user', 'displayName').exec(function(err, messages) {
+exports.list = function(req, res) { Message.find().sort('-created').populate('to'),populate('from').exec(function(err, messages) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,13 +87,45 @@ exports.list = function(req, res) { Message.find().sort('-created').populate('us
 /**
  * Message middleware
  */
-exports.messageByID = function(req, res, next, id) { Message.findById(id).populate('user', 'displayName').exec(function(err, message) {
+exports.messageByID = function(req, res, next, id) { Message.findById(id).populate('to').populate('from').exec(function(err, message) {
 		if (err) return next(err);
 		if (! message) return next(new Error('Failed to load Message ' + id));
 		req.message = message ;
 		next();
 	});
 };
+
+exports.sendMessage = function(req, res, next, id) {
+	Message.findById(id).populate('to').populate('from').exec(function(err, message) {
+		if (err) return next(err);
+
+		var transporter = nodemailer.createTransport({
+			service: 'Gmail',
+			auth: {
+				user: message.from.email,
+				pass: message.from.password
+			}
+		});
+
+		var mailOptions = {
+			from: message.from.email,
+			to: message.to.email,
+			subject: message.subject,
+			text: message.text
+		};
+
+		transporter.sendMail(mailOptions, function(err, info) {
+			if (err) {
+				console.log(err);
+			}
+			else {
+				console.log('Message send: ' + info.response);
+			}
+		});
+	});
+
+	
+}
 
 /**
  * Message authorization middleware

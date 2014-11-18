@@ -11,16 +11,12 @@ var mongoose = require('mongoose'),
  */
 var MessageSchema = new Schema({
 	from: {
-		type: String,
-		default: '',
-		required: 'Please specifiy message sender',
-		trim: true
+		type: Schema.ObjectId,
+		ref: 'User'
 	},
 	to: {
-		type: String,
-		default: '',
-		required: 'Please specifiy message recipient',
-		trim: true
+		type: Schema.ObjectId,
+		ref: 'User'
 	},
 	subject: {
 		type: String,
@@ -33,6 +29,13 @@ var MessageSchema = new Schema({
 		default: '',
 		required: 'Please fill in message text',
 		trim: true
+	},
+	created: {
+		type: Date,
+		default: Date.now
+	},
+	sent: {
+		type: Date
 	}
 });
 

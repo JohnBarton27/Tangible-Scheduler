@@ -15,5 +15,5 @@ module.exports = function(app) {
 		.delete(users.requiresLogin, messages.hasAuthorization, messages.delete);
 
 	// Finish by binding the Message middleware
-	app.param('messageId', messages.messageByID);
+	app.param('messageId', messages.sendMessage);
 };
