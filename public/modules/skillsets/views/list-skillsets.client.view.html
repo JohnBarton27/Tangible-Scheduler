@@ -1,10 +1,15 @@
 <section data-ng-controller="SkillsetsController" data-ng-init="find()">
     <div class="page-header">
-        <h1>Skillsets</h1>
+        <h2>Skillsets</h2>
     </div>
-    <div class="list-group">
+    <div class="list-group" data-ng-init="findUsers()">
         <a data-ng-repeat="skillset in skillsets | orderBy:'skill'" data-ng-href="#!/skillsets/{{skillset._id}}" class="list-group-item">
 			<h4 class="list-group-item-heading" data-ng-bind="skillset.skill"></h4>
+            <span data-ng-repeat="user in filtered = (users | filter: { skills: skillset._id } | orderBy: 'lastName')">
+                <span ng-if=$last>
+                    {{filtered.length}} users have this skill.
+                </span>
+            </span>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!skillsets.$resolved || skillsets.length">

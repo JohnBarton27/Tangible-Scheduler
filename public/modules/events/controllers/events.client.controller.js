@@ -29,6 +29,19 @@
 // Events controller
 angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
 	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users ) {
+        
+        //Date
+        var d = new Date();
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth()+1;
+        var curr_year = d.getFullYear();
+
+        $scope.dateToday = Date.parse(curr_month + '/' + curr_date + '/' + curr_year);
+        
+        $scope.eventDateFilter = function() {
+            $scope.dateRange = $scope.dateToday;
+        };
+        
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
@@ -60,6 +73,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
                 $scope.project = '';
                 $scope.skill = '';
                 $scope.requsers = '';
+                $scope.dateRange = ''; 
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

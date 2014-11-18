@@ -77,6 +77,7 @@ angular.module('skillsets').controller('SkillsetsController', ['$scope', '$state
             var user = $scope.user;
             
             user.addSkill(skillset);
-        }; 
-	}
+        };
+              
+ 	}
 ]);

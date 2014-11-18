@@ -69,6 +69,12 @@ angular.module('posts').controller('PostsController', ['$scope', '$stateParams',
 			$scope.skills = Skillsets.query();
 		};
 
+		$scope.findBySkill = function(skillString) {
+            $scope.posts = Posts.findBySkill({
+                skillString: skillString
+            });
+		};
+
 		// Find existing Post
 		$scope.findOne = function() {
 			$scope.post = Posts.get({ 
