@@ -30,7 +30,8 @@ describe('Project Model Unit Tests:', function() {
 			project = new Project({
 				name: 'Project Name',
 				description: 'this is a project description',
-				user: user
+				type:  'Type',
+				//user: user
 			});
 
 			done();
@@ -54,6 +55,15 @@ describe('Project Model Unit Tests:', function() {
 			});
 		});
 
+		it('should show an error when try to save without type', function(done) { 
+			project.type = '';
+
+			return project.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+
 		it('should show an error when try to save without description', function(done) { 
 			project.description = '';
 
@@ -63,6 +73,31 @@ describe('Project Model Unit Tests:', function() {
 			});
 		});
 
+		it('should be able to show an error when try to save without type', function(done) { 
+			project.type = '';
+
+			return project.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+	});	
+	describe('Method Update', function() {
+		it('should be able to update without problems', function(done) {
+			return project.update(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
+	describe('Method Remove', function() {
+		it('should be able to remove without problems', function(done) {
+			return project.remove(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
 	});
 
 	afterEach(function(done) { 

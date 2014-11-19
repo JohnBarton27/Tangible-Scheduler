@@ -72,6 +72,42 @@ describe('Event Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+	it('should show an error when try to save without event time', function(done) { 
+			event.time = '';
+
+			return event.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+		it('should show an error when try to save without event location', function(done) { 
+			event.location = '';
+
+			return event.save(function(err) {
+				should.exist(err);
+				done();
+			});
+		});
+	});
+
+		describe('Method Update', function() {
+		it('should be able to update without problems', function(done) {
+			return event.update(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
+		describe('Method Remove', function() {
+		it('should be able to remove without problems', function(done) {
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
 	});
 
 	afterEach(function(done) { 

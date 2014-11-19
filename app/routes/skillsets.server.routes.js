@@ -6,11 +6,11 @@ module.exports = function(app) {
 
 	// Skillsets Routes
 	app.route('/skillsets')
-		.get(skillsets.list)
+		.get(users.requiresLogin, skillsets.list)
 		.post(users.requiresLogin, skillsets.create);
 
 	app.route('/skillsets/:skillsetId')
-		.get(skillsets.read)
+		.get(users.requiresLogin, skillsets.read)
 		.put(users.requiresLogin, skillsets.hasAuthorization, skillsets.update)
 		.delete(users.requiresLogin, skillsets.hasAuthorization, skillsets.delete);
 

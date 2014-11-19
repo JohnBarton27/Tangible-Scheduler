@@ -33,11 +33,15 @@ exports.create = function(req, res) {
 	}
 	
 	event.save(function(err,newEvent) {
+		//console.log('in create');
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+			//
+			// Weve Created an event, now create the event requests.
+			//
 			var i;
 			for(i=0; i < skillRequests.length; i++){
 				var skillRequest = new SkillRequest({
@@ -45,26 +49,34 @@ exports.create = function(req, res) {
 					isRequired: 	skillRequests[i].isRequired,
 					users:		skillRequests[i].users,
 				});
-				skillRequest.save(function(err,srequest) {
-					if (err) {
+				//save the request
+				skillRequest.save(function(err2,srequest) {
+					if (err2) {
+						console.log('error saving skillRequest' + err2);
 						return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
+							message: errorHandler.getErrorMessage(err2)
 						});
 					} else {
-						console.log("ID: "+srequest._id);
+						//console.log('request' + srequest);
+						//update the event
 						Event.findByIdAndUpdate(
 							newEvent._id,
 							{$push: {'skillsNeeded': srequest._id}},
 							{safe: true, upsert: true},
 							function(err, model) {
-								console.log(err);
+								console.log('error finding event' + err);
 							}
 						);
 
 					}
 				});
 			}
+			
+
+			//start sending emails here?
+
 			res.jsonp(event);
+			
 		}
 	});
 };
@@ -115,7 +127,7 @@ exports.delete = function(req, res) {
 /**
  * List of Events
  */
-exports.list = function(req, res) { Event.find().sort('-created').populate('user').populate('project').exec(function(err, events) {
+exports.list = function(req, res) { Event.find().sort('-created').populate('user').populate('project').populate('requsers').exec(function(err, events) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -132,21 +144,11 @@ exports.list = function(req, res) { Event.find().sort('-created').populate('user
 exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').populate('skillsNeeded', 'users isRequired skill').populate('project').exec(function(err, event) {
 		if (err) return next(err);
 		if (! event) return next(new Error('Failed to load Event ' + id));
-		//var i;
-		//for(i=0; i < event.skillsNeeded.length; i++){
-		//	var currentRequest = event.skillsNeeded[i];
-		//	console.log('skill'+ currentRequest.skill);
-
-			SkillRequest.populate(event.skillsNeeded,'skill users',function(err,doc){
-				//event.skillsNeeded[i] = doc.skill; 
-				console.log(event.skillsNeeded[0]);
-				
-				req.event = event;
-				next();
-			});
-
-		//}				
-		console.log('event: ' + event);
+		//fill the skills and users inside skill-request objects
+		SkillRequest.populate(event.skillsNeeded,'skill users',function(err,doc){
+			req.event = event;
+			next();
+		});
 	});
 };
 

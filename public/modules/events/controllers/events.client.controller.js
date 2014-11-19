@@ -13,25 +13,42 @@
  */
 function getSkills(form){
 	var skills = [];
-	var skillsChosen = form.skillsChosen;
-	var usersChosen = form.usersChosen;
+	console.log(form);
+	var skillsChosen = form.skill;
 	//console.log(form);
 	var i;
 	for(i=0; i < skillsChosen.length; i++){
 		var skill = {};
+		/*
+		 * This needs to be modified by front-end. take whatever your forms submit and form skill-request objects.
+		 */
 		skill.skillSet = skillsChosen[i];
 		skill.isRequired = true;
-		skill.users = [usersChosen[0]];
+		skill.users = [form.requsers[0]];
 		skills.push(skill);
 	}
 	return skills;
 }
 
+
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
-	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users) {
+angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
+	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users ) {
+        
 		$scope.authentication = Authentication;
-		//$scope.projects = Projects.query();
+        
+		//Date
+        var d = new Date();
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth()+1;
+        var curr_year = d.getFullYear();
+
+        $scope.dateToday = Date.parse(curr_month + "/" + curr_date + "/" + curr_year);
+        
+        $scope.eventDateFilter = function() {
+            $scope.dateRange = $scope.dateToday;
+        };
+        
 		// Create new Event
 		$scope.create = function() {
 			var chosenSkills = getSkills(this);	
@@ -58,6 +75,10 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 $scope.date = '';
                 $scope.time = '';
                 $scope.location = '';
+                $scope.project = '';
+                $scope.skill = '';
+                $scope.requsers = '';
+                $scope.dateRange = ""; 
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -154,5 +175,16 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 
         $scope.formats = ['dd/MMMM/yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
         $scope.format = $scope.formats[3];        
-	}
-]);
+        
+        $scope.mytime = new Date();
+
+		$scope.hstep = 1;
+		$scope.mstep = 1;
+		$scope.time = $filter('date')($scope.mytime, 'shortTime');
+
+
+		$scope.ismeridian = true;
+		$scope.timeChanged = function () {
+			$scope.time = $filter('date')($scope.mytime, 'shortTime');
+		};
+}]);

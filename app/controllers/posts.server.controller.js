@@ -76,7 +76,7 @@ exports.list = function(req, res) { Post.find().sort('-created').populate('user'
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
-			});
+            });
 		} else {
 			res.jsonp(posts);
 		}
@@ -89,6 +89,14 @@ exports.list = function(req, res) { Post.find().sort('-created').populate('user'
 exports.postByID = function(req, res, next, id) { Post.findById(id).populate('user').exec(function(err, post) {
 		if (err) return next(err);
 		if (! post) return next(new Error('Failed to load Post ' + id));
+		req.post = post ;
+		next();
+	});
+};
+
+exports.postBySkill = function(req, res, next, skill) { Post.find({'skill': skill}).populate('user').exec(function(err, post) {
+		if (err) return next(err);
+		if (! post) return next(new Error('Failed to load Post by skill with skill ' + skill));
 		req.post = post ;
 		next();
 	});

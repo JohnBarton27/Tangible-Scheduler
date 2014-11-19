@@ -46,6 +46,46 @@ exports.signup = function(req, res) {
 };
 
 /**
+ * Admin create user
+ */
+
+exports.createuser = function(req, res) {
+	// For security measurement we remove the roles from the req.body object
+	delete req.body.roles;
+
+	// Init Variables
+	var user = new User(req.body);
+	var message = null;
+
+	// Add missing user fields
+	if(req.body.isAdmin)
+	{
+	user.roles = 'admin';
+	}
+	else
+	{
+	user.roles = 'user';
+	}
+	user.provider = 'local';
+	user.displayName = user.firstName + ' ' + user.lastName;
+
+	// Then save the user 
+	user.save(function(err) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			// Remove sensitive data before login
+			user.password = undefined;
+			user.salt = undefined;
+			res.jsonp(user);
+				
+		}
+	});
+};
+
+/**
  * Signin after passport authentication
  */
 exports.signin = function(req, res, next) {
