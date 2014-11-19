@@ -1,4 +1,4 @@
-<section data-ng-controller="RosterController" data-ng-init="findUsers()">
+<section data-ng-controller="RosterController" ng-show="isAdmin()" data-ng-init="findUsers()">
     <div class="page-header">
         <h2>Roster</h2>
     </div>

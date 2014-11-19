@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skillsets',
-	function($scope, Users, Skillsets) {
+angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skillsets', 'Authentication',
+	function($scope, Users, Skillsets, Authentication) {
 		// Find a list of Users
+        $scope.authentication = Authentication;
 		$scope.findUsers = function() {
 			$scope.users = Users.query();
 		};
@@ -13,7 +14,7 @@ angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skil
 
         $scope.isAdmin = function()
         {
-            //console.log($scope.authentication.user.isAdmin);
+            console.log($scope.authentication.user.isAdmin);
             return $scope.authentication.user.isAdmin;
         };
         
