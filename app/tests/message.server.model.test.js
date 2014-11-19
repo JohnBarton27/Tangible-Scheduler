@@ -22,8 +22,8 @@ describe('Message Model Unit Tests:', function() {
 			firstName: 'Full',
 			lastName: 'Name',
 			email: 'juandis007@gmail.com',
-			emailPassword: '$n00ppYY007'
-			phone: '9546735988'
+			emailPassword: 
+			phone: 
 		});
 
 		userTo = new User({
