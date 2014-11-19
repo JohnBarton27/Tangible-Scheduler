@@ -1,8 +1,8 @@
-<section data-ng-controller="ProjectsController" data-ng-init="findOne()">
+<section data-ng-controller="ProjectsController" data-ng-init="findOne()" ng-show ="isAdmin()">
     <div class="row">
         <div class="col-md-8">
             <div class="page-header">
-                <h1>Edit Project</h1>
+                <h2>Edit Project</h2>
             </div>
         </div>
     </div>
@@ -13,7 +13,19 @@
                     <div class="form-group">
                         <label class="control-label" for="name">Name</label>
                         <div class="controls">
-                            <input type="text" data-ng-model="project.name" id="name" class="form-control" placeholder="Name" required>
+                            <input type="text" data-ng-model="project.name" id="name" class="form-control" placeholder="Project Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="type">Type of Project</label>
+                        <div class="controls">
+                            <input type="text" data-ng-model="project.type" id="type" class="form-control" placeholder="Sketch, Music Video, etc." required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="name">Description</label>
+                        <div class="controls">
+                            <textarea data-ng-model="project.description" id="name" class="form-control col-md-5" placeholder="Project Description" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">

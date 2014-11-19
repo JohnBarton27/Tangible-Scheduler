@@ -10,6 +10,12 @@ angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skil
         $scope.findSkills = function() {
             $scope.skills = Skillsets.query();
         };
+
+        $scope.isAdmin = function()
+        {
+            //console.log($scope.authentication.user.isAdmin);
+            return $scope.authentication.user.isAdmin;
+        };
         
         
         $scope.addSkill = function(skillset) {

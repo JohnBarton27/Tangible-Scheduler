@@ -1,6 +1,6 @@
-<section data-ng-controller="SkillsetsController">
+<section data-ng-controller="SkillsetsController" ng-show ="isAdmin()">
     <div class="page-header">
-        <h1>New Skillset</h1>
+        <h2>New Skillset</h2>
     </div>
     <div class="col-md-6">
         <form class="form-horizontal" data-ng-submit="create()" novalidate>

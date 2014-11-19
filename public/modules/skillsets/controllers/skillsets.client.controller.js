@@ -50,6 +50,12 @@ angular.module('skillsets').controller('SkillsetsController', ['$scope', '$state
 			});
 		};
 
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
+		};
+
 		// Find a list of Skillsets
 		$scope.find = function() {
 			$scope.skillsets = Skillsets.query();
