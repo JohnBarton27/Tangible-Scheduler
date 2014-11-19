@@ -14,36 +14,68 @@ var _ = require('lodash'),
  */
 exports.update = function(req, res) {
 	// Init Variables
-	var user = req.user;
+	var curUser = req.user;
+	var updUser = req.body;
 	var message = null;
 
 	// For security measurement we remove the roles from the req.body object
-	delete req.body.roles;
+	delete updUser.roles;
 
-	if (user) {
-		// Merge existing user
-		user = _.extend(user, req.body);
-		user.updated = Date.now();
-		//user.displayName = user.firstName + ' ' + user.lastName;
+	if (curUser) {
+		if(String(curUser._id) === String(updUser._id))
+		{
+			// Merge existing curUser
+			delete updUser.isAdmin;
+			curUser = _.extend(curUser, updUser);
+			curUser.updated = Date.now();
+			//curUser.displayName = curUser.firstName + ' ' + curUser.lastName;
 
-		user.save(function(err) {
-			if (err) {
-				return res.status(400).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			} else {
-				req.login(user, function(err) {
+			curUser.save(function(err) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+					req.login(curUser, function(err) {
+						if (err) {
+							res.status(400).send(err);
+						} else {
+							res.jsonp(curUser);
+						}
+					});
+				}
+			});
+		}
+		else
+		{
+			if(curUser.isAdmin)
+			{
+				
+				updUser.roles = (updUser.isAdmin) ? 'admin' : 'user';
+				updUser.updated = Date.now();
+				updUser = _.extend(curUser, updUser);
+				updUser.save(function(err) {
 					if (err) {
-						res.status(400).send(err);
-					} else {
-						res.jsonp(user);
+						return res.status(400).send({
+							message: errorHandler.getErrorMessage(err)
+						});
+					}
+					else
+					{
+						res.jsonp(updUser);
 					}
 				});
 			}
-		});
+			else
+			{
+				res.status(400).send({
+					message: 'Non-admin attempted to update another User'
+				});
+			}
+		}
 	} else {
 		res.status(400).send({
-			message: 'User is not signed in'
+			message: 'curUser is not signed in'
 		});
 	}
 };

@@ -87,7 +87,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 	
 				user.$update(function(response) {
 					$scope.success = true;
-					Authentication.user = response;
 				}, function(response) {
 					$scope.error = response.data.message;
 				});
