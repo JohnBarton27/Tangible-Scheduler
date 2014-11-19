@@ -14,22 +14,27 @@
 function getSkills(form){
 	var skills = [];
 	var skillsChosen = form.skill;
-
 	var i;
 	for(i=0; i < skillsChosen.length; i++){
 		var skill = {};
+		/*
+		 * This needs to be modified by front-end. take whatever your forms submit and form skill-request objects.
+		 */
 		skill.skillSet = skillsChosen[i];
 		skill.isRequired = true;
-		skill.users = [usersChosen[0]];
+		skill.users = [form.requsers[0]];
 		skills.push(skill);
 	}
 	return skills;
 }
 
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
-	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users) {
-        //Date
+angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
+	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users ) {
+        
+		$scope.authentication = Authentication;
+        
+		//Date
         var d = new Date();
         var curr_date = d.getDate();
         var curr_month = d.getMonth()+1;
@@ -40,9 +45,7 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
         $scope.eventDateFilter = function() {
             $scope.dateRange = $scope.dateToday;
         };
-        
-		$scope.authentication = Authentication;
-		//$scope.projects = Projects.query();
+
 		// Create new Event
 		$scope.create = function() {
 			var chosenSkills = getSkills(this);	

@@ -14,8 +14,11 @@ var SkillRequestSchema = new Schema({
 		type:  mongoose.Schema.Types.ObjectId,
 		ref: 'Skillset'
 	},
-	isRequired: Boolean,
-	users:[{
+	minRequested: { 
+		type: Number, 
+		min: 1
+	},
+	requiredUsers:[{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'User'
 	}]
