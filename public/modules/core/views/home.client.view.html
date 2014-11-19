@@ -8,11 +8,8 @@
             <a href="#!/posts"><u class="section-heading">News Feed</u></a>
             <section data-ng-controller="PostsController" data-ng-init="find()">
     <div class="list-group">
-        <!-- <a data-ng-repeat="currUser in users | filter:  _id=authentication.user._id">
-            CURRENT USER: <span data-ng-bind="currUser.firstName"></span>
-        <span data-ng-repeat="userskill in skillsets | filter: _id=currUser.skills">
-            CURRENT USER SKILLS:<span data-ng-bind="userskill.skill"></span> -->
-        <a data-ng-repeat="post in posts | limitTo : 5 | filter: skill=userskill.skill" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
+        
+        <a data-ng-repeat="post in posts | limitTo : 5" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
 			<h5 class="list-group-item-heading" data-ng-bind="post.name"></h5>
             <small class="list-group-item-text">
 				Posted on
@@ -20,8 +17,6 @@
 				by
 				<span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
 			</small>
-        <!-- </span>
-        </span> -->
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!posts.$resolved || posts.length">
