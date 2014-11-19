@@ -4,7 +4,7 @@
 angular.module('skillsets').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Skillsets', 'skillsets', 'dropdown', '/skillsets(/create)?');
+		Menus.addMenuItem('topbar', 'Skillsets', 'skillsets', 'dropdown', '/skillsets(/create)?', true, ['admin']);
 		Menus.addSubMenuItem('topbar', 'skillsets', 'List Skillsets', 'skillsets');
 		Menus.addSubMenuItem('topbar', 'skillsets', 'New Skillset', 'skillsets/create');
 	}

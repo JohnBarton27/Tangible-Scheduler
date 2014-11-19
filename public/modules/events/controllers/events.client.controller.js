@@ -13,9 +13,8 @@
  */
 function getSkills(form){
 	var skills = [];
-	var skillsChosen = form.skillsChosen;
-	var usersChosen = form.usersChosen;
-	//console.log(form);
+	var skillsChosen = form.skill;
+
 	var i;
 	for(i=0; i < skillsChosen.length; i++){
 		var skill = {};
@@ -30,6 +29,18 @@ function getSkills(form){
 // Events controller
 angular.module('events').controller('EventsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
 	function($scope, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users) {
+        //Date
+        var d = new Date();
+        var curr_date = d.getDate();
+        var curr_month = d.getMonth()+1;
+        var curr_year = d.getFullYear();
+
+        $scope.dateToday = Date.parse(curr_month + '/' + curr_date + '/' + curr_year);
+        
+        $scope.eventDateFilter = function() {
+            $scope.dateRange = $scope.dateToday;
+        };
+        
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
@@ -58,6 +69,10 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
                 $scope.date = '';
                 $scope.time = '';
                 $scope.location = '';
+                $scope.project = '';
+                $scope.skill = '';
+                $scope.requsers = '';
+                $scope.dateRange = ''; 
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -88,6 +103,12 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+		};
+
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
 		};
 
 		// Find a list of Events
@@ -154,5 +175,16 @@ angular.module('events').controller('EventsController', ['$scope', '$stateParams
 
         $scope.formats = ['dd/MMMM/yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
         $scope.format = $scope.formats[3];        
-	}
-]);
+        
+        $scope.mytime = new Date();
+
+		$scope.hstep = 1;
+		$scope.mstep = 1;
+		$scope.time = $filter('date')($scope.mytime, 'shortTime');
+
+
+		$scope.ismeridian = true;
+		$scope.timeChanged = function () {
+			$scope.time = $filter('date')($scope.mytime, 'shortTime');
+		};
+}]);

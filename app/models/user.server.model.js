@@ -50,6 +50,10 @@ var UserSchema = new Schema({
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address']
 	},
+	emailPassword: {
+		type: String,
+		default: ''
+	},
 	events: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Event'
@@ -69,6 +73,11 @@ var UserSchema = new Schema({
 	provider: {
 		type: String,
 		required: 'Provider is required'
+	},
+	isAdmin:
+	{
+		type: Boolean,
+		default: false
 	},
 	providerData: {},
 	additionalProvidersData: {},

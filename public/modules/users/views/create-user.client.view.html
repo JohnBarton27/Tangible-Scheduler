@@ -1,0 +1,47 @@
+<section class="row" data-ng-controller="create-user" ng-show ="isAdmin()">
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+		<form name="userForm" data-ng-submit="createuser()" class="signin form-horizontal" novalidate autocomplete="off">
+			<fieldset>
+				<div class="form-group">
+					<label for="firstName">First Name</label>
+					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.firstName" placeholder="First Name">
+				</div>
+				<div class="form-group">
+					<label for="lastName">Last Name</label>
+					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.lastName" placeholder="Last Name">
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<label for="phone">Phone</label>
+					<input type="text" id="phone" name="phone" class="form-control" data-ng-model="credentials.phone" placeholder="123-1234-678">
+				</div>
+				<div class="form-group">
+						<label class="control-label" for="skills">Skills</label>
+						<select multiple="multiple" class="form-control" data-ng-model="credentials.skills" id="skills" data-ng-init="findSkills()" multiselect-dropdown>
+							<option data-ng-repeat="skill in skills" ng-if="skill!=undefined" data-ng-value="skill._id">{{skill.skill}}</option>
+						</select>
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+				</div>
+				<div class="form-group">
+						<label class="control-label" for="roles">Admin?</label>
+						<div class="controls">
+							<input type="checkbox" data-ng-model="credentials.isAdmin" ng-true-value="true" ng-false-value="false" id="roles" class="form-control">
+						</div>
+						
+					</div>
+				<div class="text-center form-group">
+					<button type="submit" class="btn btn-large btn-primary">Create</button>
+				</div>
+				<div data-ng-show="error" class="text-center text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+</section>

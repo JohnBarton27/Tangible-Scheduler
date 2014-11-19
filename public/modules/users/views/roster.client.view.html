@@ -1,0 +1,34 @@
+<section data-ng-controller="RosterController" data-ng-init="findUsers()">
+    <div class="page-header">
+        <h2>Roster</h2>
+    </div>
+    <div class="col-sm-6">
+    <div class="list-group" data-ng-init="findSkills()">
+        <a data-ng-repeat="user in users | orderBy:'lastName'" class="list-group-item">
+            <h4 class="list-group-item-heading">
+                <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
+            </h4>
+            <span style="float:right; color:#f3ec19;" onclick=""> Edit User </span>
+            <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
+            <div>Email: <span data-ng-bind="user.email"></span></div>
+            
+            <div>
+                Skills:
+                <span data-ng-repeat="userskill in user.skills">
+                    <span data-ng-repeat="skill in skills | filter: skill._id=userskill">
+                        <span data-ng-bind="skill.skill"></span>
+                    </span>
+                    <span ng-if="!$last">&nbsp; - &nbsp;</span>
+                </span>
+                <div>Roles: <span data-ng-bind="user.roles"></span></div>
+            
+                
+            </div>
+            
+        </a> 
+    
+    <div class="alert alert-warning text-center" data-ng-hide="!users.$resolved || users.length">
+    	No Users yet</a>
+    </div>
+        </div>
+</section>

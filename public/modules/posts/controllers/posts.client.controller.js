@@ -1,8 +1,8 @@
 'use strict';
 
 // Posts controller
-angular.module('posts').controller('PostsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Posts',
-	function($scope, $stateParams, $location, Authentication, Posts ) {
+angular.module('posts').controller('PostsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Posts', 'Skillsets',
+	function($scope, $stateParams, $location, Authentication, Posts, Skillsets ) {
 		$scope.authentication = Authentication;
 
 		// Create new Post
@@ -10,7 +10,8 @@ angular.module('posts').controller('PostsController', ['$scope', '$stateParams',
 			// Create new Post object
 			var post = new Posts ({
 				name: this.name,
-				content: this.content
+				content: this.content,
+				skill: this.skill
 			});
 
 			// Redirect after save
@@ -20,6 +21,7 @@ angular.module('posts').controller('PostsController', ['$scope', '$stateParams',
 				// Clear form fields
 				$scope.name = '';
 				$scope.content = '';
+				$scope.skill = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -52,9 +54,25 @@ angular.module('posts').controller('PostsController', ['$scope', '$stateParams',
 			});
 		};
 
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
+		};
+
 		// Find a list of Posts
 		$scope.find = function() {
 			$scope.posts = Posts.query();
+		};
+
+		$scope.findSkills = function() {
+			$scope.skills = Skillsets.query();
+		};
+
+		$scope.findBySkill = function(skillString) {
+            $scope.posts = Posts.findBySkill({
+                skillString: skillString
+            });
 		};
 
 		// Find existing Post

@@ -54,6 +54,12 @@ angular.module('projects').controller('ProjectsController', ['$scope', '$statePa
 			});
 		};
 
+		$scope.isAdmin = function()
+		{
+			//console.log($scope.authentication.user.isAdmin);
+			return $scope.authentication.user.isAdmin;
+		};
+
 		// Find a list of Projects
 		$scope.find = function() {
 			$scope.projects = Projects.query();

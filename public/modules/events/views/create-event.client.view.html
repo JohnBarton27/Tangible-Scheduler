@@ -1,8 +1,8 @@
-<section data-ng-controller="EventsController">
+<section data-ng-controller="EventsController" ng-show ="isAdmin()">
     <div class="row">
         <div class="col-md-8">
 			<div class="page-header">
-				<h1>New Event</h1>
+				<h2>New Event</h2>
 			</div>
 		</div>
 	</div>
@@ -30,13 +30,14 @@
             			</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="name">Time</label>
+						<label class="control-label" for="time">Time</label>
 						<div class="controls">
-							<input type="text" data-ng-model="time" id="date" class="form-control" placeholder="HH:MM AM/PM" required>
+							<timepicker data-ng-model="mytime" ng-change="timeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
 						</div>
+						
 					</div>
 					<div class="form-group">
-						<label class="control-label" for="name">Location</label>
+						<label class="control-label" for="location">Location</label>
 						<div class="controls">
 							<input type="text" data-ng-model="location" id="location" class="form-control" placeholder="Location" required>
 						</div>
@@ -52,20 +53,65 @@
 
 					<!--REPLACE WITH ACTUAL IMPLEMENTATION/ USED FOR TESTING -->
 					<div class="form-group">
-						<label class="control-label" for="skills">Skillsets Needed</label>
-						<select multiple="multiple" class="form-control" data-ng-model="skillsChosen" id="skills" data-ng-init="findSkills()" multiselect-dropdown>
-							<option data-ng-repeat="skill in skills" ng-if="skill!=undefined" data-ng-value="skill._id">{{skill.skill}}</option>
+                        <label class="control-label" for="skill">Skills Needed</label>
+						<select multiple="multiple" class="form-control" data-ng-model="skill" id="skill" data-ng-init="findSkills()" multiselect-dropdown>
+							<option data-ng-repeat="skill in skills" ng-if="skill!=undefined" data-ng-value="skill.skill">{{skill.skill}}</option>
 						</select>
 					</div>
+
+					<div class="form-group">
+                        <label class="control-label" for="requsers">Users Needed</label>
+						<select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
+							<option data-ng-repeat="requser in users" ng-if="requser!=undefined" data-ng-value="requser._id">{{requser.firstName}} {{requser.lastName}}</option>
+						</select>
+					</div>
+                    
 <div class="form-group">
-<label class="control-label" for="skills">Users Needed</label>
-<select multiple="multiple" class="form-control" data-ng-model="usersChosen" id="users" data-ng-init="findUsers()" multiselect-dropdown>
-	<option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">{{user.firstName}}</option>
-</select>
+<!-- END -->
+    
 </div>
+                    
+                    
+<!-- BEGINNING OF ACCORDION IMPLEMENTATION -->
+    <!-- <label class="control-label" for="skill">Skills Needed</label> -->
+    <div class="col-md-15">
+        <accordion close-others="false">
+            <accordion-group  is-open="isopen"
+                  ng-repeat="skill in skills"
+                  ng-value="skill.skill">
+                  <accordion-heading >
+                      {{skill.skill}}                      
+                      <i class="pull-right glyphicon"
+                            ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+                  </accordion-heading>
+ 
+                  <div class="col-md-6">
+                      <div class="form-group" >
+						<label class="control-label" for="numRequired">Number Required:</label>
+						<div class="controls">
+							<input type="text" data-ng-model="numRequired" id="numRequired" class="form-control" placeholder="0" required>
+						</div>
+                        <label class="control-label" for="requsers">Required Users:</label>    
+                            <select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
+                                <option data-ng-repeat="user in users| filter:skill._id" ng-if="user!=undefined" data-ng-value="user._id">
+                                    
+                                    {{user.firstName}} {{user.lastName}}
+                                
+                                </option>
+                            </select>
+					</div>
+                  </div>
+              </accordion-group>
+          </accordion>
+    </div>
+ 
+    <div class="content">
+    </div>
+<!-- END OF ACCORDION IMPLEMENTATION-->
+
+                    <!-- EOF TESTING SKILL/USER CODE -->
 
 
-					<!-- EOF TESTING SKILL/USER CODE -->
 					<div class="form-group">
 						<input type="submit" class="btn btn-default">
 					</div>
@@ -76,4 +122,10 @@
 			</form>
 		</div>
 	</div>
+
+
+
 </section>
+
+
+    
