@@ -27,7 +27,7 @@ exports.signup = function(req, res) {
 	{
 	user.roles = 'user';
 	}
-	/ Add missing user fields
+	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
