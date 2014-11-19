@@ -33,7 +33,8 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users ) {
         
 		$scope.authentication = Authentication;
-        
+ 		$scope.models = {};       
+		
 		//Date
         var d = new Date();
         var curr_date = d.getDate();

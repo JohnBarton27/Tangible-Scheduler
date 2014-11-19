@@ -85,14 +85,14 @@
                             ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
                   </accordion-heading>
  
-                  <div class="col-md-6">
+                  <div class="col-md-8">
                       <div class="form-group" >
-						<label class="control-label" for="numRequired">Number Required:</label>
+						<label class="control-label" for="numRequired">How many {{skill.skill}}'s do you want?: {{$index}}</label>
 						<div class="controls">
-							<input type="text" data-ng-model="numRequired$index" id="numRequired{{$index}}" class="form-control" placeholder="0" required>
+							<input type="text" data-ng-model="models[skill._id][0]" id="numRequired $index" class="form-control" placeholder="0" required>
 						</div>
                         <label class="control-label" for="requsers">Required Users:</label>    
-                            <select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
+                            <select multiple="multiple" class="form-control" data-ng-model="models[skill._id][1]" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
                                 <option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">
                                     
                                     {{user.firstName}} {{user.lastName}}
@@ -104,7 +104,7 @@
               </accordion-group>
           </accordion>
     </div>
- 
+	<pre>{{models}}</pre> 
     <div class="content">
     </div>
 <!-- END OF ACCORDION IMPLEMENTATION-->
