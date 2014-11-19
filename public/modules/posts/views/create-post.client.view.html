@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label class="control-label" for="name">Content</label>
                         <div class="controls">
-                            <textarea data-ng-model="content" id="name" class="form-control " placeholder="Post Content" required></textarea>
+                            <textarea data-ng-model="content" id="content" class="form-control " placeholder="Post Content" required></textarea>
                         </div>
                         <label class="control-label" for="skill">Viewable only to users with selected skill(s) (Optional)</label>
                         <select multiple="multiple" class="form-control" data-ng-model="skill" id="skill" data-ng-init="findSkills()" multiselect-dropdown>
@@ -28,7 +28,7 @@
                     </div>
                      
                     <div class="form-group">
-                        <input type="submit" class="btn btn-default">
+                        <input id="create-posts-button" type="submit" class="btn btn-default">
                     </div>
                     <div data-ng-show="error" class="text-danger">
                         <strong data-ng-bind="error"></strong>

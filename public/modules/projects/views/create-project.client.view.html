@@ -25,11 +25,11 @@
                     <div class="form-group">
                         <label class="control-label" for="name">Description</label>
                         <div class="controls">
-                            <textarea data-ng-model="description" id="name" class="form-control col-md-5" placeholder="Project Description" required></textarea>
+                            <textarea data-ng-model="description" id="description" class="form-control col-md-5" placeholder="Project Description" required></textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-default">
+                        <input id="create-project-button" type="submit" class="btn btn-default">
                     </div>
                     <div data-ng-show="error" class="text-danger">
                         <strong data-ng-bind="error"></strong>
