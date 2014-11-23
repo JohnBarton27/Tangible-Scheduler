@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$stateParams', '$location', 'Users', 'Authentication',
-	function($scope, $http, $stateParams, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$stateParams', '$location', 'Users', 'Skillsets', 'Authentication',
+	function($scope, $http, $stateParams, $location, Users, Skillsets, Authentication) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -42,8 +42,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 		$scope.updateCurrentUserProfile = function(isValid) {
 			if (isValid){
 				$scope.success = $scope.error = null;
-				var phoneNumber = $scope.user.phone;
-				$scope.user.phone = phoneNumber.replace(/\D/g, '');
 				var user = new Users($scope.user);
 	
 				user.$update(function(response) {
@@ -81,8 +79,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 		$scope.updateOtherUserProfile = function(isValid) {
 			if (isValid){
 				$scope.success = $scope.error = null;
-				var phoneNumber = $scope.edituser.phone;
-				$scope.edituser.phone = phoneNumber.replace(/\D/g, '');
 				var user = new Users($scope.edituser);
 	
 				user.$update(function(response) {
@@ -93,6 +89,9 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 			} else {
 				$scope.submitted = true;
 			}
+		};
+		$scope.findSkills = function() {
+			$scope.skills = Skillsets.query();
 		};
 
 		// Change user password
