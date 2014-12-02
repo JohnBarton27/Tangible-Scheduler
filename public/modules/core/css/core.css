@@ -63,7 +63,7 @@
 
 .top-right{
     color: #008080;
-    font-size: 18px;
+    font-size: 24px;
     text-align: right;
 }
 
@@ -99,4 +99,17 @@
     font-weight: 500;
     line-height: 1.1;
     color: #F3EC19;
+}
+
+.project-on-event {
+    font-size: 30px;
+    float: right;
+    font-weight: 500;
+    color: #F3EC19;
+    margin-top: -20px;
+}
+
+.event-section-header {
+    font-size: 22px;
+    color: #008080;   
 }

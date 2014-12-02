@@ -4,11 +4,11 @@
     </div>
     <div class="col-sm-6">
     <div class="list-group" data-ng-init="findSkills()">
-        <a data-ng-repeat="user in users | orderBy:'lastName'" class="list-group-item">
+        <span data-ng-repeat="user in users | orderBy:'lastName'" class="list-group-item">
             <h4 class="list-group-item-heading">
                 <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
             </h4>
-            <span style="float:right; color:#f3ec19;" onclick=""> Edit User </span>
+            <a style="float:right; color:#f3ec19;" data-ng-href="#!/users/{{user._id}}/edit"> Edit User </a>
             <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
             <div>Email: <span data-ng-bind="user.email"></span></div>
             
@@ -25,10 +25,10 @@
                 
             </div>
             
-        </a> 
+        </span> 
     
     <div class="alert alert-warning text-center" data-ng-hide="!users.$resolved || users.length">
-    	No Users yet</a>
+    	No Users yet
     </div>
         </div>
 </section>
