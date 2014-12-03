@@ -25,28 +25,37 @@
 	</div>
     
     <div class="row">
-		<div class="col-md-3">
-			<span class="event-section-header">Skills:</span> 
-			<div class="list-group-item" data-ng-repeat="skill in event.skill">{{skill}}</div>
-		</div>
-		<div class="col-md-3">
-			<span class="event-section-header">Users:</span> 
-            <div class="list-group-item" data-ng-repeat="user in event.requsers">{{user.firstName}} {{user.lastName}}</div>
+		<div class="col-md-5">
+			<span class="event-section-header">Requested Event Participants:</span>
 		</div>
 	</div>
-    
-    <!-- Accept/Reject Buttons 
-    <div class="form-group" align="center">
-        <input type="button" class="btn btn-default" value="Accept" style="margin-right: 30px">
-        <input type="button" class="btn btn-reject" value="Reject">
-    </div>
-        
-    <!-- Errors for Accept/Reject Buttons 
-    <div data-ng-show="error" class="text-danger">
-        <strong data-ng-bind="error"></strong>
+	<div class="row">
+		<div class="col-md-4">
+			<accordion close-others="false">
+				<accordion-group  is-open="isopen"
+					  ng-repeat="skillRequest in event.skillsNeeded">
+					  <accordion-heading>
+						  {{skillRequest.skill.skill}}                      
+						  <i class="pull-right glyphicon"
+								ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+					  </accordion-heading>
+
+					  <div class="row" >
+							<div class="col-md-12">
+								<p>Number of Requested: {{skillRequest.numRequested}}</p>
+								<p>Required Users:</p>    
+								<ul>
+									<li data-ng-repeat="user in skillRequest.requiredUsers" ng-if="user!=undefined">
+									{{user.firstName}} {{user.lastName}}
+									</li>
+								</ul>
+							</div>
+					</div>
+				  </accordion-group>
+			  </accordion>
+		</div>
 	</div>
-    -->
-    
+
 	<div class="row">
 		<div class="col-md-4">
 			<small>

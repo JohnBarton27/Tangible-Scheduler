@@ -137,11 +137,11 @@ exports.list = function(req, res) { Event.find().sort('-created').populate('user
 /**
  * Event middleware
  */
-exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').populate('skillsNeeded', 'users isRequired skill').populate('project').exec(function(err, event) {
+exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').populate('skillsNeeded').populate('project').exec(function(err, event) {
 		if (err) return next(err);
 		if (! event) return next(new Error('Failed to load Event ' + id));
 		//fill the skills and users inside skill-request objects
-		SkillRequest.populate(event.skillsNeeded,'skill users',function(err,doc){
+		SkillRequest.populate(event.skillsNeeded,'skill requiredUsers',function(err,doc){
 			req.event = event;
 			next();
 		});
