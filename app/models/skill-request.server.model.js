@@ -14,7 +14,7 @@ var SkillRequestSchema = new Schema({
 		type:  mongoose.Schema.Types.ObjectId,
 		ref: 'Skillset'
 	},
-	minRequested: { 
+	numRequested: { 
 		type: Number, 
 		min: 1
 	},

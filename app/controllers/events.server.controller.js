@@ -44,11 +44,7 @@ exports.create = function(req, res) {
 			//
 			var i;
 			for(i=0; i < skillRequests.length; i++){
-				var skillRequest = new SkillRequest({
-					skill:		skillRequests[i].skillSet,
-					isRequired: 	skillRequests[i].isRequired,
-					users:		skillRequests[i].users,
-				});
+				var skillRequest = new SkillRequest(skillRequests[i]);
 				//save the request
 				skillRequest.save(function(err2,srequest) {
 					if (err2) {

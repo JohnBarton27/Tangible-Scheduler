@@ -13,18 +13,19 @@
  */
 function getSkills(form){
 	var skills = [];
-	var skillsChosen = form.skill;
-	var i;
-	for(i=0; i < skillsChosen.length; i++){
-		var skill = {};
-		/*
-		 * This needs to be modified by front-end. take whatever your forms submit and form skill-request objects.
-		 */
-		skill.skillSet = skillsChosen[i];
-		skill.isRequired = true;
-		skill.users = [form.requsers[0]];
-		skills.push(skill);
+	console.log(form);;
+	for(skill in form){
+		var newSkill = {};
+		console.log(skill);
+		newSkill.skillSet = skill;
+		if(form[skill][0]!= undefined)
+			newSkill.numRequested  = form[skill][0];
+		if(form[skill][1]!= undefined)
+			newSkill.requiredUsers = form[skill][1];
+		console.log(newSkill);
+		skills.push(newSkill);	
 	}
+
 	return skills;
 }
 
@@ -33,8 +34,9 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users ) {
         
 		$scope.authentication = Authentication;
- 		$scope.models = {};       
-		
+ 		
+		//used with event skills
+		$scope.models = {};       
 		//Date
         var d = new Date();
         var curr_date = d.getDate();
@@ -49,8 +51,8 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 
 		// Create new Event
 		$scope.create = function() {
-			var chosenSkills = getSkills(this);	
-			console.log(chosenSkills);
+			var chosenSkills = getSkills($scope.models);	
+			console.log("ChosenSkills: " + chosenSkills);
 			// Create new Event object
 			var event = new Events ({
 				name:           this.name,
