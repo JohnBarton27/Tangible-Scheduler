@@ -86,6 +86,15 @@ exports.update = function(req, res) {
 exports.me = function(req, res) {
 	res.jsonp(req.user || null);
 };
+
+
+/**
+ * Show the current User
+ */
+exports.read = function(req, res) {
+	res.jsonp(req.user);
+};
+
 /**
  * List of Users
  */
@@ -98,4 +107,15 @@ exports.list = function(req, res) { User.find().sort('-created').exec(function(e
 			res.jsonp(users);
 		}
 	});
+};
+
+/**
+ * Post middleware
+ */
+exports.userByID = function(req, res, next, id) { User.findById(id).exec(function(err, user) {
+    if (err) return next(err);
+    if (! user) return next(new Error('Failed to load Post ' + id));
+    req.user = user;
+    next();
+});
 };
