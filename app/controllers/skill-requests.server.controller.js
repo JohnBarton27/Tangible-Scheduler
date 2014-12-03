@@ -72,7 +72,7 @@ exports.delete = function(req, res) {
 /**
  * List of Skill requests
  */
-exports.list = function(req, res) { SkillRequest.find().sort('-created').populate('user', 'displayName').exec(function(err, skillRequests) {
+exports.list = function(req, res) { SkillRequest.find().sort('-created').populate('requiredUsers').populate('skill').exec(function(err, skillRequests) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -86,7 +86,7 @@ exports.list = function(req, res) { SkillRequest.find().sort('-created').populat
 /**
  * Skill request middleware
  */
-exports.skillRequestByID = function(req, res, next, id) { SkillRequest.findById(id).populate('user', 'displayName').exec(function(err, skillRequest) {
+exports.skillRequestByID = function(req, res, next, id) { SkillRequest.findById(id).populate('requiredUsers','firstName lastName').populate('skill','skill').exec(function(err, skillRequest) {
 		if (err) return next(err);
 		if (! skillRequest) return next(new Error('Failed to load Skill request ' + id));
 		req.skillRequest = skillRequest ;

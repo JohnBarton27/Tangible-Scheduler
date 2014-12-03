@@ -13,16 +13,13 @@
  */
 function getSkills(form){
 	var skills = [];
-	console.log(form);;
-	for(skill in form){
+	for(var skill in form){
 		var newSkill = {};
-		console.log(skill);
-		newSkill.skillSet = skill;
+		newSkill.skill = skill;
 		if(form[skill][0]!= undefined)
 			newSkill.numRequested  = form[skill][0];
 		if(form[skill][1]!= undefined)
 			newSkill.requiredUsers = form[skill][1];
-		console.log(newSkill);
 		skills.push(newSkill);	
 	}
 
