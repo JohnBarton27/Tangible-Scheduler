@@ -20,7 +20,7 @@
 						<a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
 					</li>
 				</ul>
-				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
+				<a id="item.title-dropdown" ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
@@ -40,7 +40,7 @@
 
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+				<a id="user-menu" href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<span data-ng-bind="authentication.user.firstName"></span> <span data-ng-bind="authentication.user.lastName"></span> <b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
@@ -55,7 +55,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="/auth/signout">Signout</a>
+						<a id="signout" href="/auth/signout">Signout</a>
 					</li>
 				</ul>
 			</li>

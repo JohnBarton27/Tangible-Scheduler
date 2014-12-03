@@ -135,7 +135,22 @@ module.exports = function(grunt) {
 			unit: {
 				configFile: 'karma.conf.js'
 			}
-		}
+		},
+        protractor_webdriver: {
+            start: {
+                options: {
+                    path: 'node_modules/protractor/bin/',
+                    command: 'webdriver-manager start'
+                }
+            }
+        },
+        protractor: {
+            options: {
+                keepAlive: true,
+                configFile: "protractor_tests/conf.js"
+            },
+            run: {}
+        }
 	});
 
 	// Load NPM tasks 
@@ -153,6 +168,9 @@ module.exports = function(grunt) {
 		grunt.config.set('applicationCSSFiles', config.assets.css);
 	});
 
+    // For protractor tests
+    grunt.loadNpmTasks('grunt-protractor-webdriver');
+
 	// Default task(s).
 	grunt.registerTask('default', ['lint', 'concurrent:default']);
 
@@ -166,5 +184,11 @@ module.exports = function(grunt) {
 	grunt.registerTask('build', ['lint', 'loadConfig', 'ngmin', 'uglify', 'cssmin']);
 
 	// Test task.
-	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+	grunt.registerTask('test', [
+                       'env:test',
+                       'mochaTest',
+                       //'karma:unit',
+                       'protractor_webdriver:start',
+                       'protractor:run'
+    ]);
 };

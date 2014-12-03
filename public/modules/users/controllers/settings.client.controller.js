@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
-	function($scope, $http, $location, Users, Authentication) {
+angular.module('users').controller('SettingsController', ['$scope', '$http', '$stateParams', '$location', 'Users', 'Skillsets', 'Authentication',
+	function($scope, $http, $stateParams, $location, Users, Skillsets, Authentication) {
 		$scope.user = Authentication.user;
 
 		// If user is not signed in then redirect back home
@@ -39,11 +39,9 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 		};
 
 		// Update a user profile
-		$scope.updateUserProfile = function(isValid) {
+		$scope.updateCurrentUserProfile = function(isValid) {
 			if (isValid){
 				$scope.success = $scope.error = null;
-				var phoneNumber = $scope.user.phone;
-				$scope.user.phone = phoneNumber.replace(/\D/g, '');
 				var user = new Users($scope.user);
 	
 				user.$update(function(response) {
@@ -55,6 +53,45 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			} else {
 				$scope.submitted = true;
 			}
+		};
+		
+		$scope.getUsers = function() {
+		};
+		
+		$scope.getUserForEdit = function() {
+			Users.query(function(response) {	//Not ideal
+				for(var i = 0; i < response.length; i++)
+				{
+					if(response[i]._id === $stateParams.userId)
+					{
+						$scope.edituser = response[i];
+					}
+				}
+			});
+			/* This should work but it doesnt
+			 * Users.get({ _id: $stateParams.userId },function(response) {
+			 *	$scope.edituser = response;
+			 *});*/
+			
+		};
+		
+		//Update user profile, not the current user
+		$scope.updateOtherUserProfile = function(isValid) {
+			if (isValid){
+				$scope.success = $scope.error = null;
+				var user = new Users($scope.edituser);
+	
+				user.$update(function(response) {
+					$scope.success = true;
+				}, function(response) {
+					$scope.error = response.data.message;
+				});
+			} else {
+				$scope.submitted = true;
+			}
+		};
+		$scope.findSkills = function() {
+			$scope.skills = Skillsets.query();
 		};
 
 		// Change user password

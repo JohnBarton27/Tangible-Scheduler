@@ -12,6 +12,10 @@ Team Members:
 * Richard Matthews (idkyoutellme)
 * Tyler Fink (tfink419)
 
+
+###Testing Notes
+* grunt must be running the app when you run grunt test
+
 ###Class Files
 All files required by software engineering are located in Tangible-Sceduler/class_files/
 

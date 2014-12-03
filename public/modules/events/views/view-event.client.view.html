@@ -11,27 +11,27 @@
 			<div class="top-right" data-ng-bind="event.location"></div>
 		</div>
 	</div>
+    
+    <div class="row">
+		<div class="col-md-12">
+			<a class="project-on-event" href="/#!/projects/{{event.project._id}}" data-ng-bind="event.project.name"></a>
+		</div>
+	</div>
+    
 	<div class="row">
 		<div class="col-md-8">
 			<p class="" data-ng-bind="event.description"></p>
 		</div>
 	</div>
     
-	<div class="row">
-		<div class="col-md-12">
-			Project: <a href="/#!/projects/{{event.project._id}}" data-ng-bind="event.project.name"></a>
-		</div>
-	</div>
-    
     <div class="row">
 		<div class="col-md-3">
-			Skills: 
+			<span class="event-section-header">Skills:</span> 
 			<div class="list-group-item" data-ng-repeat="skill in event.skill">{{skill}}</div>
 		</div>
-	</div>
-	<div class="row">
 		<div class="col-md-3">
-			Users: <div class="list-group-item" data-ng-repeat="user in event.requsers">{{user.firstName}} {{user.lastName}}</div>
+			<span class="event-section-header">Users:</span> 
+            <div class="list-group-item" data-ng-repeat="user in event.requsers">{{user.firstName}} {{user.lastName}}</div>
 		</div>
 	</div>
     

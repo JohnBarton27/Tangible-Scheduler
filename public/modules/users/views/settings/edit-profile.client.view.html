@@ -1,7 +1,7 @@
 <section class="row" data-ng-controller="SettingsController">
 	<h3 class="col-md-12 text-center">Edit your profile</h3>
 	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
-		<form name="userForm" data-ng-submit="updateUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
+		<form name="userForm" data-ng-submit="updateCurrentUserProfile(userForm.$valid)" class="signin form-horizontal" autocomplete="off">
 			<fieldset>
 				<div class="form-group">
 					<label for="firstName">First Name</label>
@@ -17,7 +17,11 @@
 				</div>
 				<div class="form-group">
 					<label for="phone">Phone</label>
-					<input type="phone" id="phone" name="phone" class="form-control" data-ng-model="user.phone" placeholder="Phone">
+					<input type="text" id="phone" name="phone" class="form-control" data-ng-model="user.phone" placeholder="123-1234-678">
+				</div>
+				<div class="form-group">
+					<label class="control-label" for="skills">Skills</label>
+					<select multiple class="form-control" ng-model="user.skills" id="skills" ng-options="skill._id as skill.skill for skill in skills" data-ng-init="findSkills()"></select>
 				</div>
 				<div class="text-center form-group">
 					<button type="submit" class="btn btn-large btn-primary">Save Profile</button>
