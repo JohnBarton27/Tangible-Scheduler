@@ -50,7 +50,6 @@ exports.update = function(req, res) {
 		{
 			if(curUser.isAdmin)
 			{
-				
 				updUser.roles = (updUser.isAdmin) ? 'admin' : 'user';
 				updUser.updated = Date.now();
 				updUser = _.extend(curUser, updUser);

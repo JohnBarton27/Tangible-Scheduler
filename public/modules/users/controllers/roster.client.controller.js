@@ -9,9 +9,6 @@ angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skil
 		};
 
         // Find a user by Id. Not sure if this will block for network or not
-        $scope.findUser = function(userId) {
-            return Users.userByID({id: userId});
-        }
         
         $scope.findSkills = function() {
             $scope.skills = Skillsets.query();

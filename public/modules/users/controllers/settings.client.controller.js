@@ -59,19 +59,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 		};
 		
 		$scope.getUserForEdit = function() {
-			Users.query(function(response) {	//Not ideal
-				for(var i = 0; i < response.length; i++)
-				{
-					if(response[i]._id === $stateParams.userId)
-					{
-						$scope.edituser = response[i];
-					}
-				}
-			});
-			/* This should work but it doesnt
-			 * Users.get({ _id: $stateParams.userId },function(response) {
-			 *	$scope.edituser = response;
-			 *});*/
+			$scope.edituser = Users.userByID({id: $stateParams.userId});
 			
 		};
 		
