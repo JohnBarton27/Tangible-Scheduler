@@ -8,6 +8,7 @@ var mongoose = require('mongoose'),
 	Event = mongoose.model('Event'),
 	Project = mongoose.model('Project'),
 	SkillRequest = mongoose.model('SkillRequest'),
+	EventRequest = mongoose.model('EventRequest'),
 	_ = require('lodash');
 
 /**
@@ -52,7 +53,8 @@ exports.create = function(req, res) {
 						return res.status(400).send({
 							message: errorHandler.getErrorMessage(err2)
 						});
-					} else {
+					} 
+					else {
 						//console.log('request' + srequest);
 						//update the event
 						Event.findByIdAndUpdate(
@@ -63,6 +65,7 @@ exports.create = function(req, res) {
 								console.log('error finding event' + err);
 							}
 						);
+
 
 					}
 				});

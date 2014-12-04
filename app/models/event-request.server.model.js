@@ -22,10 +22,10 @@ var EventRequestSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Event'
 	},
-	users:[{
+	users:{
 		type: Schema.ObjectId,
 		ref: 'User'
-	}]
+	}
 });
 
 mongoose.model('EventRequest', EventRequestSchema);
