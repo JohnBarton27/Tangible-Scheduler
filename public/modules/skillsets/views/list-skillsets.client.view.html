@@ -4,10 +4,17 @@
     </div>
     <div class="list-group" data-ng-init="findUsers()">
         <a data-ng-repeat="skillset in skillsets | orderBy:'skill'" data-ng-href="#!/skillsets/{{skillset._id}}" class="list-group-item">
-			<h4 class="list-group-item-heading" data-ng-bind="skillset.skill"></h4>
+			
             <span data-ng-repeat="user in filtered = (users | filter: { skills: skillset._id } | orderBy: 'lastName')">
                 <span ng-if=$last>
-                    {{filtered.length}} users have this skill.
+                    <span class="event-project">{{filtered.length}} users have this skill.</span>
+                </span>
+            </span>
+            <h4 class="list-group-item-heading" data-ng-bind="skillset.skill" data-ng-init="findPosts()"></h4>
+            
+            <span data-ng-repeat="post in filteredPosts = (posts | filter: { skill : skillset.skill })">
+                <span ng-if=$last>
+                    <span>Posts: {{filteredPosts.length}}</span>
                 </span>
             </span>
         </a>
