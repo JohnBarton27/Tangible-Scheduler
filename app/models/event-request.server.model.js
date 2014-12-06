@@ -10,6 +10,10 @@ var mongoose = require('mongoose'),
  * Event request Schema
  */
 var EventRequestSchema = new Schema({
+	required: {
+		type: Boolean,
+		default: false
+	},
 	response: {
 		type: String,
 		default: '',
@@ -22,7 +26,7 @@ var EventRequestSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Event'
 	},
-	users:{
+	user:{
 		type: Schema.ObjectId,
 		ref: 'User'
 	}

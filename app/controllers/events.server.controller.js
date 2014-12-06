@@ -66,7 +66,47 @@ exports.create = function(req, res) {
 							}
 						);
 
+						//Create Event Requests for required users
+						if (srequest.requiredUsers.length == 0) {
+							var usedUsersID = [];
+							Users.count({'skills': srequest.skill}, function(err, c) {
+								if (err) {
+									console.log('Error');
+								}
+								else {
+									for (var j = 0; j < srequest.numRequested; j++) {
+										Users.findOne({'skills': srequest.skill}, null, {skip: Math.floor(Math.random()*c)}, function(err, use) {
+											if (err) {
+												console.log('Error');
+											}
+											else {
+												//check if user has already been used
+												for (var k = 0; k < usedUsers.length; k++) {
+													if (usedUsersID[k] == use._id) {
+														j--;
+													}
+													else {
+														usedUsersID[j] = use._id;
+														var EReq = new EventRequest({
+															event: newEvent,
+															user: use
+														});
+														EReq.save(function(err, newER) {
+															if (err) {
+																console.log('Error');
+															}
+															else {
 
+															}
+														});
+													}
+												}
+											}
+										});
+									}
+								}
+							});
+						}
 					}
 				});
 			}
