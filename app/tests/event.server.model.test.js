@@ -6,7 +6,9 @@
 var should = require('should'),
 	mongoose = require('mongoose'),
 	User = mongoose.model('User'),
-	Event = mongoose.model('Event');
+	Event = mongoose.model('Event'),
+	Project = mongoose.model('Project'),
+	Skillset = mongoose.model('Skillset');
 
 /**
  * Globals
@@ -89,6 +91,90 @@ describe('Event Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should be able to save event without a project', function(done) { 
+			event.project = null;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		it('should be able to save event without skillset', function(done) { 
+			event.skill = null;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		it('should be able to save event without requsers', function(done) { 
+			event.requsers = null;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to save event with a project', function(done) { 
+			event.project = new Project({
+				name: 'Project Name',
+				description: 'this is a project description',
+				type:  'Type',
+				//user: user
+			});;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		it('should be able to save event with a skillset', function(done) { 
+			event.skill = new Skillset({
+				skill: 'Skillset Name',
+				user: user
+			});
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		it('should be able to save event with requsers', function(done) { 
+			event.requsers = user;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+		it('should be able to add created time for an event', function(done) { 
+			event.created = Date.now();
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to set hasHappened for a project', function(done) { 
+			event.hasHappened = true;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+		it('should be able to add a user to a project', function(done) { 
+			event.user = user;
+
+			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
 	});
 
 		describe('Method Update', function() {
@@ -103,6 +189,16 @@ describe('Event Model Unit Tests:', function() {
 		describe('Method Remove', function() {
 		it('should be able to remove without problems', function(done) {
 			return event.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+
+	});
+
+		describe('Method Find', function() {
+		it('should be able to find evenets without problems', function(done) {
+			return Event.find(function(err) {
 				should.not.exist(err);
 				done();
 			});

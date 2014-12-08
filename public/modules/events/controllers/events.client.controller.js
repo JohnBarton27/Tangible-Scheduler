@@ -53,7 +53,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
         
         $scope.getDate = function(event) {
             return event.date;
-        }
+        };
         
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
