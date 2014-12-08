@@ -127,10 +127,24 @@ exports.create = function(req, res) {
 											    }
 											});
 											var msgtext = 'You are requested for an event! Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
-											
+											var msgto = '';
+
+											if (user.phoneProvider == 'none') {
+												msgto = user.email;
+											}
+											else if (user.phoneProvider == 'Verizon') {
+												msgto = user.phone.replace(/^-/, "") + "@vtext.com";
+											}
+											else if (user.phoneProvider == 'ATT') {
+												msgto = user.phone.replace(/^-/, "") + "@txt.att.net";
+											}
+											else if (user.phoneProvider == 'TMobile') {
+												msgto = user.phone.replace(/^-/, "") + "@tmomail.net";
+											}
+
 											var mailOptions = {
 											    from: 'tangibletesting@gmail.com',
-											    to: user.email,
+											    to: msgto,
 											    subject: 'Event Request',
 											    text: msgtext
 											};
