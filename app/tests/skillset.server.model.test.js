@@ -53,6 +53,15 @@ describe('Skillset Model Unit Tests:', function() {
 				done();
 			});
 		});
+
+		it('should be able to add created time for a skillset', function(done) { 
+			skillset.created = Date.now();
+
+			return skillset.save(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
 	});
 
 	describe('Method Update', function() {
@@ -67,6 +76,15 @@ describe('Skillset Model Unit Tests:', function() {
 	describe('Method Remove', function() {
 		it('should be able to remove without problems', function(done) {
 			return skillset.remove(function(err) {
+				should.not.exist(err);
+				done();
+			});
+		});
+	});
+
+	describe('Method Find', function() {
+		it('should be able to find skills without problems', function(done) {
+			return Skillset.find(function(err) {
 				should.not.exist(err);
 				done();
 			});

@@ -5,9 +5,7 @@
  */
 var should = require('should'),
 	mongoose = require('mongoose'),
-	User = mongoose.model('User'),
-	Event = mongoose.model('Event'),
-	Skillset = mongoose.model('Skillset');
+	User = mongoose.model('User');
 
 /**
  * Globals
@@ -17,7 +15,7 @@ var user, user2;
 /**
  * Unit tests
  */
-describe('User Model Unit Tests:', function() {
+describe('Create-User Model Unit Tests:', function() {
 	before(function(done) {
 		user = new User({
 			firstName: 'Full',
@@ -131,98 +129,19 @@ describe('User Model Unit Tests:', function() {
 			});
 		});
 
-		it('should show error is trying to change users salt', function(done) {
-			user.salt = 'test';
+
+		it('should show an error when try to save with invalid email ', function(done) {
+			user.email = 'bob.com';
 			return user.save(function(err) {
 				should.exist(err);
 				done();
 			});
 		});
 
-		it('should be able to add provider to a user', function(done) {
-			user.provider = 'test';
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to set isAdmin for a user', function(done) {
-			user.isAdmin = true;
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to add created time for a user', function(done) {
-			user.created = Date.now();
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to add isUpdated time for a user', function(done) {
-			user.updated =  Date.now();
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to resetPasswordToken for a user', function(done) {
-			user.resetPasswordToken = 'test';
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
-
-		it('should be able to add resetPassworedExpires time for a user', function(done) {
-			user.resetPassworedExpires =  Date.now();
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
 
 
-		it('should be able to add an event to a user', function(done) {
-			user.events = new Event({
-				name: 'Event Name',
-				description: 'this is a test description',
-				date: new Date(),
-                time: '10:00 AM',
-                location: 'this is a test location',
-				user: user
-			});
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
 
-	it('should be able to add a skill to a user', function(done) {
-			user.skills = new Skillset({
-				skill: 'Skillset Name',
-				user: user
-			});
-			return user.save(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
 
-	});
-
-	describe('Method Find', function() {
-		it('should be able to find users without problems', function(done) {
-			return User.find(function(err) {
-				should.not.exist(err);
-				done();
-			});
-		});
 	});
 
 	after(function(done) {
