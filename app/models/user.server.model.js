@@ -43,6 +43,11 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
 	},
+	phoneProvider: {
+		type: String,
+		trim: true,
+		default: 'none',
+	},
 	email: {
 		type: String,
 		trim: true,
