@@ -50,21 +50,23 @@ exports.update = function(req, res) {
 		{
 			if(curUser.isAdmin)
 			{
-				
-				updUser.roles = (updUser.isAdmin) ? 'admin' : 'user';
-				updUser.updated = Date.now();
-				updUser = _.extend(curUser, updUser);
-				updUser.save(function(err) {
-					if (err) {
-						return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
-						});
-					}
-					else
-					{
-						res.jsonp(updUser);
-					}
-				});
+					
+					updUser.roles = (updUser.isAdmin) ? ['admin'] : ['user'];
+					updUser.updated = Date.now();
+					User.findOne({ _id: updUser._id }, function (err, usr){
+						if (err) {
+							return res.status(400).send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						}
+						else
+						{
+							updUser = _.extend(usr, updUser);
+							console.log(JSON.stringify(updUser));
+							updUser.save();
+							res.jsonp(updUser);
+						}
+					});
 			}
 			else
 			{
@@ -86,6 +88,15 @@ exports.update = function(req, res) {
 exports.me = function(req, res) {
 	res.jsonp(req.user || null);
 };
+
+
+/**
+ * Show the current User
+ */
+exports.read = function(req, res) {
+	res.jsonp(req.user);
+};
+
 /**
  * List of Users
  */
@@ -98,4 +109,15 @@ exports.list = function(req, res) { User.find().sort('-created').exec(function(e
 			res.jsonp(users);
 		}
 	});
+};
+
+/**
+ * Post middleware
+ */
+exports.userByID = function(req, res, next, id) { User.findById(id).exec(function(err, user) {
+    if (err) return next(err);
+    if (! user) return next(new Error('Failed to load Post ' + id));
+    req.user = user;
+    next();
+});
 };
