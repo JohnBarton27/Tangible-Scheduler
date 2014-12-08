@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
 	EventRequest = mongoose.model('EventRequest'),
+	SkillRequest = mongoose.model('SkillRequest'),
 	_ = require('lodash');
 
 /**
@@ -86,11 +87,15 @@ exports.list = function(req, res) { EventRequest.find().sort('-created').populat
 /**
  * Event request middleware
  */
-exports.eventRequestByID = function(req, res, next, id) { EventRequest.findById(id).populate('user', 'displayName').exec(function(err, eventRequest) {
+exports.eventRequestByID = function(req, res, next, id) { EventRequest.findById(id).populate('event').populate('user').exec(function(err, eventRequest) {
 		if (err) return next(err);
 		if (! eventRequest) return next(new Error('Failed to load Event request ' + id));
-		req.eventRequest = eventRequest ;
-		next();
+		eventRequest.skillsNeeded = eventRequest.event.skillsNeeded;
+		SkillRequest.populate(eventRequest.event.skillsNeeded,'skill requiredUsers',function(err,doc){
+			console.log(doc);
+			req.eventRequest = eventRequest;
+			next();
+		});
 	});
 };
 

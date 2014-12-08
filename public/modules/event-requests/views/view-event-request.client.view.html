@@ -1,16 +1,62 @@
 <section data-ng-controller="EventRequestsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="eventRequest.name"></h1>
+	<div class="row page-header">
+		<div class="col-sm-6">
+			<h3 data-ng-bind="eventRequest.event.name"></h3>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-4 event-date">
+			<span data-ng-bind="eventRequest.event.time"> </span> 
+			<b>&middot;</b> 
+			<span data-ng-bind="eventRequest.event.date | date:'longDate'"> </span>  
+			<div class="top-right" data-ng-bind="eventRequest.event.location"></div>
+		</div>
 	</div>
-	<div class="pull-right" data-ng-show="authentication.user._id == eventRequest.user._id">
-		<a class="btn btn-primary" href="/#!/event-requests/{{eventRequest._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
+    
+    <div class="row">
+		<div class="col-md-12">
+			<a class="project-on-event" href="/#!/projects/{{eventRequest.event.project._id}}" data-ng-bind="eventRequest.event.project.name"></a>
+		</div>
 	</div>
-	<small>
+    
+	<div class="row">
+		<div class="col-md-8">
+			<p class="" data-ng-bind="eventRequest.event.description"></p>
+		</div>
+	</div>
+    
+    <div class="row">
+		<div class="col-md-5">
+			<span class="event-section-header">Requested Event Participants:</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+		{{eventRequest}}
+			<accordion close-others="false">
+				<accordion-group  is-open="isopen"
+					  ng-repeat="skillRequest in eventRequest.event.skillsNeeded">
+					  <accordion-heading>
+						  {{skillRequest.skill.skill}}                      
+						  <i class="pull-right glyphicon"
+								ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
+					  </accordion-heading>
+
+					  <div class="row" >
+							<div class="col-md-12">
+								<p>Number of Requested: {{skillRequest.numRequested}}</p>
+								<p>Required Users:</p>    
+								<ul>
+									<li data-ng-repeat="user in skillRequest.requiredUsers" ng-if="user!=undefined">
+									{{user.firstName}} {{user.lastName}}
+									</li>
+								</ul>
+							</div>
+					</div>
+				  </accordion-group>
+			  </accordion>
+		</div>
+	</div>
+
 		<em class="text-muted">
 			Posted on
 			<span data-ng-bind="eventRequest.created | date:'mediumDate'"></span>

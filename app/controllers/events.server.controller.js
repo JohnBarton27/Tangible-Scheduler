@@ -65,10 +65,11 @@ exports.create = function(req, res) {
 							{$push: {'skillsNeeded': srequest._id}},
 							{safe: true, upsert: true},
 							function(err3, model) {
+								if(err3)
 								console.log('error finding event' + err3);
 							}
 						);
-
+						/*
 						//Create Event Requests for required users
 						//Case where there are no required users
 						if (srequest.requiredUsers.length == 0) {
@@ -259,7 +260,7 @@ exports.create = function(req, res) {
 									}
 								}
 							});
-						}
+						}*/
 					}
 				});
 				/* 
@@ -289,20 +290,52 @@ exports.create = function(req, res) {
 								//add required users first
 								if(skillRequest.requiredUsers[i]!=undefined) {
 									eventRequest.user = skillRequest.requiredUsers[i];
+									eventRequest.required = true;
 								}
 								else {
 									//no more required users, lets find one
 									if(users[userCount]){
 										eventRequest.user = users[userCount];
 										userCount++;
+										eventRequest.required = false;
 									}
 								}
 								//console.log(eventRequest);
-								eventRequest.save(function(err3,srequest) {
+								eventRequest.save(function(err3,erequest) {
 									if (err3) {
 										console.log('error saving eventRequest' + err3);
 										return res.status(400).send({
 											message: errorHandler.getErrorMessage(err3)
+										});
+									}
+									else {
+										var transporter = nodemailer.createTransport({
+											service: 'Gmail',
+											auth: {
+												user: 'tangibletesting@gmail.com',
+												pass: 'tangibletesting123'
+											}
+										});
+
+										var msgtext = 'You are requested for an event! Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
+
+										User.findById(erequest.user, function(err, user) {
+											var mailOptions = {
+												from: 'tangibletesting@gmail.com',
+												to: user.email,
+												subject: 'Event Request',
+												text: msgtext
+											};
+
+											transporter.sendMail(mailOptions, function(err, info) {
+												if (err) {
+													   console.log(err);
+												}
+												else {
+													  console.log('Message send: ' + info.response);
+												}
+											});
+										
 										});
 									}
 								});
