@@ -50,20 +50,23 @@ exports.update = function(req, res) {
 		{
 			if(curUser.isAdmin)
 			{
-				updUser.roles = (updUser.isAdmin) ? 'admin' : 'user';
-				updUser.updated = Date.now();
-				updUser = _.extend(curUser, updUser);
-				updUser.save(function(err) {
-					if (err) {
-						return res.status(400).send({
-							message: errorHandler.getErrorMessage(err)
-						});
-					}
-					else
-					{
-						res.jsonp(updUser);
-					}
-				});
+					
+					updUser.roles = (updUser.isAdmin) ? ['admin'] : ['user'];
+					updUser.updated = Date.now();
+					User.findOne({ _id: updUser._id }, function (err, usr){
+						if (err) {
+							return res.status(400).send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						}
+						else
+						{
+							updUser = _.extend(usr, updUser);
+							console.log(JSON.stringify(updUser));
+							updUser.save();
+							res.jsonp(updUser);
+						}
+					});
 			}
 			else
 			{
