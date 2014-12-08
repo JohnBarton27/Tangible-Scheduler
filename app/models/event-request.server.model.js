@@ -10,6 +10,10 @@ var mongoose = require('mongoose'),
  * Event request Schema
  */
 var EventRequestSchema = new Schema({
+	required: {
+		type: Boolean,
+		default: false
+	},
 	response: {
 		type: String,
 		default: '',
