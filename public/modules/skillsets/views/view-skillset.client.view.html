@@ -11,7 +11,8 @@
 		</a>
 	</div>
     
-    <div class="col-sm-6">
+    <span class="col-sm-8">
+    <div class="row">
     <h4>Users with Skill:</h4>
     <div class="list-group" data-ng-init="findUsers()">
         <a data-ng-repeat="user in users | filter: { skills: skillset._id } | orderBy: 'lastName'" class="list-group-item">
@@ -29,6 +30,47 @@
     </div>
         </div>
     </div>
+    
+    <div class="row" data-ng-controller="EventsController">
+    <span ng-show='filteredEvents.length'>
+     <h5>Upcoming Events:</h5>
+        <div class="list-group" data-ng-init="findEvents()">
+       <a data-ng-repeat="event1 in events" data-ng-init="updatePastEvents(event1)"></a>
+       <a data-ng-repeat="event in filteredEvents = (events | orderBy: 'date' | filter: {skill : skillset.skill} | filter: { hasHappened : false })" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+					<div id="info">
+                        <span class="event-title" data-ng-bind="event.name"></span>
+                        <span class="event-project" data-ng-bind="event.project.name"></span>
+                    </div>
+                    <small class="list-group-item-text">
+						Starts at 
+						<span data-ng-bind="event.time"></span>
+						on
+						<span data-ng-bind="event.date | date: 'shortDate'"></span>
+						at
+						<span data-ng-bind="event.location"></span>
+					</small>
+				</a>
+    </div>
+    </span>
+    </div>
+    
+    <div class="row">
+    <span ng-show='filteredPosts.length'>
+    <h5>Recent Posts:</h5>
+        <div class="list-group" data-ng-init="findPosts()">
+        <a data-ng-repeat="post in filteredPosts = (posts | filter: { skill : skillset.skill } | limitTo : 5)" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
+            <h4 class="list-group-item-heading" data-ng-bind="post.name"></h4>
+                <small class="list-group-item-text">
+                    Posted on
+                    <span data-ng-bind="post.created | date:'medium'"></span>
+                    by
+                    <span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
+                </small>
+        </a>
+    </div> 
+    </span>
+    </div>
+    </span>
     
     <div class="col-sm-4">
     <h5>Add More Users:</h5>
@@ -48,40 +90,5 @@
             </h4>
         </a>
     </div>    
-    </div>
-
-    <div class="col-sm-6">
-        <h5>Events:</h5>
-        <div class="list-group" data-ng-init="findEvents()">
-       <a data-ng-repeat="event in events | orderBy: 'date' | filter: {skill : skillset.skill}" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
-					<div id="info">
-                        <span class="event-title" data-ng-bind="event.name"></span>
-                        <span class="event-project" data-ng-bind="event.project.name"></span>
-                    </div>
-                    <small class="list-group-item-text">
-						Starts at 
-						<span data-ng-bind="event.time"></span>
-						on
-						<span data-ng-bind="event.date | date: 'shortDate'"></span>
-						at
-						<span data-ng-bind="event.location"></span>
-					</small>
-				</a>
-    </div>    
-    </div>
-
-    <div class="col-sm-4">
-        <h5>Posts:</h5>
-        <div class="list-group" data-ng-init="findPosts()">
-        <a data-ng-repeat="post in posts | filter: { skill : skillset.skill }" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">
-            <h4 class="list-group-item-heading" data-ng-bind="post.name"></h4>
-                <small class="list-group-item-text">
-                    Posted on
-                    <span data-ng-bind="post.created | date:'medium'"></span>
-                    by
-                    <span data-ng-bind="post.user.firstName"></span> <span data-ng-bind="post.user.lastName"></span>
-                </small>
-        </a>
-    </div>    
-    </div>
+    </div>   
 </section>

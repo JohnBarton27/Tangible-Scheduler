@@ -18,8 +18,10 @@
                 </span>
             </span>
             
-            <span data-ng-init="findEvents()"></span>
-            <span data-ng-repeat="event in filteredEvents = (events | filter: { skill : skillset.skill })">
+            <span data-ng-init="findEvents()" data-ng-controller="EventsController">
+            <span data-ng-repeat="event in events" data-ng-init="updatePastEvents(event)"></span>
+            </span>
+            <span data-ng-repeat="event in filteredEvents = (events | filter: { skill : skillset.skill } | filter:  { hasHappened : false } )">
                 <span ng-if=$last>
                     <span>Events: {{filteredEvents.length}}</span>
                 </span>
