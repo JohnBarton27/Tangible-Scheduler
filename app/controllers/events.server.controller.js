@@ -97,7 +97,6 @@ exports.create = function(req, res) {
 												}
 
 												if (skip) {
-													continue;
 												}
 												else {
 													usedUsersID[j] = use._id;
@@ -118,9 +117,7 @@ exports.create = function(req, res) {
 															    }
 															});
 
-															var msgtext = 'You '.concat('are requested to appear
-																at ', newEvent.name, '. Please respond to this email
-																with your attending status.');
+															var msgtext = 'You are requested';
 															var mailOptions = {
 															    from: 'tangibletesting@gmail.com',
 															    to: newER.user.email,
@@ -173,9 +170,7 @@ exports.create = function(req, res) {
 												    }
 												});
 
-												var msgtext = 'You '.concat('are requested to appear
-													at ', newEvent.name, '. Please respond to this email
-													with your attending status.');
+												var msgtext = 'You ';
 												var mailOptions = {
 												    from: 'tangibletesting@gmail.com',
 												    to: newER.user.email,
@@ -220,7 +215,6 @@ exports.create = function(req, res) {
 												}
 
 												if (skip) {
-													continue;
 												}
 												else {
 													usedUsersID[usedUsersID.length] = use._id;
@@ -241,9 +235,7 @@ exports.create = function(req, res) {
 															    }
 															});
 
-															var msgtext = 'You '.concat('are requested to appear
-																at ', newEvent.name, '. Please respond to this email
-																with your attending status.');
+															var msgtext = 'You ';
 															var mailOptions = {
 															    from: 'tangibletesting@gmail.com',
 															    to: newER.user.email,
