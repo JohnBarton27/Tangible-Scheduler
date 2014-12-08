@@ -48,6 +48,10 @@ var EventSchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	usersAttending: [{
+		type: Schema.ObjectId,
+		ref: 'User'
+	}],
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

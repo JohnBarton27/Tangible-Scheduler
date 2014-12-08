@@ -69,198 +69,7 @@ exports.create = function(req, res) {
 								console.log('error finding event' + err3);
 							}
 						);
-						/*
-						//Create Event Requests for required users
-						//Case where there are no required users
-						if (srequest.requiredUsers.length == 0) {
-							var usedUsersID = [];
-							//count how many users available with requested skill
-							Users.count({'skills': srequest.skill}, function(err, c) {
-								if (err) {
-									console.log('Error');
-								}
-								else {
-									for (var j = 0; j < srequest.numRequested; j++) {
-										Users.findOne({'skills': srequest.skill}, null, {skip: Math.floor(Math.random()*c)}, function(err, use) {
-											if (err) {
-												console.log('Error');
-											}
-											else {
-												//check if user has already been used
-												var skip = false;
-												for (var k = 0; k < usedUsersID.length; k++) {
-													//User has already been used
-													if (usedUsersID[k] == use._id) {
-														j--;
-														skip = true;
-														break;
-													}
-												}
 
-												if (skip) {
-												}
-												else {
-													usedUsersID[j] = use._id;
-													var EReq = new EventRequest({
-														event: newEvent,
-														user: use
-													});
-													EReq.save(function(err, newER) {
-														if (err) {
-															console.log("Error");
-														}
-														else {
-															var transporter = nodemailer.createTransport({
-															    service: 'Gmail',
-															    auth: {
-															        user: 'tangibletesting@gmail.com',
-															        pass: '$tangibletesting123'
-															    }
-															});
-
-															var msgtext = 'You are requested';
-															var mailOptions = {
-															    from: 'tangibletesting@gmail.com',
-															    to: newER.user.email,
-															    subject: 'Event Request',
-															    text: msgtext
-															};
-
-															transporter.sendMail(mailOptions, function(err, info) {
-															    if (err) {
-															           console.log(err);
-															    }
-															    else {
-															          console.log('Message send: ' + info.response);
-															    }
-															});
-														}
-													});
-												}
-											}
-										});
-									}
-								}
-							});
-						}
-						//Case where there are requried users
-						else {
-							//Make and mail each event request for the required users
-							var usedUsersID = [];
-							for (var j = 0; j < srequest.requiredUsers.length; j++) {
-								Users.findById(srequest.requiredUsers[j]._id, function(err, fuser) {
-									if (err) {
-										console.log('Error');
-									}
-									else {
-										usedUsersID[usedUsersID.length] = fuser._id;
-										var EReq = new EventRequest({
-											event: newEvent,
-											user: fuser
-										});
-										EReq.save(function(err, newER) {
-											if (err) {
-												console.log("Error");
-											}
-											else {
-												var transporter = nodemailer.createTransport({
-												    service: 'Gmail',
-												    auth: {
-												        user: 'tangibletesting@gmail.com',
-												        pass: 'tangibletesting123'
-												    }
-												});
-
-												var msgtext = 'You ';
-												var mailOptions = {
-												    from: 'tangibletesting@gmail.com',
-												    to: newER.user.email,
-												    subject: 'Event Request',
-												    text: msgtext
-												};
-
-												transporter.sendMail(mailOptions, function(err, info) {
-												    if (err) {
-												           console.log(err);
-												    }
-												    else {
-												          console.log('Message send: ' + info.response);
-												    }
-												});
-											}
-										});
-									}
-								})
-							}
-							//now go back and do the random amount of users left
-							Users.count({'skills': srequest.skill}, function(err, c) {
-								if (err) {
-									console.log('Error');
-								}
-								else {
-									for (var j = 0; j < srequest.numRequested - usedUsersID.length; j++) {
-										Users.findOne({'skills': srequest.skill}, null, {skip: Math.floor(Math.random()*c)}, function(err, use) {
-											if (err) {
-												console.log('Error');
-											}
-											else {
-												//check if user has already been used
-												var skip = false;
-												for (var k = 0; k < usedUsersID.length; k++) {
-													//User has already been used
-													if (usedUsersID[k] == use._id) {
-														j--;
-														skip = true;
-														break;
-													}
-												}
-
-												if (skip) {
-												}
-												else {
-													usedUsersID[usedUsersID.length] = use._id;
-													var EReq = new EventRequest({
-														event: newEvent,
-														user: use
-													});
-													EReq.save(function(err, newER) {
-														if (err) {
-															console.log("Error");
-														}
-														else {
-															var transporter = nodemailer.createTransport({
-															    service: 'Gmail',
-															    auth: {
-															        user: 'tangibletesting@gmail.com',
-															        pass: 'tangibletesting123'
-															    }
-															});
-
-															var msgtext = 'You ';
-															var mailOptions = {
-															    from: 'tangibletesting@gmail.com',
-															    to: newER.user.email,
-															    subject: 'Event Request',
-															    text: msgtext
-															};
-
-															transporter.sendMail(mailOptions, function(err, info) {
-															    if (err) {
-															           console.log(err);
-															    }
-															    else {
-															          console.log('Message send: ' + info.response);
-															    }
-															});
-														}
-													});
-												}
-											}
-										});
-									}
-								}
-							});
-						}*/
 					}
 				});
 				/* 
@@ -309,33 +118,33 @@ exports.create = function(req, res) {
 										});
 									}
 									else {
-										var transporter = nodemailer.createTransport({
-											service: 'Gmail',
-											auth: {
-												user: 'tangibletesting@gmail.com',
-												pass: 'tangibletesting123'
-											}
-										});
-
-										var msgtext = 'You are requested for an event! Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
-
 										User.findById(erequest.user, function(err, user) {
+											var transporter = nodemailer.createTransport({
+											    service: 'Gmail',
+											    auth: {
+											        user: 'tangibletesting@gmail.com',
+											        pass: 'tangibletesting123'
+											    }
+											});
+											var msgtext = 'You are requested for an event! Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
+											
 											var mailOptions = {
-												from: 'tangibletesting@gmail.com',
-												to: user.email,
-												subject: 'Event Request',
-												text: msgtext
+											    from: 'tangibletesting@gmail.com',
+											    to: user.email,
+											    subject: 'Event Request',
+											    text: msgtext
 											};
 
 											transporter.sendMail(mailOptions, function(err, info) {
-												if (err) {
-													   console.log(err);
-												}
-												else {
-													  console.log('Message send: ' + info.response);
-												}
+											    if (err) {
+											           console.log(err);
+											    }
+											    else {
+											          console.log('Message send: ' + info.response);
+											    }
 											});
-										
+
+											transporter.close();
 										});
 									}
 								});
@@ -343,9 +152,6 @@ exports.create = function(req, res) {
 						}
 					});		
 			}
-			//now that weve created the skills requests, use them to build event requests
-			//start sending emails here?
-			
 			res.jsonp(event);
 		}	
 	});
