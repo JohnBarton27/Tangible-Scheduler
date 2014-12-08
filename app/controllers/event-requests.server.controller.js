@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
  * Create a Event request
  */
 exports.create = function(req, res) {
-	var eventRequest = new EventRequest(req.body);
+var eventRequest = new EventRequest(req.body);
 	eventRequest.user = req.user;
 
 	eventRequest.save(function(err) {

@@ -18,12 +18,12 @@ var express = require('express'),
 	flash = require('connect-flash'),
 	config = require('./config'),
 	consolidate = require('consolidate'),
+	Agenda = require('agenda'),
 	path = require('path');
 
 module.exports = function(db) {
 	// Initialize express app
 	var app = express();
-
 	// Globbing model files
 	config.getGlobbedFiles('./app/models/**/*.js').forEach(function(modelPath) {
 		require(path.resolve(modelPath));

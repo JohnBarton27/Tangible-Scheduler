@@ -8,6 +8,8 @@ var mongoose = require('mongoose'),
 	Event = mongoose.model('Event'),
 	Project = mongoose.model('Project'),
 	SkillRequest = mongoose.model('SkillRequest'),
+	EventRequest = mongoose.model('EventRequest'),
+	User = mongoose.model('User'),
 	_ = require('lodash');
 
 /**
@@ -27,7 +29,8 @@ exports.create = function(req, res) {
 			{$push: {'events': event}},
 			{safe: true, upsert: true},
 			function(err, model) {
-				console.log(err);
+				if(err)
+				console.log('Error adding project:' + err);
 			}
 		);
 	}
@@ -59,21 +62,66 @@ exports.create = function(req, res) {
 							newEvent._id,
 							{$push: {'skillsNeeded': srequest._id}},
 							{safe: true, upsert: true},
-							function(err, model) {
-								console.log('error finding event' + err);
+							function(err3, model) {
+								console.log('error finding event' + err3);
 							}
 						);
 
 					}
 				});
+				/* 
+				 * Create event-requests based on the skillrequest
+				 * there is an event request given to a user for every numRequested in skillRequest.
+				 */
+				//setup to add required users	
+				if(skillRequest.requiredUsers === undefined) {
+					skillRequest.requiredUsers = [];
+				}
+				User
+					.find()
+					.where('skills').equals(skillRequest.skill)
+					.where('_id').nin(skillRequest.requiredUsers)
+					.sort('-created').exec(function(err, users) {
+						if (err) {
+							return res.status(400).send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						} else {
+							var userCount =0;
+							for(var i=0; i < skillRequest.numRequested; i++) {
+								//begin building event
+								var eventRequest = new EventRequest();
+								eventRequest.event = event._id;
+								
+								//add required users first
+								if(skillRequest.requiredUsers[i]!=undefined) {
+									eventRequest.user = skillRequest.requiredUsers[i];
+								}
+								else {
+									//no more required users, lets find one
+									if(users[userCount]){
+										eventRequest.user = users[userCount];
+										userCount++;
+									}
+								}
+								//console.log(eventRequest);
+								eventRequest.save(function(err3,srequest) {
+									if (err3) {
+										console.log('error saving eventRequest' + err3);
+										return res.status(400).send({
+											message: errorHandler.getErrorMessage(err3)
+										});
+									}
+								});
+							}
+						}
+					});		
 			}
-			
-
+			//now that weve created the skills requests, use them to build event requests
 			//start sending emails here?
-
-			res.jsonp(event);
 			
-		}
+			res.jsonp(event);
+		}	
 	});
 };
 
@@ -157,3 +205,6 @@ exports.hasAuthorization = function(req, res, next) {
 	}
 	next();
 };
+
+
+

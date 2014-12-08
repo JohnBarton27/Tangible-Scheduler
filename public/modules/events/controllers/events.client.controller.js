@@ -17,9 +17,14 @@ function getSkills(form){
 		var newSkill = {};
 		newSkill.skill = skill;
 		if(form[skill][0]!= undefined)
-			newSkill.numRequested  = form[skill][0];
-		if(form[skill][1]!= undefined)
+			newSkill.numRequested = form[skill][0];
+		else
+			newSkill.numRequested = 1;
+		if(form[skill][1]!= undefined) {
 			newSkill.requiredUsers = form[skill][1];
+			if(newSkill.requiredUsers.length > newSkill.numRequested)
+				newSkill.numRequested = newSkill.requiredUsers.length;
+		}
 		skills.push(newSkill);	
 	}
 
@@ -49,7 +54,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 		// Create new Event
 		$scope.create = function() {
 			var chosenSkills = getSkills($scope.models);	
-			console.log("ChosenSkills: " + chosenSkills);
+			//console.log("ChosenSkills: " + chosenSkills);
 			// Create new Event object
 			var event = new Events ({
 				name:           this.name,

@@ -99,3 +99,20 @@ exports.list = function(req, res) { User.find().sort('-created').exec(function(e
 		}
 	});
 };
+
+/*
+ * Find user by skill
+ */
+exports.findBySkill = function(req, res) {
+	User.find()
+	.where('skills').equals(req.params.skillId)
+	.sort('-created').exec(function(err, users) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(users);
+		}
+	});
+};
