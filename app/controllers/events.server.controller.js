@@ -69,6 +69,7 @@ exports.create = function(req, res) {
 							}
 						);
 
+						/*
 						//Create Event Requests for required users
 						//Case where there are no required users
 						if (srequest.requiredUsers.length == 0) {
@@ -262,6 +263,9 @@ exports.create = function(req, res) {
 						}
 					}
 				});
+
+				*/
+
 				/* 
 				 * Create event-requests based on the skillrequest
 				 * there is an event request given to a user for every numRequested in skillRequest.
@@ -305,12 +309,39 @@ exports.create = function(req, res) {
 											message: errorHandler.getErrorMessage(err3)
 										});
 									}
+									else {
+										srequest.populate('user', function(err, popdoc) {
+											var transporter = nodemailer.createTransport({
+											    service: 'Gmail',
+											    auth: {
+											        user: 'tangibletesting@gmail.com',
+											        pass: 'tangibletesting123'
+											    }
+											});
+
+											var msgtext = 'testing event request';
+											var mailOptions = {
+											    from: 'tangibletesting@gmail.com',
+											    to: popdoc.user.email,
+											    subject: 'Event Request',
+											    text: msgtext
+											};
+
+											transporter.sendMail(mailOptions, function(err, info) {
+											    if (err) {
+											           console.log(err);
+											    }
+											    else {
+											          console.log('Message send: ' + info.response);
+											    }
+											});
+										});
+									}
 								});
 							}
 						}
 					});		
 			}
-			//now that weve created the skills requests, use them to build event requests
 			//start sending emails here?
 			
 			res.jsonp(event);
