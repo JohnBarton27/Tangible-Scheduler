@@ -51,6 +51,26 @@
     </div>
 
     <div class="col-sm-6">
+        <h5>Events:</h5>
+        <div class="list-group" data-ng-init="findEvents()">
+       <a data-ng-repeat="event in events | orderBy: 'date' | filter: {skill : skillset.skill}" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+					<div id="info">
+                        <span class="event-title" data-ng-bind="event.name"></span>
+                        <span class="event-project" data-ng-bind="event.project.name"></span>
+                    </div>
+                    <small class="list-group-item-text">
+						Starts at 
+						<span data-ng-bind="event.time"></span>
+						on
+						<span data-ng-bind="event.date | date: 'shortDate'"></span>
+						at
+						<span data-ng-bind="event.location"></span>
+					</small>
+				</a>
+    </div>    
+    </div>
+
+    <div class="col-sm-4">
         <h5>Posts:</h5>
         <div class="list-group" data-ng-init="findPosts()">
         <a data-ng-repeat="post in posts | filter: { skill : skillset.skill }" data-ng-href="#!/posts/{{post._id}}" class="list-group-item">

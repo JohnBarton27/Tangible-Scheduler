@@ -17,6 +17,13 @@
                     <span>Posts: {{filteredPosts.length}}</span>
                 </span>
             </span>
+            
+            <span data-ng-init="findEvents()"></span>
+            <span data-ng-repeat="event in filteredEvents = (events | filter: { skill : skillset.skill })">
+                <span ng-if=$last>
+                    <span>Events: {{filteredEvents.length}}</span>
+                </span>
+            </span>
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!skillsets.$resolved || skillsets.length">

@@ -1,8 +1,8 @@
 'use strict';
 
 // Skillsets controller
-angular.module('skillsets').controller('SkillsetsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Skillsets', 'Users', 'Posts',
-	function($scope, $stateParams, $location, Authentication, Skillsets, Users, Posts ) {
+angular.module('skillsets').controller('SkillsetsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Skillsets', 'Users', 'Posts', 'Events',
+	function($scope, $stateParams, $location, Authentication, Skillsets, Users, Posts, Events ) {
 		$scope.authentication = Authentication;
 
 		// Create new Skillset
@@ -76,6 +76,11 @@ angular.module('skillsets').controller('SkillsetsController', ['$scope', '$state
         // Find a list of Posts
 		$scope.findPosts = function() {
 			$scope.posts = Posts.query();
+		};
+        
+        // Find a list of Events
+		$scope.findEvents = function() {
+			$scope.events = Events.query();
 		};
         
         $scope.addSkill = function(skillset) {
