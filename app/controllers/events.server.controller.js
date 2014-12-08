@@ -146,8 +146,6 @@ exports.create = function(req, res) {
 						}
 					});		
 			}
-			//start sending emails here?
-			
 			res.jsonp(event);
 		}	
 	});
