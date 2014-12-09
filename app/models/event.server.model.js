@@ -23,7 +23,7 @@ var EventSchema = new Schema({
 		trim: true
 	},
 	date: {
-		type: String,
+		type: Date,
 		required: 'Please include Event date'
 	},
     time: {
@@ -55,7 +55,11 @@ var EventSchema = new Schema({
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
-	}
+	},
+    hasHappened: {
+        type: Boolean,
+        default: false
+    }
 });
 
 mongoose.model('Event', EventSchema);

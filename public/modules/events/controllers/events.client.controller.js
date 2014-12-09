@@ -42,6 +42,19 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
             $scope.dateRange = $scope.dateToday;
         };
         
+        
+        $scope.updatePastEvents = function(event) {            
+            if(new Date(event.date) <= new Date()) {
+                event.hasHappened = true;
+            } else {
+                event.hasHappened = false;
+            }
+        };
+        
+        $scope.getDate = function(event) {
+            return event.date;
+        };
+        
 		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
 		// Create new Event
