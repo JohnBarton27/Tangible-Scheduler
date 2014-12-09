@@ -132,14 +132,17 @@ exports.create = function(req, res) {
 											if (user.phoneProvider === 'none') {
 												msgto = user.email;
 											}
-											else if (user.phoneProvider === 'Verizon') {
+											else if (user.phoneProvider.toLowerCase() === 'verizon') {
 												msgto = user.phone.replace(/^-/, '') + '@vtext.com';
 											}
-											else if (user.phoneProvider === 'ATT') {
+											else if (user.phoneProvider.toLowerCase() === 'att') {
 												msgto = user.phone.replace(/^-/, '') + '@txt.att.net';
 											}
-											else if (user.phoneProvider === 'TMobile') {
+											else if (user.phoneProvider.toLowerCase() === 'tmobile') {
 												msgto = user.phone.replace(/^-/, '') + '@tmomail.net';
+											}
+											else if (user.phoneProvider.toLowerCase() === 'sprint') {
+												msgto = user.phone.replace(/^-/, '') + '@messaging.sprintpcs.com';
 											}
 
 											var mailOptions = {
