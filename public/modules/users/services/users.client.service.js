@@ -7,6 +7,14 @@ angular.module('users').factory('Users', ['$resource',
 			update: {
 				method: 'PUT'
 			},
+			addSkill: {
+				method: 'PUT',
+				url: 'users/skill/:userId/:skillId',
+                params: {
+                    userId: 'userId',
+                    skillId: 'skillId'
+                }
+			},
             userByID: {
                 method: 'GET',
                 isArray: false,

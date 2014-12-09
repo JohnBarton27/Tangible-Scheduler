@@ -121,3 +121,16 @@ exports.userByID = function(req, res, next, id) { User.findById(id).exec(functio
     next();
 });
 };
+
+
+exports.addSkill = function(req, res, next, userId, skillId) {
+	User.findOne({
+		_id: userId
+	}).exec(function(err, user) {
+		if (err) return next(err);
+		if (!user) return next(new Error('Failed to load User ' + userId));
+		user.skills.push(skillId);
+		user.save();
+		next();
+	});
+};

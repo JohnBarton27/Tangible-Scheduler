@@ -18,6 +18,7 @@ module.exports = function(app) {
 
     // Setup users by ID api
     app.route('/users/:userId').get(users.requiresLogin, users.read);
+    app.route('/users/skill/:userId/:skillId').put(users.addSkill);
 
 	// Setting up the users password api
 	app.route('/users/password').post(users.changePassword);

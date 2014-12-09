@@ -123,7 +123,7 @@ describe('Event Model Unit Tests:', function() {
 				description: 'this is a project description',
 				type:  'Type',
 				//user: user
-			});;
+			});
 
 			return event.save(function(err) {
 				should.not.exist(err);
