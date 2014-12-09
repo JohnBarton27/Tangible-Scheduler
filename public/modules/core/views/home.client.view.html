@@ -3,7 +3,7 @@
   <!--First row: for newsfeed and eventslist -->
     <!-- Don't even try and load data without authentication -->
     <div class="row" data-ng-if="hasAuth" data-ng-init="findSkillsets()">
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <div class="newsfeed">
             <a href="#!/posts"><u class="section-heading">News Feed</u></a>
             <section data-ng-controller="PostsController" data-ng-init="find()">
@@ -32,7 +32,7 @@
         </div>
                     
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
           <div class="eventslist">
               <a href="#!/events"><u class="section-heading">Events List</u></a>
               <section data-ng-controller="EventsController" data-ng-init="find()">
