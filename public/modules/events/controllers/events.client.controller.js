@@ -16,11 +16,11 @@ function getSkills(form){
 	for(var skill in form){
 		var newSkill = {};
 		newSkill.skill = skill;
-		if(form[skill][0]!= undefined)
+		if(form[skill][0]!== undefined)
 			newSkill.numRequested = form[skill][0];
 		else
 			newSkill.numRequested = 1;
-		if(form[skill][1]!= undefined) {
+		if(form[skill][1]!== undefined) {
 			newSkill.requiredUsers = form[skill][1];
 			if(newSkill.requiredUsers.length > newSkill.numRequested)
 				newSkill.numRequested = newSkill.requiredUsers.length;

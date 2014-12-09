@@ -97,7 +97,7 @@ exports.create = function(req, res) {
 								eventRequest.event = event._id;
 								
 								//add required users first
-								if(skillRequest.requiredUsers[i]!=undefined) {
+								if(skillRequest.requiredUsers[i]!==undefined) {
 									eventRequest.user = skillRequest.requiredUsers[i];
 									eventRequest.required = true;
 								}
@@ -133,13 +133,13 @@ exports.create = function(req, res) {
 												msgto = user.email;
 											}
 											else if (user.phoneProvider === 'Verizon') {
-												msgto = user.phone.replace(/^-/, "") + "@vtext.com";
+												msgto = user.phone.replace(/^-/, '') + '@vtext.com';
 											}
 											else if (user.phoneProvider === 'ATT') {
-												msgto = user.phone.replace(/^-/, "") + "@txt.att.net";
+												msgto = user.phone.replace(/^-/, '') + '@txt.att.net';
 											}
 											else if (user.phoneProvider === 'TMobile') {
-												msgto = user.phone.replace(/^-/, "") + "@tmomail.net";
+												msgto = user.phone.replace(/^-/, '') + '@tmomail.net';
 											}
 
 											var mailOptions = {
