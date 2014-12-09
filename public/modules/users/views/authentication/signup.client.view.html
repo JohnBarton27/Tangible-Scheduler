@@ -36,7 +36,16 @@
 					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
 				</div>
 				<div class="form-group">
-						<label class="control-label" for="roles">Admin?</label>
+					<label for="phoneProvider">Preferred communication</label>
+				 	<select id="phoneProvider" name="phoneProvider" class="form-control" data-ng-model="credentials.phoneProvider" placeholder="Choose from dropdown">
+ 					 	 <option value="none">Email</option>
+ 						 <option value="att">Phone - AT&T</option>
+ 						 <option value="tmobile">Phone - T-Mobile</option>
+ 						 <option value="verizon">Phone - Verizon</option>
+					</select> 
+				</div>	
+				<div class="form-group">
+						<label for="roles">Admin?</label>
 						<div class="controls">
 							<input type="checkbox" data-ng-model="credentials.isAdmin" ng-true-value="true" ng-false-value="false" id="roles" class="form-control">
 						</div>
