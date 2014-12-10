@@ -70,105 +70,107 @@ exports.create = function(req, res) {
 							}
 						);
 
+						/* 
+						 * Create event-requests based on the skillrequest
+						 * there is an event request given to a user for every numRequested in skillRequest.
+						 */
+						//setup to add required users	
+						if(srequest.requiredUsers === undefined) {
+							srequest.requiredUsers = [];
+						}
+						User
+							.find()
+							.where('skills').equals(srequest.skill)
+							.where('_id').nin(srequest.requiredUsers)
+							.sort('-created').exec(function(err, users) {
+								if (err) {
+									return res.status(400).send({
+										message: errorHandler.getErrorMessage(err)
+									});
+								} else {
+									var userCount =0;
+									for(var i=0; i < srequest.numRequested; i++) {
+										//begin building event
+										var eventRequest = new EventRequest();
+										eventRequest.event = event._id;
+										
+										//add required users first
+										if(srequest.requiredUsers[i]!==undefined) {
+											eventRequest.user = srequest.requiredUsers[i];
+											eventRequest.required = true;
+										}
+										else {
+											//no more required users, lets find one
+											if(users[userCount]){
+												eventRequest.user = users[userCount];
+												userCount++;
+												eventRequest.required = false;
+											}
+										}
+
+										//console.log(eventRequest);
+										eventRequest.save(function(err3,erequest) {
+											if (err3) {
+												console.log('error saving eventRequest' + err3);
+												return res.status(400).send({
+													message: errorHandler.getErrorMessage(err3)
+												});
+											}
+											else {
+												
+												//get user for email info
+												User.findById(erequest.user, function(err, user) {
+													var transporter = nodemailer.createTransport({
+														service: 'Gmail',
+														auth: {
+															user: 'tangiblescheduler@gmail.com',
+															pass: 'tangible123'
+														}
+													});
+													var msgtext = 'You are requested for an event - ' + event.name;
+													// Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
+													var msgto = '';
+
+													if ( user.phoneProvider === undefined || user.phoneProvider === 'none') {
+														msgto = user.email;
+													}
+													else if (user.phoneProvider.toLowerCase() === 'verizon') {
+														msgto = user.phone.replace(/^-/, '') + '@vtext.com';
+													}
+													else if (user.phoneProvider.toLowerCase() === 'att') {
+														msgto = user.phone.replace(/^-/, '') + '@txt.att.net';
+													}
+													else if (user.phoneProvider.toLowerCase() === 'tmobile') {
+														msgto = user.phone.replace(/^-/, '') + '@tmomail.net';
+													}
+													else if (user.phoneProvider.toLowerCase() === 'sprint') {
+														msgto = user.phone.replace(/^-/, '') + '@messaging.sprintpcs.com';
+													}
+
+													var mailOptions = {
+														from: 'tangibletesting@gmail.com',
+														to: msgto,
+														subject: 'Event Request',
+														text: msgtext
+													};
+													transporter.sendMail(mailOptions, function(err, info) {
+														if (err) {
+															   console.log(err);
+														}
+														else {
+															  console.log('Message send: ' + info.response);
+														}
+													});
+													transporter.close();
+												});
+											}
+										});
+									}
+								}
+							});
 					}
 				});
-				/* 
-				 * Create event-requests based on the skillrequest
-				 * there is an event request given to a user for every numRequested in skillRequest.
-				 */
-				//setup to add required users	
-				if(skillRequest.requiredUsers === undefined) {
-					skillRequest.requiredUsers = [];
-				}
-				User
-					.find()
-					.where('skills').equals(skillRequest.skill)
-					.where('_id').nin(skillRequest.requiredUsers)
-					.sort('-created').exec(function(err, users) {
-						if (err) {
-							return res.status(400).send({
-								message: errorHandler.getErrorMessage(err)
-							});
-						} else {
-							var userCount =0;
-							for(var i=0; i < skillRequest.numRequested; i++) {
-								//begin building event
-								var eventRequest = new EventRequest();
-								eventRequest.event = event._id;
-								
-								//add required users first
-								if(skillRequest.requiredUsers[i]!==undefined) {
-									eventRequest.user = skillRequest.requiredUsers[i];
-									eventRequest.required = true;
-								}
-								else {
-									//no more required users, lets find one
-									if(users[userCount]){
-										eventRequest.user = users[userCount];
-										userCount++;
-										eventRequest.required = false;
-									}
-								}
-								//console.log(eventRequest);
-								eventRequest.save(function(err3,erequest) {
-									if (err3) {
-										console.log('error saving eventRequest' + err3);
-										return res.status(400).send({
-											message: errorHandler.getErrorMessage(err3)
-										});
-									}
-									else {
-										User.findById(erequest.user, function(err, user) {
-											var transporter = nodemailer.createTransport({
-											    service: 'Gmail',
-											    auth: {
-											        user: 'tangiblescheduler@gmail.com',
-											        pass: 'tangible123'
-											    }
-											});
-											var msgtext = 'You are requested for an event - ' + event.name;
-                                            // Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
-											var msgto = '';
-
-											if (user.phoneProvider === 'none') {
-												msgto = user.email;
-											}
-											else if (user.phoneProvider.toLowerCase() === 'verizon') {
-												msgto = user.phone.replace(/^-/, '') + '@vtext.com';
-											}
-											else if (user.phoneProvider.toLowerCase() === 'att') {
-												msgto = user.phone.replace(/^-/, '') + '@txt.att.net';
-											}
-											else if (user.phoneProvider.toLowerCase() === 'tmobile') {
-												msgto = user.phone.replace(/^-/, '') + '@tmomail.net';
-											}
-											else if (user.phoneProvider.toLowerCase() === 'sprint') {
-												msgto = user.phone.replace(/^-/, '') + '@messaging.sprintpcs.com';
-											}
-
-											var mailOptions = {
-											    from: 'tangibletesting@gmail.com',
-											    to: msgto,
-											    subject: 'Event Request',
-											    text: msgtext
-											};
-
-											transporter.sendMail(mailOptions, function(err, info) {
-											    if (err) {
-											           console.log(err);
-											    }
-											    else {
-											          console.log('Message send: ' + info.response);
-											    }
-											});
-
-											transporter.close();
-										});
-									}
-								});
-							}
-						}
-					});		
+						
 			}
 			res.jsonp(event);
 		}	
