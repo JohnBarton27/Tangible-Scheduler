@@ -111,6 +111,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 		// Update existing Event
 		$scope.update = function() {
 			var event = $scope.event ;
+			console.log(event);
 
 			event.$update(function() {
 				$location.path('events/' + event._id);
@@ -148,8 +149,11 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 
 		// Find existing Event
 		$scope.findOne = function() {
-			$scope.event = Events.get({ 
+			Events.get({ 
 				eventId: $stateParams.eventId
+				}, function(response) {
+					$scope.event = response;
+					$scope.formatTime();
 			});
 		};
     
@@ -200,5 +204,14 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 		$scope.ismeridian = true;
 		$scope.timeChanged = function () {
 			$scope.time = $filter('date')($scope.mytime, 'shortTime');
+			$scope.event.time = $scope.time;
+		};
+		
+		
+		$scope.formatTime = function() {
+			var regex = /(\d+):(\d+) (\w+)/;
+			var time = regex.exec($scope.event.time);
+			$scope.mytime.setHours(parseInt(time[1])+(time[3] === 'PM' ? 12 : 0), time[2]);
+			console.log($scope.mytime);
 		};
 }]);

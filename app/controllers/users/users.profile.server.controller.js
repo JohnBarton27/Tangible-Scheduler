@@ -116,21 +116,21 @@ exports.list = function(req, res) { User.find().sort('-created').exec(function(e
  */
 exports.userByID = function(req, res, next, id) { User.findById(id).exec(function(err, user) {
     if (err) return next(err);
-    if (! user) return next(new Error('Failed to load Post ' + id));
+    if (! user) return next(new Error('Failed to load User ' + id));
     req.user = user;
     next();
 });
 };
 
 
-exports.addSkill = function(req, res, next, userId, skillId) {
+exports.addSkill = function(req, res, userId, skillId) {
 	User.findOne({
 		_id: userId
 	}).exec(function(err, user) {
-		if (err) return next(err);
-		if (!user) return next(new Error('Failed to load User ' + userId));
+		if (err) return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
 		user.skills.push(skillId);
 		user.save();
-		next();
 	});
 };

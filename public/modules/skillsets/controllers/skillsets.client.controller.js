@@ -89,7 +89,7 @@ angular.module('skillsets').controller('SkillsetsController', ['$scope', '$state
             user.addSkill(skillset);
         };
         
-        $scope.addSkillToUser = function(skillId,userId) {
+        $scope.addSkillToUser = function(userId,skillId) {
             Users.addSkill({userId: userId, skillId: skillId});
         };
               

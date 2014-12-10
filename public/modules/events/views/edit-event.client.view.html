@@ -31,7 +31,7 @@
 					<div class="form-group">
 						<label class="control-label" for="time">Time</label>
 						<div class="controls">
-							<timepicker data-ng-model="event.mytime" ng-change="timeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+							<timepicker data-ng-model="mytime" ng-change="timeChanged()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" data-ng-init=""></timepicker>
 						</div>
 						
 					</div>
@@ -45,24 +45,17 @@
 
 					<div class="form-group">
 						<label class="control-label" for="project">Project</label>
-						<select class="form-control" data-ng-model="project" id="project" data-ng-init="findProjects()">
-							<option data-ng-repeat="project in projects" ng-if="project!=undefined" data-ng-value="project._id">{{project.name}}</option>
-						</select>
+						<select class="form-control" data-ng-model="event.project" id="project" ng-options="project._id as project.name for project in projects" data-ng-init="findProjects()"></select>
 					</div>
 
-					<!--REPLACE WITH ACTUAL IMPLEMENTATION/ USED FOR TESTING -->
 					<div class="form-group">
                         <label class="control-label" for="skill">Skills Needed</label>
-						<select multiple="multiple" class="form-control" data-ng-model="skill" id="skill" data-ng-init="findSkills()" multiselect-dropdown>
-							<option data-ng-repeat="skill in skills" ng-if="skill!=undefined" data-ng-value="skill.skill">{{skill.skill}}</option>
-						</select>
+                        <select multiple class="form-control" data-ng-model="event.skills" id="skill" ng-options="skill._id as skill.skill for skill in skills" data-ng-init="findSkills()"></select>
 					</div>
 
 					<div class="form-group">
                         <label class="control-label" for="requsers">Users Needed</label>
-						<select multiple="multiple" class="form-control" data-ng-model="requsers" id="requsers" data-ng-init="findUsers()" multiselect-dropdown>
-							<option data-ng-repeat="requser in users" ng-if="requser!=undefined" data-ng-value="requser._id">{{requser.firstName}} {{requser.lastName}}</option>
-						</select>
+                        <select multiple class="form-control" data-ng-model="event.requsers" id="requsers" ng-options="requser._id as requser.firstName+' '+requser.lastName for requser in users" data-ng-init="findUsers()"></select>
 					</div>
                     
 <div class="form-group">
