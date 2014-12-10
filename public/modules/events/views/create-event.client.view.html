@@ -74,7 +74,7 @@
 										</div>
 										<label class="control-label" for="requsers">Required Users:</label>    
 											<select multiple="multiple" class="form-control" data-ng-model="models[skill._id][1]" id="requsers{{$index}}" data-ng-init="findUsers()" multiselect-dropdown>
-												<option data-ng-repeat="user in users" ng-if="user!=undefined" data-ng-value="user._id">
+												<option data-ng-repeat="user in users | filter: skill._id" ng-if="user!=undefined" data-ng-value="user._id">
 													
 													{{user.firstName}} {{user.lastName}}
 												
