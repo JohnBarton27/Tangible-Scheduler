@@ -122,11 +122,12 @@ exports.create = function(req, res) {
 											var transporter = nodemailer.createTransport({
 											    service: 'Gmail',
 											    auth: {
-											        user: 'tangibletesting@gmail.com',
-											        pass: 'tangibletesting123'
+											        user: 'tangiblescheduler@gmail.com',
+											        pass: 'tangible123'
 											    }
 											});
-											var msgtext = 'You are requested for an event! Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
+											var msgtext = 'You are requested for an event - ' + event.name;
+                                            // Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
 											var msgto = '';
 
 											if (user.phoneProvider === 'none') {
