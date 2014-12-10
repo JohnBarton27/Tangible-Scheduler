@@ -134,16 +134,16 @@ exports.create = function(req, res) {
 												msgto = user.email;
 											}
 											else if (user.phoneProvider.toLowerCase() === 'verizon') {
-												msgto = user.phone.replace(/^-/, '') + '@vtext.com';
+												msgto = user.phone.replace(/-/g, '') + '@vtext.com';
 											}
 											else if (user.phoneProvider.toLowerCase() === 'att') {
-												msgto = user.phone.replace(/^-/, '') + '@txt.att.net';
+												msgto = user.phone.replace(/-/g, '') + '@txt.att.net';
 											}
 											else if (user.phoneProvider.toLowerCase() === 'tmobile') {
-												msgto = user.phone.replace(/^-/, '') + '@tmomail.net';
+												msgto = user.phone.replace(/-/g, '') + '@tmomail.net';
 											}
 											else if (user.phoneProvider.toLowerCase() === 'sprint') {
-												msgto = user.phone.replace(/^-/, '') + '@messaging.sprintpcs.com';
+												msgto = user.phone.replace(/-/g, '') + '@messaging.sprintpcs.com';
 =======
 						/* 
 						 * Create event-requests based on the skillrequest
