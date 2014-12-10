@@ -32,16 +32,12 @@
 				<a href="/#!/signin">Sign In</a>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
-			<li ui-route="/signin" ng-class="{active: $uiRoute}">
-					<a href="/#!/signin">Messages	</a>
-			</li>
-		</ul>
 
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
 			<li class="dropdown">
 				<a id="user-menu" href="#" class="dropdown-toggle" data-toggle="dropdown">
-					<span data-ng-bind="authentication.user.firstName"></span> <span data-ng-bind="authentication.user.lastName"></span> <b class="caret"></b>
+                    <b class="caret"></b>
+					<span data-ng-bind="authentication.user.firstName"></span> <span data-ng-bind="authentication.user.lastName"></span> 
 				</a>
 				<ul class="dropdown-menu">
 					<li>
