@@ -19,32 +19,6 @@ var userFrom, userTo, message;
 describe('Message Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		userFrom = new User({
-			firstName: 'Full',
-			lastName: 'Name',
-			email: 'juandis007@gmail.com',
-			emailPassword: 
-			phone: 
-		});
-
-		userTo = new User({
-			firstName: 'Hot',
-			lastName: 'Mail',
-			email: 'juandis_007@hotmail.com',
-			phone: '7589632156',
-			password: 'passda'
-		});
-
-		userFrom.save(function() { 
-		});
-		userTo.save(function() {
-		});
-
-		message = new Message({
-			from: userFrom._id,
-			to: userTo._id,
-			subject: 'TESTING',
-			text: 'HOLY SHIT THIS IS A TEST'
-		});
 	});
 
 	describe('Method Save', function() {
@@ -56,31 +30,6 @@ describe('Message Model Unit Tests:', function() {
 		});
 
 		it('should be able to send the message', function(dont) {
-			var transporter = nodemailer.createTransport({
-				service: 'Gmail',
-				auth: {
-					user: message.from.email,
-					pass: message.from.emailPassword
-				}
-			});
-
-			var mailOptions = {
-				from: message.from.email,
-				to: message.to.email,
-				subject: message.subject,
-				text: message.text
-			};
-
-			transporter.sendMail(mailOptions, function(err, info) {
-				if (err) {
-					console.log(err);
-					done();
-				}
-				else {
-					console.log('Message send: ' + info.response);
-					done();
-				}
-			});
 		})
 	});
 
