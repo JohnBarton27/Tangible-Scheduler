@@ -15,7 +15,7 @@ var userFrom, userTo, message;
 
 /**
  * Unit tests
- */
+
 describe('Message Model Unit Tests:', function() {
 	beforeEach(function(done) {
 		userFrom = new User({
@@ -39,4 +39,4 @@ describe('Message Model Unit Tests:', function() {
 
 		done();
 	});
-});
+});*/
