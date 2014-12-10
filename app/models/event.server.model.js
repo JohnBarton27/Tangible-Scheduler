@@ -40,18 +40,18 @@ var EventSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
 	},
-	skill: [{
-			type: String,
-        	ref: 'Skillset'
-		}],
-	requsers: [{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'User'
-		}],
+	skillsNeeded: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'SkillRequest'
+	}],
 	created: {
 		type: Date,
 		default: Date.now
 	},
+	usersAttending: [{
+		type: Schema.ObjectId,
+		ref: 'User'
+	}],
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

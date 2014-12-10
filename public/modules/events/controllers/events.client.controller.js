@@ -2,35 +2,44 @@
 
 /*
  * getSkills will take the result of the submitted form from Event.create()
- * parsing the skills and users to match the mongo event model
+ * It will parse the data from form and turn bring together the users, skills and whether theyre required or not into skill-request objects.
  *
  * Model:
- * 	skillsNeeded [{
- *		skillset: refercnce _id to a skill,
- *		isRequired: boolean for is the skillset requied,
- *		users[{user._id}] is an array of userIds to reference
- * 	}]
+ * skillsNeeded [{
+	 * skillset: refercnce _id to a skill,
+	 * isRequired: boolean for is the skillset requied,
+	 * users[{user._id}] is an array of userIds to reference
+ * }]
  */
-/*function getSkills(form){
+function getSkills(form){
 	var skills = [];
-	var skillsChosen = form.skillsChosen;
-	//var usersChosen = form.usersChosen;
-	//console.log(form);
-	var i;
-	for(i=0; i < skillsChosen.length; i++){
-		var skill = {};
-		skill.skillSet = skillsChosen[i];
-		skill.isRequired = true;
-		//skill.users = [usersChosen[0]];
-	skills.push(skill);
+	for(var skill in form){
+		var newSkill = {};
+		newSkill.skill = skill;
+		if(form[skill][0]!== undefined)
+			newSkill.numRequested = form[skill][0];
+		else
+			newSkill.numRequested = 1;
+		if(form[skill][1]!== undefined) {
+			newSkill.requiredUsers = form[skill][1];
+			if(newSkill.requiredUsers.length > newSkill.numRequested)
+				newSkill.numRequested = newSkill.requiredUsers.length;
+		}
+		skills.push(newSkill);	
 	}
+
 	return skills;
-}*/
+}
+
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','Users',
-	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, Users ) {
+angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
+	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users ) {
         
-        //Date
+		$scope.authentication = Authentication;
+ 		
+		//used with event skills
+		$scope.models = {};       
+		//Date
         var d = new Date();
         var curr_date = d.getDate();
         var curr_month = d.getMonth()+1;
@@ -55,13 +64,13 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
             return event.date;
         };
         
-		$scope.authentication = Authentication;
 		//$scope.projects = Projects.query();
+
 		// Create new Event
 		$scope.create = function() {
-	    //var skills = getSkills(this);	
-		//console.log(skills);
-		// Create new Event object
+			var chosenSkills = getSkills($scope.models);	
+			//console.log("ChosenSkills: " + chosenSkills);
+			// Create new Event object
 			var event = new Events ({
 				name:           this.name,
                 description:    this.description,
@@ -69,8 +78,8 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
                 time:           this.time,
                 location:       this.location,
 				project:		this.project,
-				skill:   		this.skill,
-				requsers: 		this.requsers,
+				skills:			chosenSkills,
+				skillsNeeded:   this.skillRequestIds
 			});
 
 			// Redirect after save

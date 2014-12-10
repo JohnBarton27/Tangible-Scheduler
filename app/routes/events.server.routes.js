@@ -9,11 +9,14 @@ module.exports = function(app) {
 		.get(users.requiresLogin, events.list)
 		.post(users.requiresLogin, events.create);
 
+	
 	app.route('/events/:eventId')
 		.get(users.requiresLogin, events.read)
 		.put(users.requiresLogin, events.hasAuthorization, events.update)
 		.delete(users.requiresLogin, events.hasAuthorization, events.delete);
 
 	// Finish by binding the Event middleware
+
 	app.param('eventId', events.eventByID);
+
 };

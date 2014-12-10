@@ -43,6 +43,11 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
 	},
+	phoneProvider: {
+		type: String,
+		trim: true,
+		default: 'none',
+	},
 	email: {
 		type: String,
 		trim: true,
@@ -50,6 +55,10 @@ var UserSchema = new Schema({
 		validate: [validateLocalStrategyProperty, 'Please fill in your email'],
 		match: [/.+\@.+\..+/, 'Please fill a valid email address'],
 		unique: true
+	},
+	emailPassword: {
+		type: String,
+		default: ''
 	},
 	events: [{
 		type: mongoose.Schema.Types.ObjectId,

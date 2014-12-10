@@ -13,6 +13,7 @@
 		"postinstall": "bower install --config.interactive=false"
 	},
 	"dependencies": {
+		"agenda":"~0.6.25",
 		"express": "~4.7.2",
 		"express-session": "~1.7.2",
 		"body-parser": "~1.5.2",
