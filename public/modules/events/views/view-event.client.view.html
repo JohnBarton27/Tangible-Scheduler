@@ -44,11 +44,19 @@
 							<div class="col-md-12">
 								<p>Number of Requested: {{skillRequest.numRequested}}</p>
 								<p>Required Users:</p>    
-								<ul>
-									<li data-ng-repeat="user in skillRequest.requiredUsers" ng-if="user!=undefined">
-									{{user.firstName}} {{user.lastName}}
-									</li>
-								</ul>
+								
+                                
+                                <span data-ng-repeat="user in skillRequest.requiredUsers | orderBy:'lastName'" class="list-group-item">
+                                <!-- Checkmark: &#10004; X: &#10006; ?: ? -->
+                                <a style="float:right; color:#f3ec19; font-size:40px"> ? </a>
+                                <h4 class="list-group-item-heading">
+                                    <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
+                                </h4>
+                                <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
+                                <div>Email: <span data-ng-bind="user.email"></span></div>
+                            </span> 
+
+                                
 							</div>
 					</div>
 				  </accordion-group>
