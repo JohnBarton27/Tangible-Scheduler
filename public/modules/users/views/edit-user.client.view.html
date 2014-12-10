@@ -23,6 +23,18 @@
 					<label class="control-label" for="skills">Skills</label>
 					<select multiple class="form-control" ng-model="edituser.skills" id="skills" ng-options="skill._id as skill.skill for skill in skills" data-ng-init="findSkills()"></select>
 				</div>
+                
+                <div class="form-group">
+					<label for="phoneProvider">Preferred communication</label>
+				 	<select id="phoneProvider" name="PhoneProvider" class="form-control" data-ng-model = edituser.phoneProvider placeholder="Choose from dropdown">
+ 					 	 <option value="none">Email</option>
+ 						 <option value="att">Phone - AT&T</option>
+ 						 <option value="tmobile">Phone - T-Mobile</option>
+ 						 <option value="sprint">Phone - Sprint</option>
+ 						 <option value="verizon">Phone - Verizon</option>
+					</select> 
+				</div>	
+                
 				<div class="form-group">
 					<label class="control-label" for="isAdmin">Admin?</label>
 					<div class="controls">

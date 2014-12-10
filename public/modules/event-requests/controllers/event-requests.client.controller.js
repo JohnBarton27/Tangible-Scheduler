@@ -42,7 +42,7 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 		// Update existing Event request
 		$scope.update = function() {
 			var eventRequest = $scope.eventRequest ;
-
+            console.log(eventRequest);
 			eventRequest.$update(function() {
 				$location.path('event-requests/' + eventRequest._id);
 			}, function(errorResponse) {

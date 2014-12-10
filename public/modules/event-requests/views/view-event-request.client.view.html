@@ -25,43 +25,25 @@
 	</div>
     
     <div class="row">
-		<div class="col-md-5">
-			<span class="event-section-header">Requested Event Participants:</span>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4">
-		{{eventRequest}}
-			<accordion close-others="false">
-				<accordion-group  is-open="isopen"
-					  ng-repeat="skillRequest in eventRequest.event.skillsNeeded">
-					  <accordion-heading>
-						  {{skillRequest.skill.skill}}                      
-						  <i class="pull-right glyphicon"
-								ng-class="{'glyphicon-chevron-down': isopen, 'glyphicon-chevron-right': !isopen}"></i>
-					  </accordion-heading>
-
-					  <div class="row" >
-							<div class="col-md-12">
-								<p>Number of Requested: {{skillRequest.numRequested}}</p>
-								<p>Required Users:</p>    
-								<ul>
-									<li data-ng-repeat="user in skillRequest.requiredUsers" ng-if="user!=undefined">
-									{{user.firstName}} {{user.lastName}}
-									</li>
-								</ul>
-							</div>
-					</div>
-				  </accordion-group>
-			  </accordion>
-		</div>
+    <div class="list-group-item col-md-4">
+                                <!-- Checkmark: &#10004; X: &#10006; ?: ? -->
+                                <a ng-if="eventRequest.response == 'yes'" style="float:right; color:#f3ec19; font-size:40px"> &#10004; </a>
+                                 <a ng-if="eventRequest.response == 'no'" style="float:right; color:#f3ec19; font-size:40px"> &#10006; </a>
+                         <a ng-if="eventRequest.response == ''" style="float:right; color:#f3ec19; font-size:40px"> ? </a>       
+                                <h4 class="list-group-item-heading">
+                                    <span data-ng-bind="eventRequest.user.lastName"></span>, <span data-ng-bind="eventRequest.user.firstName"></span>
+                                </h4>
+                                <div>Phone Number: <span data-ng-bind="eventRequest.user.phone"></span></div>
+                                <div>Email: <span data-ng-bind="eventRequest.user.email"></span></div>
+                            </div> 
+        </div>
+        
 	</div>
 
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="eventRequest.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="eventRequest.user.displayName"></span>
-		</em>
-	</small>
+    <div class="row">
+    <a class="btn btn-primary" href="/#!/event-requests/{{eventRequest._id}}/edit">
+					<span>Edit Your Response</span>
+    </a>
+</div>
+
 </section>

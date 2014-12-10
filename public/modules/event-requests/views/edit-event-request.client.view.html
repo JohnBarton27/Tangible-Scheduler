@@ -1,16 +1,41 @@
 <section data-ng-controller="EventRequestsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Event request</h1>
-    </div>
-    <div class="col-md-12">
+    <div class="row page-header">
+		<div class="col-sm-6">
+			<h3 data-ng-bind="eventRequest.event.name"></h3>
+		</div>
+		<div class="col-sm-2"></div>
+		<div class="col-sm-4 event-date">
+			<span data-ng-bind="eventRequest.event.time"> </span> 
+			<b>&middot;</b> 
+			<span data-ng-bind="eventRequest.event.date | date:'longDate'"> </span>  
+			<div class="top-right" data-ng-bind="eventRequest.event.location"></div>
+		</div>
+	</div>
+    
+    <div class="row">
+		<div class="col-md-12">
+			<a class="project-on-event" href="/#!/projects/{{eventRequest.event.project._id}}" data-ng-bind="eventRequest.event.project.name"></a>
+		</div>
+	</div>
+    
+	<div class="row">
+		<div class="col-md-8">
+			<p class="" data-ng-bind="eventRequest.event.description"></p>
+		</div>
+	</div>
+    <div class="col-md-4">
         <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="eventRequest.name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
-                </div>
+                 <div class="form-group">
+                        <label class="control-label" for="response">Response</label>
+                        <div class="controls">
+                            <select multiple="multiple" class="form-control" data-ng-model="eventRequest.response" id="response" multiselect-dropdown>
+							<option data-ng-value="{{yes}}">yes</option>
+                            <option data-ng-value="{{no}}">no</option>
+						</select>
+                        </div>
+                  </div>
+                
                 <div class="form-group">
                     <input type="submit" value="Update" class="btn btn-default">
                 </div>

@@ -39,7 +39,7 @@ exports.read = function(req, res) {
  */
 exports.update = function(req, res) {
 	var eventRequest = req.eventRequest ;
-
+    console.log(eventRequest);
 	eventRequest = _.extend(eventRequest , req.body);
 
 	eventRequest.save(function(err) {
