@@ -276,8 +276,8 @@ describe('angularjs create-event', function() {
         project.sendKeys('T');*/
         
         element(by.cssContainingText('option', 'Third Roommate')).click();
-        element(by.cssContainingText('option', 'Writer')).click();
-        element(by.cssContainingText('option', 'John Barton')).click();        
+        //element(by.cssContainingText('option', 'Writer')).click();
+        //element(by.cssContainingText('option', 'John Barton')).click();        
         
         submitButton.click();
         browser.waitForAngular();
