@@ -8,12 +8,6 @@
  */
 
 var mongoose = require('mongoose'),
-<<<<<<< HEAD
-	errorHandler = require('./errors'),
-	Event = mongoose.model('Event'),
-	Project = mongoose.model('Project'),
-	_ = require('lodash');
-=======
 
 errorHandler = require('./errors'),
 
@@ -31,7 +25,6 @@ nodemailer = require('nodemailer'),
 
 _ = require('lodash');
 
->>>>>>> d0ac001b002df9edb1ee820c8e421952c7e307a8
 
 /**
 
@@ -40,7 +33,6 @@ _ = require('lodash');
  */
 
 exports.create = function(req, res) {
-<<<<<<< HEAD
 
 var event = new Event(req.body);
 
@@ -256,7 +248,9 @@ pass: 'tangible123'
 
 });
 
-var msgtext = 'You are requested for an event - ' + event.name + '\n Check it out at <a href="http://localhost:3333/#!/event-requests/'+erequest._id+'/edit">'+event.name+'</a>';
+var msgtext = 'You are requested for an event - ' + event.name;
+
+// Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
 
 var msgto = '';
 
@@ -302,32 +296,6 @@ subject: 'Event Request',
 
 text: msgtext
 
-=======
-	var event = new Event(req.body);
-	event.user = req.user;
-	
-	//if the event has a project also add it to the project
-	if(event.project) {
-		Project.findByIdAndUpdate(
-			event.project,
-			{$push: {'events': event}},
-			{safe: true, upsert: true},
-			function(err, model) {
-				console.log(err);
-			}
-		);
-	}
-	
-	event.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(event);
-		}
-	});
->>>>>>> b041106fdd53ce9d5797a9ad79ac85e3685e667c
 };
 
 transporter.sendMail(mailOptions, function(err, info) {
@@ -488,14 +456,6 @@ res.jsonp(events);
  * Event middleware
 
  */
-<<<<<<< HEAD
-exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').populate('project').populate('requsers').exec(function(err, event) {
-		if (err) return next(err);
-		if (! event) return next(new Error('Failed to load Event ' + id));
-		req.event = event ;
-		next();
-	});
-=======
 
 exports.eventByID = function(req, res, next, id) { Event.findById(id).populate('user').populate('skillsNeeded').populate('project').exec(function(err, event) {
 
@@ -515,7 +475,6 @@ next();
 
 });
 
->>>>>>> d0ac001b002df9edb1ee820c8e421952c7e307a8
 };
 
 
@@ -526,13 +485,6 @@ next();
  */
 
 exports.hasAuthorization = function(req, res, next) {
-<<<<<<< HEAD
-	if (req.event.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
-	next();
-};
-=======
 
 if (req.event.user.id !== req.user.id) {
 
@@ -543,5 +495,3 @@ return res.status(403).send('User is not authorized');
 next();
 
 };
-
->>>>>>> d0ac001b002df9edb1ee820c8e421952c7e307a8
