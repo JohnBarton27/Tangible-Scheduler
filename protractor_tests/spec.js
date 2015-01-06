@@ -12,7 +12,7 @@ describe('angularjs sign-up', function() {
     var signoutButton = element(by.id("signout"));
     
     beforeEach(function() {
-        browser.get('http://localhost:3333/#!/signup');
+        browser.get('http://localhost/#!/signup');
     });
     
     it('should have a title', function() {
@@ -30,7 +30,7 @@ describe('angularjs sign-up', function() {
         
         signUpButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/roster');
+        browser.get('http://localhost/#!/roster');
         browser.waitForAngular();
         expect(element.all(by.repeater('user in users')).count()).toEqual(1);
     });
@@ -42,7 +42,7 @@ describe('angularjs skillsets', function() {
     var submit = element(by.id('skillset-submit'));
     
     beforeEach(function() {
-        browser.get('http://localhost:3333/#!/skillsets/create');
+        browser.get('http://localhost/#!/skillsets/create');
     });
     
     
@@ -51,7 +51,7 @@ describe('angularjs skillsets', function() {
         
         submit.click();
         
-        browser.get('http://localhost:3333/#!/skillsets');
+        browser.get('http://localhost/#!/skillsets');
         browser.waitForAngular();
         expect(element.all(by.repeater('skillset in skillsets')).count()).toEqual(1);
     });
@@ -61,7 +61,7 @@ describe('angularjs skillsets', function() {
         
         submit.click();
         
-        browser.get('http://localhost:3333/#!/skillsets');
+        browser.get('http://localhost/#!/skillsets');
         browser.waitForAngular();
         expect(element.all(by.repeater('skillset in skillsets')).count()).toEqual(2);
     });
@@ -71,7 +71,7 @@ describe('angularjs skillsets', function() {
         
         submit.click();
         
-        browser.get('http://localhost:3333/#!/skillsets');
+        browser.get('http://localhost/#!/skillsets');
         browser.waitForAngular();
         expect(element.all(by.repeater('skillset in skillsets')).count()).toEqual(3);
     });
@@ -81,7 +81,7 @@ describe('angularjs skillsets', function() {
         
         submit.click();
         
-        browser.get('http://localhost:3333/#!/skillsets');
+        browser.get('http://localhost/#!/skillsets');
         browser.waitForAngular();
         expect(element.all(by.repeater('skillset in skillsets')).count()).toEqual(4);
     });
@@ -98,7 +98,7 @@ describe('angularjs create-users', function() {
     var adminCheck = element(by.model('credentials.isAdmin'));
     
     beforeEach(function() {
-        browser.get('http://localhost:3333/#!/createuser');
+        browser.get('http://localhost/#!/createuser');
     });
     
     it('should allow admin to create user (Ben) with skills', function() {
@@ -118,7 +118,7 @@ describe('angularjs create-users', function() {
         
         createUserButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/roster');
+        browser.get('http://localhost/#!/roster');
         browser.waitForAngular();
         expect(element.all(by.repeater('user in users')).count()).toEqual(2);
     });
@@ -164,7 +164,7 @@ describe('angularjs create-users', function() {
         
         createUserButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/roster');
+        browser.get('http://localhost/#!/roster');
         browser.waitForAngular();
         expect(element.all(by.repeater('user in users')).count()).toEqual(4);
     });
@@ -177,7 +177,7 @@ describe('angularjs create-post', function() {
     var submitButton = element(by.id('create-posts-button'));
     
     beforeEach(function() {
-        browser.get('http://localhost:3333/#!/posts/create');
+        browser.get('http://localhost/#!/posts/create');
     });
     
     it('should be able to create a post', function() {
@@ -186,7 +186,7 @@ describe('angularjs create-post', function() {
     
         submitButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/posts');
+        browser.get('http://localhost/#!/posts');
         browser.waitForAngular();
         expect(element.all(by.repeater('post in posts')).count()).toEqual(1);
     });
@@ -197,7 +197,7 @@ describe('angularjs create-post', function() {
     
         submitButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/posts');
+        browser.get('http://localhost/#!/posts');
         browser.waitForAngular();
         expect(element.all(by.repeater('post in posts')).count()).toEqual(2);
     });
@@ -210,7 +210,7 @@ describe('angularjs create-project', function() {
     var submitButton = element(by.id('create-project-button'));
     
     beforeEach(function() {
-        browser.get('http://localhost:3333/#!/projects/create');
+        browser.get('http://localhost/#!/projects/create');
     });
     
     it('should be able to create a project', function() {
@@ -220,7 +220,7 @@ describe('angularjs create-project', function() {
     
         submitButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/projects');
+        browser.get('http://localhost/#!/projects');
         browser.waitForAngular();
         expect(element.all(by.repeater('project in projects')).count()).toEqual(1);
     });
@@ -232,7 +232,7 @@ describe('angularjs create-project', function() {
     
         submitButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/projects');
+        browser.get('http://localhost/#!/projects');
         browser.waitForAngular();
         expect(element.all(by.repeater('project in projects')).count()).toEqual(2);
     });
@@ -254,7 +254,7 @@ describe('angularjs create-event', function() {
     ptor = protractor.getInstance();
     
     beforeEach(function() {
-        browser.get('http://localhost:3333/#!/events/create');
+        browser.get('http://localhost/#!/events/create');
     });
     
     it('should be able to create an event', function() {
@@ -281,7 +281,7 @@ describe('angularjs create-event', function() {
         
         submitButton.click();
         browser.waitForAngular();
-        browser.get('http://localhost:3333/#!/events');
+        browser.get('http://localhost/#!/events');
         browser.waitForAngular();
         expect(element.all(by.repeater('event in events')).count()).toEqual(1);
     });
