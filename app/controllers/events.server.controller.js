@@ -248,9 +248,7 @@ pass: 'tangible123'
 
 });
 
-var msgtext = 'You are requested for an event - ' + event.name;
-
-// Check it out at <a href="http://54.164.225.149:3333/#!/event-requests/'+erequest._id+'">'+event.name+'</a>';
+var msgtext = 'You are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
 
 var msgto = '';
 
