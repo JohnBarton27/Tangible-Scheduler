@@ -74,21 +74,17 @@
     
     <div class="col-sm-4">
     <h5>Add More Users:</h5>
-    <div class="list-group" data-ng-init="findUsers()">
-        <a data-ng-repeat="user in users | filter: {skills : '!' + (skillset._id).toString()} | orderBy: 'lastName'" class="list-group-item">
-            <h4 class="list-group-item-heading">
+    <div class="list-group" data-ng-controller="RosterController" data-ng-init="findUsers()">
+        <span data-ng-repeat="user in users | filter: {skills : '!' + (skillset._id).toString()} | orderBy: 'lastName'" class="list-group-item">
+            
                 <h4 class="list-group-item-heading">
                 <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
             </h4>
-            <span style="float:right; color:#f3ec19;" ng-click=""> 
-                Add 
-                <span data-ng-bind="skillset.skill"> </span>
-                Skill
-            </span>
+            <a style="float:right; color:#f3ec19;" href="#!/users/{{user._id}}/edit"> Add Skill </a>
             <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
             <div>Email: <span data-ng-bind="user.email"></span></div>
-            </h4>
-        </a>
+            
+        </span>
     </div>    
     </div>   
 </section>
