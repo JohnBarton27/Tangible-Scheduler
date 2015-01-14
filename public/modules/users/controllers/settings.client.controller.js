@@ -64,7 +64,18 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 				{
 					if(response[i]._id === $stateParams.userId)
 					{
-						$scope.edituser = response[i];
+						$scope.edituser = {
+                            email: response[i].email,
+                            firstName: response[i].firstName, 
+                            lastName: response[i].lastName,
+                            isAdmin: response[i].isAdmin, 
+                            phone: response[i].phone,
+                            roles: response[i].roles,
+                            skills: response[i].skills,
+                            phoneProvider: response[i].phoneProvider,
+                            _id: response[i]._id
+                        };
+                        //console.log($scope.edituser);
 					}
 				}
 			});
@@ -90,6 +101,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 				$scope.submitted = true;
 			}
 		};
+        
 		$scope.findSkills = function() {
 			$scope.skills = Skillsets.query();
 		};

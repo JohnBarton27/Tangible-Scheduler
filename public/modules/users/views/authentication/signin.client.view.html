@@ -1,4 +1,4 @@
-<section class="row" data-ng-controller="AuthenticationController">
+<section class="row" data-ng-controller="AuthenticationController" data-ng-init="findUsers()">
 	<h3 class="col-md-12 text-center">Welcome to the Tangible Scheduler.</h3>
 	<!--
     <div class="col-md-12 text-center">
@@ -28,16 +28,22 @@
 					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
 				</div>
 				<div class="text-center form-group">
-					<button type="submit" class="btn btn-primary">Sign in</button>&nbsp; or&nbsp;
-					<a href="/#!/signup">Sign up</a>
+					<button type="submit" class="btn btn-primary">Sign in</button>
+                    <span data-ng-repeat="user in users">
+                        ng-hide="users">&nbsp; or&nbsp;
+					<a href="/#!/signup">Sign up</a> </span>
 				</div>
-				<div class "forgot-password">
+				<!--<div class "forgot-password">
 					<a href="/#!/password/forgot">Forgot your password?</a>
-				</div>
+				</div>-->
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong data-ng-bind="error"></strong>
 				</div>
 			</fieldset>
 		</form>
 	</div>
+    <div class="col-md-12 text-center">
+        Forgot your password? Email tangiblescheduler@gmail.com with your account information.
+    </div>
+
 </section>
