@@ -41,19 +41,22 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
+		validate: [validateLocalStrategyProperty, 'Please fill in your phone number'],
+		match: [/[0-9]{3}/, 'Please enter a valid area code']
 	},
 	phone2: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
+		validate: [validateLocalStrategyProperty, 'Please fill in your phone number'],
+		match: [/[0-9]{3}/, 'Please enter the first three numbers of your phone number']
 	},
 	phone3: {
 		type: String,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
+		validate: [validateLocalStrategyProperty, 'Please fill in your phone number'],
+		match: [/[0-9]{4}/, 'Please enter the last four numbers of your phone number']
 	},
 	phoneProvider: {
 		type: String,

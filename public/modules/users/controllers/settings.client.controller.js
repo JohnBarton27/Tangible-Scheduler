@@ -69,13 +69,15 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
                             firstName: response[i].firstName, 
                             lastName: response[i].lastName,
                             isAdmin: response[i].isAdmin, 
-                            phone: response[i].phone,
+                            phone1: response[i].phone1,
+							phone2: response[i].phone2,
+							phone3: response[i].phone3,
                             roles: response[i].roles,
                             skills: response[i].skills,
                             phoneProvider: response[i].phoneProvider,
                             _id: response[i]._id
                         };
-                        //console.log($scope.edituser);
+                        console.log(response[i].edituser);
 					}
 				}
 			});

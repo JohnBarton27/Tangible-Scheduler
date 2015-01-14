@@ -148,17 +148,18 @@ exports.create = function(req, res) {
 
                                                 var msgtext = 'You are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
                                                 var msgto = '';
+												var fullPhone = user.phone1 + user.phone2 + user.phone3;
 
                                                 if ( user.phoneProvider === undefined || user.phoneProvider === 'none') {
                                                     msgto = user.email;
                                                 } else if (user.phoneProvider.toLowerCase() === 'verizon') {
-                                                    msgto = user.phone.replace(/^-/, '') + '@vtext.com';
+                                                    msgto = fullPhone + '@vtext.com';
                                                 } else if (user.phoneProvider.toLowerCase() === 'att') {
-                                                    msgto = user.phone.replace(/^-/, '') + '@txt.att.net';
+                                                    msgto = fullPhone + '@txt.att.net';
                                                 } else if (user.phoneProvider.toLowerCase() === 'tmobile') {
-                                                    msgto = user.phone.replace(/^-/, '') + '@tmomail.net';
+                                                    msgto = fullPhone + '@tmomail.net';
                                                 } else if (user.phoneProvider.toLowerCase() === 'sprint') {
-                                                    msgto = user.phone.replace(/^-/, '') + '@messaging.sprintpcs.com';
+                                                    msgto = fullPhone + '@messaging.sprintpcs.com';
                                                 }
 
                                                 var mailOptions = {

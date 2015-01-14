@@ -17,7 +17,17 @@
 				</div>
 				<div class="form-group">
 					<label for="phone">Phone</label>
-					<input type="text" id="phone" name="phone" class="form-control" data-ng-model="edituser.phone" placeholder="123-1234-678">
+					<div id="full-phone">
+						<span class="col-md-4" style="padding-left:0px; padding-right:0px">
+							<input type="text" class="form-control" placeholder="321" data-ng-model="edituser.phone1">
+						</span>
+						<span class="col-md-4" style="padding-left:0px; padding-right:0px">
+							<input type="text" class="form-control" placeholder="123" data-ng-model="edituser.phone2">
+						</span>
+						<span class="col-md-4" style="padding-left:0px; padding-right:0px">
+							<input type="text" class="form-control" placeholder="1234" data-ng-model="edituser.phone3">
+						</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label" for="skills">Skills</label>
