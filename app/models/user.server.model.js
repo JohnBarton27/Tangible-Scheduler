@@ -37,7 +37,19 @@ var UserSchema = new Schema({
 		default: '',
 		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
 	},
-	phone: {
+	phone1: {
+		type: String,
+		trim: true,
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
+	},
+	phone2: {
+		type: String,
+		trim: true,
+		default: '',
+		validate: [validateLocalStrategyProperty, 'Please fill in your phone number']
+	},
+	phone3: {
 		type: String,
 		trim: true,
 		default: '',
