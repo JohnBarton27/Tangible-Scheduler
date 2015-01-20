@@ -26,7 +26,7 @@
     
     <div class="row">
 		<div class="col-md-5">
-			<span class="event-section-header" data-ng-init="findEventRequests()">Requested Event Participants:</span>
+			<span class="event-section-header" data-ng-init="findEventRequests(); findUsers()">Requested Event Participants:</span>
 		</div>
 	</div>
 	<div class="row">
@@ -41,25 +41,43 @@
 					  </accordion-heading>
 
 					  <div class="row" >
-							<div class="col-md-12">
+							<div class="col-md-12" >
 								<p>Number of Requested: {{skillRequest.numRequested}}</p>
 								<p>Required Users:</p>    	
                                 
                                 <span data-ng-repeat="user in skillRequest.requiredUsers | orderBy:'lastName'" class="list-group-item">
-                                
+                                                        
                                 <span data-ng-repeat="eventRequests in requestsThisEvent  = (eventRequests | filter: {event : event._id})">
                                 <!-- Checkmark: &#10004; X: &#10006; ?: ? -->
                                     <a ng-if="eventRequests.response == 'yes' && eventRequests.user._id == user._id" style="float:right; color:#66CD00; font-size:40px"> &#10004; </a>
                                     <a ng-if="eventRequests.response == 'no' && eventRequests.user._id == user._id" style="float:right; color:#ff0000; font-size:40px"> &#10006; </a>
-                                    <a ng-if="eventRequests.response == '' && eventRequests.user._id == user._id" style="float:right; color:#f3ec19; font-size:40px"> ? </a> 
+                                    <a ng-if="eventRequests.response == ''  && eventRequests.user._id == user._id" style="float:right; color:#f3ec19; font-size:40px"> ? </a> 
                                 </span>
                                 <h4 class="list-group-item-heading">
                                     <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
                                 </h4>
                                 <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
                                 <div>Email: <span data-ng-bind="user.email"></span></div>
+                                
+                                </span>    
                             </span>
-                                    
+                                
+                                <p> Other Users:</p>
+                                                        
+                                <span data-ng-repeat="eventRequests in requestsThisEvent  = (eventRequests | filter: {event : event._id} | filter: {required : 'false'})" class="list-group-item">
+                                <!-- Checkmark: &#10004; X: &#10006; ?: ? -->
+                                    <a ng-if="eventRequests.response == 'yes'" style="float:right; color:#66CD00; font-size:40px"> &#10004; </a>
+                                    <a ng-if="eventRequests.response == 'no'" style="float:right; color:#ff0000; font-size:40px"> &#10006; </a>
+                                    <a ng-if="eventRequests.response == ''" style="float:right; color:#f3ec19; font-size:40px"> ? </a> 
+                                
+                                <span data-ng-repeat="user in requestedUsers = (users | filter: { _id : eventRequests.user._id})">
+                                <h4 class="list-group-item-heading">
+                                    <span data-ng-bind="user.lastName"></span>, <span data-ng-bind="user.firstName"></span>
+                                </h4>
+                                <div>Phone Number: <span data-ng-bind="user.phone"></span></div>
+                                <div>Email: <span data-ng-bind="user.email"></span></div>
+                                </span>
+                                </span>                                     
 
                                 
 							</div>
