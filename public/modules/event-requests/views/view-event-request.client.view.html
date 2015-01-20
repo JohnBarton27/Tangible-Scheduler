@@ -33,7 +33,7 @@
                                 <h4 class="list-group-item-heading">
                                     <span data-ng-bind="eventRequest.user.lastName"></span>, <span data-ng-bind="eventRequest.user.firstName"></span>
                                 </h4>
-                                <div>Phone Number: <span data-ng-bind="eventRequest.user.phone"></span></div>
+                                <div>Phone Number: <span>({{eventRequest.user.phone1}}) {{eventRequest.user.phone2}} - {{eventRequest.user.phone3}}</span></div>
                                 <div>Email: <span data-ng-bind="eventRequest.user.email"></span></div>
                             </div> 
         </div>
@@ -43,13 +43,13 @@
     
 <div class="row">
     <div class="col-md-2">
-        <a class="btn btn-primary" style="color:#66CD00" ng-click="submitResponse('yes');">
-		  <span>Yes, I'm Going!</span>
+        <a class="btn btn-primary" style="background-image: linear-gradient(to bottom, #99CD00 0%, #66CD00 100%); background-color:#66CD00; border-color: #ffffff;" ng-click="submitResponse('yes');">
+		  <span> <b> Yes, I'm Going! </b></span>
         </a>
     </div>
     <div class="col-md-2">
-        <a class="btn btn-primary" style="color:#ff0000" ng-click="submitResponse('no');">
-		  <span>No, I'm Not Going</span>
+        <a class="btn btn-primary" style="background-image: linear-gradient(to bottom, #dd0000 0%, #ff0000 100%); background-color:#ff0000; border-color: #ffffff" ng-click="submitResponse('no');">
+		  <span> <b> No, I'm Not Going </b> </span>
         </a>
     </div>
 </div>
