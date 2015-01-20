@@ -2,7 +2,8 @@
 
 angular.module('users').controller('RosterController', ['$scope', 'Users', 'Skillsets',
 	function($scope, Users, Skillsets) {
-		// Find a list of Users
+		        
+        // Find a list of Users
 		$scope.findUsers = function() {
 			$scope.users = Users.query();
 		};
