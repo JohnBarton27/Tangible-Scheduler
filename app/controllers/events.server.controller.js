@@ -49,149 +49,265 @@ exports.create = function(req, res) {
 
     event.save(function(err,newEvent) {
     //console.log('in create');
+	
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
             });
         } else {
-            
             //
             // We've created an event, now create the event requests.
             //
+			
+			//Start by grabbing the required users
+			var srequests = [];
+			var reqUsers = [];
+			var sskills = [];
+			for(var i=0; i < skillRequests.length; i++){
+				srequests.push(new SkillRequest(skillRequests[i]));
+				if(srequests.requiredUsers !== undefined) {
+					for(var j=0; j < srequests[i].requiredUsers.length; j++) {
+						reqUsers.push(srequests.requiredUsers[j]);
+					}
+				}
+				sskills.push(srequests[i].skill);
+			}
+			
+			User
+			.find()
+			.where('_id').in(reqUsers)
+			.sort('-created').exec(function(err, rUsers) {
+				if (err) {
+					return res.status(400).send({
+						message: errorHandler.getErrorMessage(err)
+					});
+				} else {
+				
+					var skillRequestUsers = {};
+					for(var i=0; i < sskills.length; i++) {
+						skillRequestUsers[sskills[i]] = [];
+					}
+					
+					//Loop through each required user and each of their skills
+					for(var i=0; i < rUsers.length; i++) {
+						var rUser = rUsers[i];
+						for(var j=0; j < rUser.skills.length; j++) {
+							//Add the user to the list of users to attach to the skill request
+							skillRequestUsers[rUser.skills[j]].push(rUser);
+						}
+					}
+						
+					
+					User
+					.find()
+					.where('skills').in(sskills)
+					.where('_id').nin(reqUsers)
+					.sort('-created').exec(function(err, oUsers) {
+						if(err) {
+							return res.status(400).send({
+								message: errorHandler.getErrorMessage(err)
+							});
+						} else {
+							//create a skills we have dictionary for counting the number of each skill we have
+							//create a skills diff dictionary for storing the number of each skill we have minus
+							//the number of each skill we want
+							var skillzHave = {};
+							var skillzDiff = {};
+							var skillUsers = {};
+							var skillzWant = {};
+							
+							for(var i=0; i < sskills.length; i++) {
+								skillzHave[sskills[i]] = 0;
+								skillUsers[sskills[i]] = [];
+								skillzWant[sskills[i]] = srequests[i].numRequested;
+							}
+							
+							//Loop through each user and each of their skills
+							for(var i=0; i < oUsers.length; i++) {
+								var oUser = oUsers[i];
+								for(var j=0; j < oUser.skills.length; j++) {
+									//Add 1 to the count for that skill
+									skillzHave[oUser.skills[j]]++;
+									//Add the user to the list of users witht that skill
+									skillUsers[oUser.skills[j]].push(oUser);
+								}
+							}
+							
+							var totalRequested = 0;
+							
+							for(var i=0; i < sskills.length; i++) {
+								var skl = sskills[i];
+								skillzDiff[skl] = skillzHave[skl] - srequests[i].numRequested.length;
+								totalRequested += srequests[i].numRequested;
+							}
+							
+							//Should eventually make skillzDiff an AVL tree so this doesn't take like O(N^2)
+							
+							// Create skillzDiff array
+							var skillsDiff = Object.keys(skillzDiff).map(function(key) {
+								return [key, skillzDiff[key]];
+							});
+							
+							for(var i=0; i < skillsDiff.length; i++) {
+								//Stuff for sorting skillzDiff dictionary based on value.
+								// Sort the array based on the second element
+								skillsDiff.sort(function(first, second) {
+									return first[1] - second[1];
+								});
+								
+								var skil = skillsDiff[0][0];
+								
+								while(skillUsers[skil].length > 0) {
+									var rand = Math.floor((Math.random() * skillUsers[skil].length));
+									var skillUser = skillUsers[skil][rand];
+									var userIndex = oUsers.indexOf(skillUser);
+									
+									skillUsers[skil].splice(rand, 1);
+									if(userIndex !== -1) {
+										skillRequestUsers[skil].push(skillUser);
+										oUsers.splice(userIndex, 1);
+										skillzWant[skil]--;
+										break;
+									} else if(skillUsers[skil].length === 0) {
+										skillzWant[skil] = 0;
+									}
+								}
+								
+								if(skillzWant[skil] === 0) {
+									skillsDiff.splice(0, 1);
+								}
+							}
+							var rqUsers = [];
+							var allUsers = [];
+							for(var i=0; i < sskills.length; i++) {
+								var skkill = sskills[i];
+								for(var j=0; j < skillRequestUsers[skkill].length; j++) {
+									var usIndex = allUsers.indexOf(skillRequestUsers[skkill][j]);
+									if(usIndex === -1) {
+										allUsers.push(skillRequestUsers[skkill][j]);
+										if(srequests[i].requiredUsers.indexOf(skillRequestUsers[skkill][j]) !== -1) {
+											rqUsers.push(skillRequestUsers[skkill][j]);
+										}
+									}
+								}
+							}
+							
+							for(var i=0; i < skillRequests.length; i++){
+								var skillRequest = new SkillRequest(skillRequests[i]);
 
-            var i;
-            for(i=0; i < skillRequests.length; i++){
-                var skillRequest = new SkillRequest(skillRequests[i]);
+								//save the request
+								skillRequest.save(function(err2,srequest) {
+									if (err2) {
+										console.log('error saving skillRequest' + err2);
+										return res.status(400).send({
+											message: errorHandler.getErrorMessage(err2)
+										});
+									} else {
+										var skilll = srequest.skill;
+										
+										//console.log('request' + srequest);
+										//update the event
+										Event.findByIdAndUpdate(
+											newEvent._id,
+											{$push: {'skillsNeeded': srequest._id}},
+											{safe: true, upsert: true},
+											function(err3, model) {
+												if(err3) {
+													console.log('error finding event' + err3);
+												}
+											}
+										);
 
-                //save the request
-                skillRequest.save(function(err2,srequest) {
+										/* 
+										* Create event-requests based on the skillrequest
+										* there is an event request given to a user for every numRequested in skillRequest.
+										*/
 
-                    if (err2) {
-                        console.log('error saving skillRequest' + err2);
-                        return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err2)
+										//setup to add required users
 
-                        });
+										//if(srequest.requiredUsers === undefined) {
+										//	srequest.requiredUsers = [];
+										//}
+									}
+								});
+							}	
+									
+							for(var i=0; i < allUsers.length; i++) {
+								//begin building event request
+								var eventRequest = new EventRequest();
+								eventRequest.event = event._id;
 
-                    } else {
+								//add required users first
+								eventRequest.user = allUsers[i];
+								if(rqUsers.indexOf(allUsers[i]) === -1) {
+									eventRequest.required = false;
+								} else {
+									eventRequest.required = true;
+								}
 
-                        //console.log('request' + srequest);
-                        //update the event
-                        Event.findByIdAndUpdate(
-                            newEvent._id,
-                            {$push: {'skillsNeeded': srequest._id}},
-                            {safe: true, upsert: true},
-                            function(err3, model) {
-                                if(err3) {
-                                    console.log('error finding event' + err3);
-                                }
-                            }
-                        );
+								//console.log(eventRequest);
+								eventRequest.save(function(err3,erequest) {
+									if (err3) {
+										console.log('error saving eventRequest' + err3);
+										return res.status(400).send({
+											message: errorHandler.getErrorMessage(err3)
+										});
+									} else {
+										//get user for email info
+										User.findById(erequest.user, function(err, user) {
+											var transporter = nodemailer.createTransport({
+												service: 'Gmail',
+												auth: {
+													user: 'tangiblescheduler@gmail.com',
+													pass: 'tangible123'
+												}
+											});
 
-                        /* 
-                        * Create event-requests based on the skillrequest
-                        * there is an event request given to a user for every numRequested in skillRequest.
-                        */
+											var msgtext = 'You are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
+											var msgto = '';
+											var fullPhone = user.phone1 + user.phone2 + user.phone3;
 
-                        //setup to add required users
+											if ( user.phoneProvider === undefined || user.phoneProvider === 'none') {
+												msgto = user.email;
+											} else if (user.phoneProvider.toLowerCase() === 'verizon') {
+												msgto = fullPhone + '@vtext.com';
+											} else if (user.phoneProvider.toLowerCase() === 'att') {
+												msgto = fullPhone + '@txt.att.net';
+											} else if (user.phoneProvider.toLowerCase() === 'tmobile') {
+												msgto = fullPhone + '@tmomail.net';
+											} else if (user.phoneProvider.toLowerCase() === 'sprint') {
+												msgto = fullPhone + '@messaging.sprintpcs.com';
+											}
 
-                        if(srequest.requiredUsers === undefined) {
-                            srequest.requiredUsers = [];
-                        }
+											var mailOptions = {
+												from: 'tangibletesting@gmail.com',
+												to: msgto,
+												subject: 'Event Request',
+												text: msgtext
+											};
 
-                        User
-                        .find()
-                        .where('skills').equals(srequest.skill)
-                        .where('_id').nin(srequest.requiredUsers)
-                        .sort('-created').exec(function(err, users) {
-                            if (err) {
-                                return res.status(400).send({
-                                    message: errorHandler.getErrorMessage(err)
-                                });
-                            } else {
-                                var userCount =0;
-                                for(var i=0; i < srequest.numRequested; i++) {
-                                    //begin building event
-                                    var eventRequest = new EventRequest();
-                                    eventRequest.event = event._id;
+											transporter.sendMail(mailOptions, function(err, info) {
+												if (err) {
+													console.log(err);
+												} else {
+													console.log('Message send: ' + info.response);
+												}
 
-                                    //add required users first
-                                    if(srequest.requiredUsers[i]!==undefined) {
-                                        eventRequest.user = srequest.requiredUsers[i];
-                                        eventRequest.required = true;
-                                    } else {
-                                        //no more required users, lets find one
-                                        if(users[userCount]){
-                                            eventRequest.user = users[userCount];
-                                            userCount++;
-                                            eventRequest.required = false;
-                                        }
-                                    }
+											});
 
-                                    //console.log(eventRequest);
-                                    eventRequest.save(function(err3,erequest) {
-                                        if (err3) {
-                                            console.log('error saving eventRequest' + err3);
-                                            return res.status(400).send({
-                                                message: errorHandler.getErrorMessage(err3)
-                                            });
-                                        } else {
-                                            //get user for email info
-                                            User.findById(erequest.user, function(err, user) {
-                                                var transporter = nodemailer.createTransport({
-                                                    service: 'Gmail',
-                                                    auth: {
-                                                        user: 'tangiblescheduler@gmail.com',
-                                                        pass: 'tangible123'
-                                                    }
-                                                });
-
-                                                var msgtext = 'You are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
-                                                var msgto = '';
-												var fullPhone = user.phone1 + user.phone2 + user.phone3;
-
-                                                if ( user.phoneProvider === undefined || user.phoneProvider === 'none') {
-                                                    msgto = user.email;
-                                                } else if (user.phoneProvider.toLowerCase() === 'verizon') {
-                                                    msgto = fullPhone + '@vtext.com';
-                                                } else if (user.phoneProvider.toLowerCase() === 'att') {
-                                                    msgto = fullPhone + '@txt.att.net';
-                                                } else if (user.phoneProvider.toLowerCase() === 'tmobile') {
-                                                    msgto = fullPhone + '@tmomail.net';
-                                                } else if (user.phoneProvider.toLowerCase() === 'sprint') {
-                                                    msgto = fullPhone + '@messaging.sprintpcs.com';
-                                                }
-
-                                                var mailOptions = {
-                                                    from: 'tangibletesting@gmail.com',
-                                                    to: msgto,
-                                                    subject: 'Event Request',
-                                                    text: msgtext
-                                                };
-
-                                                transporter.sendMail(mailOptions, function(err, info) {
-                                                    if (err) {
-                                                        console.log(err);
-                                                    } else {
-                                                        console.log('Message send: ' + info.response);
-                                                    }
-
-                                                });
-
-                                                transporter.close();
-
-                                            });
-                                        }
-                                    });
-                                }
-                            }
-                        });
-                    }
-                });
-            }
+											transporter.close();
+											
+										});
+									}
+								});
+							}
+						}
+					});
+                }
+            });
             res.jsonp(event);
-        }
-    });
+		}
+	});
 };
 
 
@@ -205,7 +321,7 @@ exports.read = function(req, res) {
 
 
 /**
- * Update a Event
+ * Update an Event
  */
 
 exports.update = function(req, res) {
@@ -224,6 +340,14 @@ exports.update = function(req, res) {
 
 };
 
+/**
+ * Update an Event after a decline/timeout
+ */
+ 
+exports.updateAfterDecline = function(req, res) {
+	var event = req.event;
+	//var 
+};
 
 /**
  * Delete an Event
