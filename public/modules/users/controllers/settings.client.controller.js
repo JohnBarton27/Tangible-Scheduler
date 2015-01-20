@@ -65,7 +65,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 				{
 					if(response[i]._id === $stateParams.userId)
 					{
-						$scope.edituser = {
+						/*$scope.edituser = {
                             email: response[i].email,
                             firstName: response[i].firstName, 
                             lastName: response[i].lastName,
@@ -77,7 +77,9 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
                             skills: response[i].skills,
                             phoneProvider: response[i].phoneProvider,
                             _id: response[i]._id
-                        };
+                        };*/
+                        
+                        $scope.edituser = response[i];
                         
                         if (response[i].isAdmin) {
                             $scope.edituser.roles = ['admin'];
