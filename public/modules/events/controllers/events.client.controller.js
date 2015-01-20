@@ -32,8 +32,8 @@ function getSkills(form){
 }
 
 // Events controller
-angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users',
-	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users ) {
+angular.module('events').controller('EventsController', ['$scope', '$filter', '$stateParams', '$location', 'Authentication', 'Events','Projects','Skillsets','SkillRequests','Users', 'EventRequests', 
+	function($scope, $filter, $stateParams, $location, Authentication, Events, Projects, Skillsets, SkillRequests, Users, EventRequests ) {
         
 		$scope.authentication = Authentication;
  		
@@ -154,6 +154,11 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 			$scope.users = Users.query();
 		};
 
+        
+        // Find a list of Event-Requests
+		$scope.findEventRequests = function() {
+			$scope.eventRequests = EventRequests.query();
+		};
 
 		// Find existing Event
 		$scope.findOne = function() {
