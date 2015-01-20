@@ -61,5 +61,16 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 				eventRequestId: $stateParams.eventRequestId
 			});
 		};
+        
+        $scope.submitResponse = function(status) {
+            var eventRequest = $scope.eventRequest ;
+            eventRequest.response = status;
+            console.log(eventRequest);
+			eventRequest.$update(function() {
+				$location.path('event-requests/' + eventRequest._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+        }
 	}
 ]);

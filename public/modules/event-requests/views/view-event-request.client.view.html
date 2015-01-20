@@ -40,10 +40,25 @@
         
 	</div>
 
-    <div class="row">
+    
+<div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-primary" style="color:#66CD00" ng-click="submitResponse('yes');">
+		  <span>Yes, I'm Going!</span>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary" style="color:#ff0000" ng-click="submitResponse('no');">
+		  <span>No, I'm Not Going</span>
+        </a>
+    </div>
+</div>
+
+<!--
+<div class="row">
     <a class="btn btn-primary" href="/#!/event-requests/{{eventRequest._id}}/edit">
 					<span>Edit Your Response</span>
     </a>
-</div>
+</div> -->
 
 </section>
