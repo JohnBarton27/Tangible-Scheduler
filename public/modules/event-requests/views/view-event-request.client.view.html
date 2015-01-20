@@ -27,23 +27,38 @@
     <div class="row">
     <div class="list-group-item col-md-4">
                                 <!-- Checkmark: &#10004; X: &#10006; ?: ? -->
-                                <a ng-if="eventRequest.response == 'yes'" style="float:right; color:#f3ec19; font-size:40px"> &#10004; </a>
-                                 <a ng-if="eventRequest.response == 'no'" style="float:right; color:#f3ec19; font-size:40px"> &#10006; </a>
+                                <a ng-if="eventRequest.response == 'yes'" style="float:right; color:#66CD00; font-size:40px"> &#10004; </a>
+                                 <a ng-if="eventRequest.response == 'no'" style="float:right; color:#ff0000; font-size:40px"> &#10006; </a>
                          <a ng-if="eventRequest.response == ''" style="float:right; color:#f3ec19; font-size:40px"> ? </a>       
                                 <h4 class="list-group-item-heading">
                                     <span data-ng-bind="eventRequest.user.lastName"></span>, <span data-ng-bind="eventRequest.user.firstName"></span>
                                 </h4>
-                                <div>Phone Number: <span data-ng-bind="eventRequest.user.phone"></span></div>
+                                <div>Phone Number: <span>({{eventRequest.user.phone1}}) {{eventRequest.user.phone2}} - {{eventRequest.user.phone3}}</span></div>
                                 <div>Email: <span data-ng-bind="eventRequest.user.email"></span></div>
                             </div> 
         </div>
         
 	</div>
 
-    <div class="row">
+    
+<div class="row">
+    <div class="col-md-2">
+        <a class="btn btn-primary" style="background-image: linear-gradient(to bottom, #99CD00 0%, #66CD00 100%); background-color:#66CD00; border-color: #ffffff;" ng-click="submitResponse('yes');">
+		  <span> <b> Yes, I'm Going! </b></span>
+        </a>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-primary" style="background-image: linear-gradient(to bottom, #dd0000 0%, #ff0000 100%); background-color:#ff0000; border-color: #ffffff" ng-click="submitResponse('no');">
+		  <span> <b> No, I'm Not Going </b> </span>
+        </a>
+    </div>
+</div>
+
+<!--
+<div class="row">
     <a class="btn btn-primary" href="/#!/event-requests/{{eventRequest._id}}/edit">
 					<span>Edit Your Response</span>
     </a>
-</div>
+</div> -->
 
 </section>

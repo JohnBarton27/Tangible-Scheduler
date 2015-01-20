@@ -2,8 +2,9 @@
 
 angular.module('users').controller('SettingsController', ['$scope', '$http', '$stateParams', '$location', 'Users', 'Skillsets', 'Authentication',
 	function($scope, $http, $stateParams, $location, Users, Skillsets, Authentication) {
-		$scope.user = Authentication.user;
-
+        
+        $scope.user = Authentication.user;
+        
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
 
@@ -64,7 +65,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 				{
 					if(response[i]._id === $stateParams.userId)
 					{
-						$scope.edituser = {
+						/*$scope.edituser = {
                             email: response[i].email,
                             firstName: response[i].firstName, 
                             lastName: response[i].lastName,
@@ -76,8 +77,17 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
                             skills: response[i].skills,
                             phoneProvider: response[i].phoneProvider,
                             _id: response[i]._id
+                        };*/
+                        
+                        $scope.edituser = response[i];
+                        
+                        if (response[i].isAdmin) {
+                            $scope.edituser.roles = ['admin'];
+                        } else {
+                            $scope.edituser.roles = ['user'];
                         };
-                        console.log(response[i].edituser);
+                        
+                        //console.log("RESPONSE: " + $scope.edituser);
 					}
 				}
 			});
@@ -90,10 +100,12 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 		
 		//Update user profile, not the current user
 		$scope.updateOtherUserProfile = function(isValid) {
-			if (isValid){
+            
+            if (isValid){
 				$scope.success = $scope.error = null;
 				var user = new Users($scope.edituser);
-	
+
+                
 				user.$update(function(response) {
 					$scope.success = true;
 				}, function(response) {
@@ -102,7 +114,8 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$s
 			} else {
 				$scope.submitted = true;
 			}
-		};
+		
+        };
         
 		$scope.findSkills = function() {
 			$scope.skills = Skillsets.query();

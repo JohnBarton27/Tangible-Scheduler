@@ -26,6 +26,7 @@ exports.update = function(req, res) {
 		{
 			// Merge existing curUser
 			delete updUser.isAdmin;
+            delete updUser.password;
 			curUser = _.extend(curUser, updUser);
 			curUser.updated = Date.now();
 			//curUser.displayName = curUser.firstName + ' ' + curUser.lastName;
@@ -53,6 +54,7 @@ exports.update = function(req, res) {
 				
 				updUser.roles = (updUser.isAdmin) ? 'admin' : 'user';
 				updUser.updated = Date.now();
+                delete updUser.password;
 				updUser = _.extend(curUser, updUser);
 				updUser.save(function(err) {
 					if (err) {

@@ -21,11 +21,11 @@ exports.signup = function(req, res) {
 	var message = null;
 	if(req.body.isAdmin)
 	{
-	user.roles = 'admin';
+	   user.roles = 'admin';
 	}
 	else
 	{
-	user.roles = 'user';
+        user.roles = 'user';
 	}
 	// Add missing user fields
 	user.provider = 'local';
