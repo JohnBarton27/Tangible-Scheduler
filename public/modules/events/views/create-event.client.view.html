@@ -68,11 +68,9 @@
 				 
 								  <div class="col-md-8">
 									  <div class="form-group" >
-										<label class="control-label" for="numRequired">How many {{skill.skill}}s do you want?</label>
-										<div class="controls">
-											<input type="text" data-ng-model="models[skill._id][0]" id="numRequired{{$index}}" class="form-control" placeholder="0" required>
-										</div>
-										<label class="control-label" for="requsers">Required Members:</label>    
+										
+										
+										<label class="control-label" for="requsers">Select Members:</label>    
 											<select multiple="multiple" class="form-control" data-ng-model="models[skill._id][1]" id="requsers{{$index}}" data-ng-init="findUsers()" multiselect-dropdown>
 												<option data-ng-repeat="user in users | filter: skill._id" ng-if="user!=undefined" data-ng-value="user._id">
 													
@@ -80,6 +78,12 @@
 												
 												</option>
 											</select>
+                                      
+                                      <label class="control-label" for="numRequired">How many other {{skill.skill}}s do you want?</label>
+										<div class="controls">
+											<input type="text" data-ng-model="models[skill._id][0]" id="numRequired{{$index}}" class="form-control" placeholder="0" required>
+                                            
+                                       </div>     
 									</div>
 								  </div>
 							  </accordion-group>

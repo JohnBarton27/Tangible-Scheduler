@@ -103,10 +103,11 @@
 
 .project-on-event {
     font-size: 30px;
-    float: right;
+    float: left;
     font-weight: 500;
-    color: #F3EC19;
-    margin-top: -20px;
+    color: #008080;
+    margin-top: 20px;
+    margin-bottom: -150px;
 }
 
 .event-section-header {
