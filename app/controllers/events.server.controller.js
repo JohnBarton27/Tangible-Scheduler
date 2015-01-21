@@ -145,16 +145,6 @@ exports.create = function(req, res) {
 							for(var i=0; i < oUsers.length; i++) {
 								var oUser = oUsers[i];
 								for(var j=0; j < oUser.skills.length; j++) {
-									console.log("---------STUFF---------");
-									console.log(sskills[0]);
-									console.log(oUser.skills[0]);
-									console.log(typeof (sskills[0]));
-									console.log(typeof (oUser.skills[0]));
-									console.log(sskills[0] === oUser.skills[0]);
-									console.log(sskills[0] == oUser.skills[0]);
-									console.log(sskills[0].equals(oUser.skills[0]));
-									console.log(sskills[0] == parseInt(oUser.skills[0]));
-									console.log(sskills[0] === oUser.skills[0].toString());
 									if(sskillz.indexOf(oUser.skills[j].toString()) !== -1) {
 										//Add 1 to the count for that skill
 										skillzHave[oUser.skills[j]]++;
@@ -223,18 +213,14 @@ exports.create = function(req, res) {
 							
 							var rqUsers = [];
 							var allUsers = [];
-							var usrSkillReqs = [];
+							var usrSkills = [];
 							for(var l=0; l < sskills.length; l=l+1) {
 								var skkill = sskills[l];
-								console.log("Inside that stupid for loop of dumbness");
-								console.log(l);
-								console.log(skkill);
-								console.log(skillRequestUsers[skkill]);
 								for(var j=0; j < skillRequestUsers[skkill].length; j++) {
 									var usIndex = allUsers.indexOf(skillRequestUsers[skkill][j]);
 									if(usIndex === -1) {
 										allUsers.push(skillRequestUsers[skkill][j]);
-										usrSkillReqs.push(srequests[l]);
+										usrSkills.push(skkill);
 									}
 									if(srequests[l].requiredUsers.indexOf(skillRequestUsers[skkill][j]._id) !== -1) {
 										rqUsers.push(skillRequestUsers[skkill][j]);
@@ -288,7 +274,7 @@ exports.create = function(req, res) {
 								//begin building event request
 								var eventRequest = new EventRequest();
 								eventRequest.event = event._id;
-								eventRequest.skillRequest = usrSkillReqs[i];
+								eventRequest.skill = usrSkills[i];
 
 								//add required users first
 								eventRequest.user = allUsers[i];
@@ -298,7 +284,7 @@ exports.create = function(req, res) {
 									eventRequest.required = true;
 								}
  
-								console.log("------------event request----------------");
+								console.log("------------event-request----------------");
 								console.log(eventRequest);
 								eventRequest.save(function(err3,erequest) {
 									if (err3) {

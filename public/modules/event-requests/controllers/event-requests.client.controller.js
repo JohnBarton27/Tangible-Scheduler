@@ -48,11 +48,7 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
-		};
-		
-		// Update event when Event request is declined
-		$scope.updateAfterDecline = function() {
-				
+		};	
 
 		// Find a list of Event requests
 		$scope.find = function() {

@@ -40,7 +40,9 @@ exports.read = function(req, res) {
  * Update an Event request
  */
 exports.update = function(req, res) {
-	var eventRequest = req.eventRequest ;
+	var eventRequest = req.eventRequest;
+	//This may just get the event id
+	var event = eventRequest.event;
     console.log(eventRequest);
 	eventRequest = _.extend(eventRequest , req.body);
 	
@@ -64,12 +66,16 @@ exports.update = function(req, res) {
 						var allUsers = [];
 						
 						for(var i=0; i < eventReqs.length; i++) {
-							allUsers.push(eventReqs.user._id);
+							allUsers.push(eventReqs[i].user);
 						}
+						
+						console.log("--------eventRequest--------");
+						console.log(eventRequest);
+						var test = [eventRequest.skill];
 						
 						User
 						.find()
-						.where('skills').in(eventRequest.skillRequest.skill)
+						.where('skills').in(test)
 						.where('_id').nin(allUsers)
 						.sort('-created').exec(function(err, oUsers) {
 							if (err) {
@@ -79,20 +85,27 @@ exports.update = function(req, res) {
 							} else {
 								
 								var rand = Math.floor((Math.random() * oUsers.length));
+								var user = oUsers[rand];
 												
 								//begin building event request
 								var newEventRequest = new EventRequest();
 								newEventRequest.event = eventRequest.event;
 								
-								eventRequest.user = allUsers[i];
+								newEventRequest.user = user;
+								newEventRequest.required = false;
+								newEventRequest.skill = eventRequest.skill;
+								
 					 
-								eventRequest.save(function(err3,erequest) {
+								newEventRequest.save(function(err3,erequest) {
 									if (err3) {
 										console.log('error saving eventRequest' + err3);
 										return res.status(400).send({
 											message: errorHandler.getErrorMessage(err3)
 										});
 									} else {
+										console.log("---------user2--------");
+										console.log(user);
+										
 										//get user for email info
 										User.findById(erequest.user, function(err, user) {
 											var transporter = nodemailer.createTransport({
