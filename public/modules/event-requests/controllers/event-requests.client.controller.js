@@ -74,16 +74,13 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 			});
 		};
         
-        $scope.submitResponse = function(status) {
-            var eventRequest = $scope.eventRequest;
-            eventRequest.response = status;
-            console.log(eventRequest);
-			eventRequest.$update(function() {
-				$location.path('event-requests/' + eventRequest._id);
-			}, function(errorResponse) {
-                console.log(errorResponse.data.message);
-				$scope.error = errorResponse.data.message;
+        $scope.submitResponse = function(status, id) {
+            $scope.eventRequest = EventRequests.get({ 
+				eventRequestId: id
 			});
+            $scope.eventRequest.response = status;
+            console.log($scope.eventRequest);
+			//$scope.eventRequest.$update();
         }
         
         $scope.editResponse = function(id) {

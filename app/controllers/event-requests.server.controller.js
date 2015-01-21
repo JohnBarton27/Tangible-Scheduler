@@ -38,7 +38,9 @@ exports.read = function(req, res) {
  * Update a Event request
  */
 exports.update = function(req, res) {
-	var eventRequest = req.eventRequest ;
+	console.log("HERE");
+    console.log("REQ: " + req + " RES: " + res);
+    var eventRequest = req.eventRequest ;
     console.log(eventRequest);
 	eventRequest = _.extend(eventRequest , req.body);
 

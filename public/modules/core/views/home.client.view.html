@@ -68,6 +68,23 @@
                             <div class="alert-warning btn" style="border-color: #ffffff; margin-top:10px; margin-bottom:-10px; margin-left:10px;" ng-click="editResponse(allEventRequests._id)">
                               <span> <b> Edit Your Response </b></span>
                             </div>
+                                    
+                                    
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary" style="background-image: linear-gradient(to bottom, #99CD00 0%, #66CD00 100%); background-color:#66CD00; border-color: #ffffff;" ng-click="submitResponse('yes', allEventRequests._id); update();">
+		                              <span> <b> &#10004; </b></span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn btn-primary" style="background-image: linear-gradient(to bottom, #dd0000 0%, #ff0000 100%); background-color:#ff0000; border-color: #ffffff" ng-click="submitResponse('no', allEventRequests._id); update();">
+                                        <span> <b> &#10006; </b> </span>
+                                    </a>
+                                </div>
+                            </div>
+                                    
+                                    
+                                    
                             
                             <span data-ng-repeat="allEventRequest in attendees = (eventRequests| filter: {response: 'yes'} | filter: {event : thisEvent._id})"> </span>
                                 <div style="color:#f3ec19; font-size:15px; text-align:center; padding-left:20px; margin-top:-20px">
