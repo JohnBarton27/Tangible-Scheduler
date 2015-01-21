@@ -1,8 +1,8 @@
 'use strict';
 
 // Event requests controller
-angular.module('event-requests').controller('EventRequestsController', ['$scope', '$stateParams', '$location', 'Authentication', 'EventRequests',
-	function($scope, $stateParams, $location, Authentication, EventRequests ) {
+angular.module('event-requests').controller('EventRequestsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Events', 'EventRequests',
+	function($scope, $stateParams, $location, Authentication, Events, EventRequests ) {
 		$scope.authentication = Authentication;
 
 		// Create new Event request
@@ -54,6 +54,11 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 		$scope.find = function() {
 			$scope.eventRequests = EventRequests.query();
 		};
+        
+        // Find a list of Events
+		$scope.findEvents = function() {
+			$scope.events = Events.query();
+		};
 
 		// Find existing Event request
 		$scope.findOne = function() {
@@ -62,15 +67,27 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 			});
 		};
         
+        // Find existing Event request
+		$scope.findById = function(id) {
+			$scope.eventRequest = EventRequests.get({ 
+				eventRequestId: id
+			});
+		};
+        
         $scope.submitResponse = function(status) {
-            var eventRequest = $scope.eventRequest ;
+            var eventRequest = $scope.eventRequest;
             eventRequest.response = status;
             console.log(eventRequest);
 			eventRequest.$update(function() {
 				$location.path('event-requests/' + eventRequest._id);
 			}, function(errorResponse) {
+                console.log(errorResponse.data.message);
 				$scope.error = errorResponse.data.message;
 			});
+        }
+        
+        $scope.editResponse = function(id) {
+            $location.path('event-requests/' + id);
         }
 	}
 ]);

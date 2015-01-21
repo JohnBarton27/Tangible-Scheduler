@@ -1,4 +1,3 @@
- 
 <div class="container-fluid" style="margin-top:10px" data-ng-controller="HomeController" data-ng-init="findUsers()">
   <!--First row: for newsfeed and eventslist -->
     <!-- Don't even try and load data without authentication -->
@@ -61,11 +60,50 @@
       </div>
     </div>
     <!-- second row for faq section -->
-    <div class="row">
-      <div class="newfaq col-xs-12">
-          <a href="#!/"><u class="section-heading">Questions (FAQ)</u></a>
-          <p>Question #1</p>
+    <div class="row" data-ng-controller="EventRequestsController">
+      <div class="newfaq col-xs-6" data-ng-init="find()">
+          <a><u class="section-heading">Event Requests</u></a>
+          <a data-ng-repeat="allEventRequests in eventRequests" class="list-group">         
+            <div ng-if="allEventRequests.user._id === authentication.user._id">
+                
+                <div id="Event Info" data-ng-init="findEvents()">
+                    <span data-ng-repeat="thisEvent in events">
+                        <div ng-if="thisEvent._id === allEventRequests.event"class= "list-group-item">
+                        
+                            <!-- Checkmark: &#10004; X: &#10006; ?: ? -->
+                            <span ng-if="allEventRequests.response == 'yes'" style="float:right; color:#66CD00; font-size:40px"> &#10004; </span>
+                            <span ng-if="allEventRequests.response == 'no'" style="float:right; color:#ff0000; font-size:40px"> &#10006; </span>
+                            <span ng-if="allEventRequests.response == ''" style="float:right; color:#f3ec19; font-size:40px"> ? </span>
 
+                            <span class="event-title" data-ng-bind="thisEvent.name"></span>
+                            <span class="event-project" data-ng-bind="thisEvent.project.name"></span>
+
+                            <div class="list-group-item-text">
+                                Starts at 
+                                <span data-ng-bind="thisEvent.time"></span>
+                                on
+                                <span data-ng-bind="thisEvent.date | date: 'shortDate'"></span>
+                                at
+                                <span data-ng-bind="thisEvent.location"></span>
+                            </div>
+                        
+                            
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="btn btn-primary" style="border-color: #ffffff;" ng-click="editResponse(allEventRequests._id)">
+		                              <span> <b> Edit Your Response </b></span>
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            
+                            
+                        </div>  
+                    </span>
+                </div>
+              </div>
+          </a>
       </div>
+        
     </div>
   </div>
