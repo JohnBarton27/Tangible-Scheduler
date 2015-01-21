@@ -119,7 +119,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 
 		// Update existing Event
 		$scope.update = function() {
-			var event = $scope.event ;
+			var event = $scope.event;
 
 			event.$update(function() {
 				$location.path('events/' + event._id);
@@ -127,7 +127,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 				$scope.error = errorResponse.data.message;
 			});
 		};
-
+        
 		$scope.isAdmin = function()
 		{
 			//console.log($scope.authentication.user.isAdmin);
