@@ -49,7 +49,6 @@ exports.create = function(req, res) {
 
     event.save(function(err,newEvent) {
     //console.log('in create');
-	
         if (err) {
             return res.status(400).send({
                 message: errorHandler.getErrorMessage(err)
@@ -63,11 +62,14 @@ exports.create = function(req, res) {
 			var srequests = [];
 			var reqUsers = [];
 			var sskills = [];
+			
 			for(var i=0; i < skillRequests.length; i++){
 				srequests.push(new SkillRequest(skillRequests[i]));
-				if(srequests.requiredUsers !== undefined) {
+				if(srequests[i].requiredUsers !== undefined) {
 					for(var j=0; j < srequests[i].requiredUsers.length; j++) {
-						reqUsers.push(srequests.requiredUsers[j]);
+						if(reqUsers.indexOf(srequests[i].requiredUsers[j]) === -1) {
+							reqUsers.push(srequests[i].requiredUsers[j]);
+						}
 					}
 				}
 				sskills.push(srequests[i].skill);
@@ -82,7 +84,8 @@ exports.create = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-				
+					console.log("Getting req Users");
+					console.log(rUsers);
 					var skillRequestUsers = {};
 					for(var i=0; i < sskills.length; i++) {
 						skillRequestUsers[sskills[i]] = [];
@@ -96,7 +99,6 @@ exports.create = function(req, res) {
 							skillRequestUsers[rUser.skills[j]].push(rUser);
 						}
 					}
-						
 					
 					User
 					.find()
@@ -108,6 +110,7 @@ exports.create = function(req, res) {
 								message: errorHandler.getErrorMessage(err)
 							});
 						} else {
+							
 							//create a skills we have dictionary for counting the number of each skill we have
 							//create a skills diff dictionary for storing the number of each skill we have minus
 							//the number of each skill we want
@@ -177,17 +180,20 @@ exports.create = function(req, res) {
 									skillsDiff.splice(0, 1);
 								}
 							}
+							
+							
+							
 							var rqUsers = [];
 							var allUsers = [];
-							for(var i=0; i < sskills.length; i++) {
-								var skkill = sskills[i];
+							for(var l=0; l < sskills.length; l=l+1) {
+								var skkill = sskills[l];
 								for(var j=0; j < skillRequestUsers[skkill].length; j++) {
 									var usIndex = allUsers.indexOf(skillRequestUsers[skkill][j]);
 									if(usIndex === -1) {
 										allUsers.push(skillRequestUsers[skkill][j]);
-										if(srequests[i].requiredUsers.indexOf(skillRequestUsers[skkill][j]) !== -1) {
-											rqUsers.push(skillRequestUsers[skkill][j]);
-										}
+									}
+									if(srequests[l].requiredUsers.indexOf(skillRequestUsers[skkill][j]._id) !== -1) {
+										rqUsers.push(skillRequestUsers[skkill][j]);
 									}
 								}
 							}
@@ -244,8 +250,7 @@ exports.create = function(req, res) {
 								} else {
 									eventRequest.required = true;
 								}
-
-								//console.log(eventRequest);
+ 
 								eventRequest.save(function(err3,erequest) {
 									if (err3) {
 										console.log('error saving eventRequest' + err3);
@@ -346,7 +351,6 @@ exports.update = function(req, res) {
  
 exports.updateAfterDecline = function(req, res) {
 	var event = req.event;
-	//var 
 };
 
 /**
