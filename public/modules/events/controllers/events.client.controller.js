@@ -2,12 +2,12 @@
 
 /*
  * getSkills will take the result of the submitted form from Event.create()
- * It will parse the data from form and turn bring together the users, skills and whether theyre required or not into skill-request objects.
+ * It will parse the data from form and turn bring together the users, skills and whether they're required or not into skill-request objects.
  *
  * Model:
  * skillsNeeded [{
-	 * skillset: refercnce _id to a skill,
-	 * isRequired: boolean for is the skillset requied,
+	 * skillset: reference _id to a skill,
+	 * isRequired: boolean for is the skillset required,
 	 * users[{user._id}] is an array of userIds to reference
  * }]
  */
@@ -100,7 +100,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 				$scope.error = errorResponse.data.message;
 			});
 		};
-
+			
 		// Remove existing Event
 		$scope.remove = function( event ) {
 			if ( event ) { event.$remove();

@@ -62,6 +62,8 @@ exports.create = function(req, res) {
 			var srequests = [];
 			var reqUsers = [];
 			var sskills = [];
+			//Have to make an extra version of sskills array cause js is stupid and Im getting different types
+			var sskillz = [];
 			
 			for(var i=0; i < skillRequests.length; i++){
 				srequests.push(new SkillRequest(skillRequests[i]));
@@ -73,6 +75,7 @@ exports.create = function(req, res) {
 					}
 				}
 				sskills.push(srequests[i].skill);
+				sskillz.push(srequests[i].skill.toString());
 			}
 			
 			User
@@ -84,21 +87,32 @@ exports.create = function(req, res) {
 						message: errorHandler.getErrorMessage(err)
 					});
 				} else {
-					console.log("Getting req Users");
+					console.log("-------rUsers----------");
 					console.log(rUsers);
 					var skillRequestUsers = {};
 					for(var i=0; i < sskills.length; i++) {
 						skillRequestUsers[sskills[i]] = [];
 					}
 					
+					console.log("---------sskills---------");
+					console.log(sskills);
+					
+					
 					//Loop through each required user and each of their skills
 					for(var i=0; i < rUsers.length; i++) {
 						var rUser = rUsers[i];
 						for(var j=0; j < rUser.skills.length; j++) {
-							//Add the user to the list of users to attach to the skill request
-							skillRequestUsers[rUser.skills[j]].push(rUser);
+							if(sskillz.indexOf(rUser.skills[j].toString()) !== -1) {
+								//Add the user to the list of users to attach to the skill request
+								skillRequestUsers[rUser.skills[j]].push(rUser);
+							} else {
+								console.log("Required User - Not a skill we are looking for");
+							}
 						}
 					}
+					
+					console.log("-----------skillRequestUsers------------");
+					console.log(skillRequestUsers);
 					
 					User
 					.find()
@@ -110,6 +124,8 @@ exports.create = function(req, res) {
 								message: errorHandler.getErrorMessage(err)
 							});
 						} else {
+							console.log("----------oUsers---------");
+							console.log(oUsers);
 							
 							//create a skills we have dictionary for counting the number of each skill we have
 							//create a skills diff dictionary for storing the number of each skill we have minus
@@ -129,12 +145,29 @@ exports.create = function(req, res) {
 							for(var i=0; i < oUsers.length; i++) {
 								var oUser = oUsers[i];
 								for(var j=0; j < oUser.skills.length; j++) {
-									//Add 1 to the count for that skill
-									skillzHave[oUser.skills[j]]++;
-									//Add the user to the list of users witht that skill
-									skillUsers[oUser.skills[j]].push(oUser);
+									console.log("---------STUFF---------");
+									console.log(sskills[0]);
+									console.log(oUser.skills[0]);
+									console.log(typeof (sskills[0]));
+									console.log(typeof (oUser.skills[0]));
+									console.log(sskills[0] === oUser.skills[0]);
+									console.log(sskills[0] == oUser.skills[0]);
+									console.log(sskills[0].equals(oUser.skills[0]));
+									console.log(sskills[0] == parseInt(oUser.skills[0]));
+									console.log(sskills[0] === oUser.skills[0].toString());
+									if(sskillz.indexOf(oUser.skills[j].toString()) !== -1) {
+										//Add 1 to the count for that skill
+										skillzHave[oUser.skills[j]]++;
+										//Add the user to the list of users witht that skill
+										skillUsers[oUser.skills[j]].push(oUser);
+									} else {
+										console.log("Ambig User - Not a skill we are looking for");
+									}
 								}
 							}
+							
+							console.log("-----------skillUsers---------");
+							console.log(skillUsers);
 							
 							var totalRequested = 0;
 							
@@ -158,6 +191,9 @@ exports.create = function(req, res) {
 									return first[1] - second[1];
 								});
 								
+								console.log("-------skillsDiff--------");
+								console.log(skillsDiff);
+								
 								var skil = skillsDiff[0][0];
 								
 								while(skillUsers[skil].length > 0) {
@@ -176,21 +212,29 @@ exports.create = function(req, res) {
 									}
 								}
 								
+								console.log("---------skillRequestUsers--------");
+								console.log(skillRequestUsers);
+								
 								if(skillzWant[skil] === 0) {
 									skillsDiff.splice(0, 1);
 								}
 							}
 							
 							
-							
 							var rqUsers = [];
 							var allUsers = [];
+							var usrSkillReqs = [];
 							for(var l=0; l < sskills.length; l=l+1) {
 								var skkill = sskills[l];
+								console.log("Inside that stupid for loop of dumbness");
+								console.log(l);
+								console.log(skkill);
+								console.log(skillRequestUsers[skkill]);
 								for(var j=0; j < skillRequestUsers[skkill].length; j++) {
 									var usIndex = allUsers.indexOf(skillRequestUsers[skkill][j]);
 									if(usIndex === -1) {
 										allUsers.push(skillRequestUsers[skkill][j]);
+										usrSkillReqs.push(srequests[l]);
 									}
 									if(srequests[l].requiredUsers.indexOf(skillRequestUsers[skkill][j]._id) !== -1) {
 										rqUsers.push(skillRequestUsers[skkill][j]);
@@ -237,11 +281,14 @@ exports.create = function(req, res) {
 									}
 								});
 							}	
-									
+							
+							console.log(oUsers);
+							console.log(allUsers);
 							for(var i=0; i < allUsers.length; i++) {
 								//begin building event request
 								var eventRequest = new EventRequest();
 								eventRequest.event = event._id;
+								eventRequest.skillRequest = usrSkillReqs[i];
 
 								//add required users first
 								eventRequest.user = allUsers[i];
@@ -251,6 +298,8 @@ exports.create = function(req, res) {
 									eventRequest.required = true;
 								}
  
+								console.log("------------event request----------------");
+								console.log(eventRequest);
 								eventRequest.save(function(err3,erequest) {
 									if (err3) {
 										console.log('error saving eventRequest' + err3);
@@ -330,7 +379,7 @@ exports.read = function(req, res) {
  */
 
 exports.update = function(req, res) {
-    var event = req.event ;
+    var event = req.event;
     event = _.extend(event , req.body);
     event.save(function(err) {
         
@@ -342,16 +391,9 @@ exports.update = function(req, res) {
             res.jsonp(event);
         }
     });
-
 };
 
-/**
- * Update an Event after a decline/timeout
- */
- 
-exports.updateAfterDecline = function(req, res) {
-	var event = req.event;
-};
+
 
 /**
  * Delete an Event

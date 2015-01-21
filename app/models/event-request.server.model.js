@@ -26,6 +26,10 @@ var EventRequestSchema = new Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Event'
 	},
+	skillRequest: {
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'SkillRequest'
+	},
 	user:{
 		type: Schema.ObjectId,
 		ref: 'User'
