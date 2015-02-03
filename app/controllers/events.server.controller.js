@@ -138,8 +138,11 @@ exports.create = function(req, res) {
 							for(var i=0; i < sskills.length; i++) {
 								skillzHave[sskills[i]] = 0;
 								skillUsers[sskills[i]] = [];
-								skillzWant[sskills[i]] = srequests[i].numRequested;
+								skillzWant[sskills[i]] = srequests[i].numRequested - srequests[i].requiredUsers.length;
 							}
+							
+							console.log("--------------------skillzWant---------------------");
+							console.log(skillzWant);
 							
 							//Loop through each user and each of their skills
 							for(var i=0; i < oUsers.length; i++) {
@@ -148,7 +151,7 @@ exports.create = function(req, res) {
 									if(sskillz.indexOf(oUser.skills[j].toString()) !== -1) {
 										//Add 1 to the count for that skill
 										skillzHave[oUser.skills[j]]++;
-										//Add the user to the list of users witht that skill
+										//Add the user to the list of users with that skill
 										skillUsers[oUser.skills[j]].push(oUser);
 									} else {
 										console.log("Ambig User - Not a skill we are looking for");
@@ -163,7 +166,7 @@ exports.create = function(req, res) {
 							
 							for(var i=0; i < sskills.length; i++) {
 								var skl = sskills[i];
-								skillzDiff[skl] = skillzHave[skl] - srequests[i].numRequested.length;
+								skillzDiff[skl] = skillzHave[skl] - srequests[i].numRequested;
 								totalRequested += srequests[i].numRequested;
 							}
 							
@@ -174,7 +177,7 @@ exports.create = function(req, res) {
 								return [key, skillzDiff[key]];
 							});
 							
-							for(var i=0; i < skillsDiff.length; i++) {
+							while(skillsDiff.length > 0) {
 								//Stuff for sorting skillzDiff dictionary based on value.
 								// Sort the array based on the second element
 								skillsDiff.sort(function(first, second) {
@@ -185,6 +188,12 @@ exports.create = function(req, res) {
 								console.log(skillsDiff);
 								
 								var skil = skillsDiff[0][0];
+								
+								//Once we have gotten the number of people we wanted, remove skill from sorted diff array
+								if(skillzWant[skil] === 0) {
+									skillsDiff.splice(0, 1);
+									continue;
+								}
 								
 								while(skillUsers[skil].length > 0) {
 									var rand = Math.floor((Math.random() * skillUsers[skil].length));
@@ -204,17 +213,13 @@ exports.create = function(req, res) {
 								
 								console.log("---------skillRequestUsers--------");
 								console.log(skillRequestUsers);
-								
-								if(skillzWant[skil] === 0) {
-									skillsDiff.splice(0, 1);
-								}
 							}
 							
 							
 							var rqUsers = [];
 							var allUsers = [];
 							var usrSkills = [];
-							for(var l=0; l < sskills.length; l=l+1) {
+							for(var l=0; l < sskills.length; l++) {
 								var skkill = sskills[l];
 								for(var j=0; j < skillRequestUsers[skkill].length; j++) {
 									var usIndex = allUsers.indexOf(skillRequestUsers[skkill][j]);
