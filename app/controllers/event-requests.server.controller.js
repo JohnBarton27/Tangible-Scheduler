@@ -82,7 +82,7 @@ exports.update = function(req, res) {
 								return res.status(400).send({
 									message: errorHandler.getErrorMessage(err)
 								});
-							} else {
+							} else if(oUsers.length > 0) {
 								
 								var rand = Math.floor((Math.random() * oUsers.length));
 								var user = oUsers[rand];
