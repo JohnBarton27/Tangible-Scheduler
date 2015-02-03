@@ -117,7 +117,7 @@ exports.update = function(req, res) {
 												}
 											});
 
-											var msgtext = 'You are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
+											var msgtext = 'You are requested for an event - ' + event.name + '. Check it out and respond at http://tangiblescheduler.com/';
 											var msgto = '';
 											var fullPhone = user.phone1 + user.phone2 + user.phone3;
 
@@ -136,7 +136,7 @@ exports.update = function(req, res) {
 											var mailOptions = {
 												from: 'tangibletesting@gmail.com',
 												to: msgto,
-												subject: 'Event Request',
+												subject: 'Tangible - ' + event.name,
 												text: msgtext
 											};
 
