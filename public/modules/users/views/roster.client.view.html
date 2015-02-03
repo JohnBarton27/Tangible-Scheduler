@@ -20,7 +20,7 @@
                     </span>
                     <span ng-if="!$last">&nbsp; - &nbsp;</span>
                 </span>
-                <div>Roles: <span data-ng-bind="user.roles"></span></div>
+                <div>Roles: <!-- <span data-ng-bind="user.roles"></span>--> <span ng-if="user.isAdmin">Admin</span> <span ng-if="!user.isAdmin">User</span> </div>
             
                 
             </div>
