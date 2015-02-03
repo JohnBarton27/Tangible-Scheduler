@@ -138,7 +138,7 @@ exports.create = function(req, res) {
 							for(var i=0; i < sskills.length; i++) {
 								skillzHave[sskills[i]] = 0;
 								skillUsers[sskills[i]] = [];
-								skillzWant[sskills[i]] = srequests[i].numRequested - srequests[i].requiredUsers.length;
+								skillzWant[sskills[i]] = srequests[i].numRequested;
 							}
 							
 							console.log("--------------------skillzWant---------------------");

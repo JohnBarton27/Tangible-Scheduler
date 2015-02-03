@@ -19,11 +19,11 @@ function getSkills(form){
 		if(form[skill][0]!== undefined)
 			newSkill.numRequested = form[skill][0];
 		else
-			newSkill.numRequested = 1;
+			newSkill.numRequested = 0;
 		if(form[skill][1]!== undefined) {
 			newSkill.requiredUsers = form[skill][1];
-			if(newSkill.requiredUsers.length > newSkill.numRequested)
-				newSkill.numRequested = newSkill.requiredUsers.length;
+			//if(newSkill.requiredUsers.length > newSkill.numRequested)
+			//	newSkill.numRequested = newSkill.requiredUsers.length;
 		}
 		skills.push(newSkill);	
 	}
