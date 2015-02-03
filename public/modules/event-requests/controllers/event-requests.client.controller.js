@@ -74,13 +74,10 @@ angular.module('event-requests').controller('EventRequestsController', ['$scope'
 			});
 		};
         
-        $scope.submitResponse = function(status, id) {
-            $scope.eventRequest = EventRequests.get({ 
-				eventRequestId: id
-			});
+        $scope.submitResponse = function(status) {
             $scope.eventRequest.response = status;
             console.log($scope.eventRequest);
-			//$scope.eventRequest.$update();
+			$scope.update();
         }
         
         $scope.editResponse = function(id) {

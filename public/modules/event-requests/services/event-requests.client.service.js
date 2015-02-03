@@ -5,9 +5,7 @@ angular.module('event-requests').factory('EventRequests', ['$resource',
 	function($resource) {
 		return $resource('event-requests/:eventRequestId', {eventRequestId: '@_id'}, {
 			update: {
-				method: 'PUT',
-                data: {},
-                isArray: false
+				method: 'PUT'
 			}
 		});
 	}
