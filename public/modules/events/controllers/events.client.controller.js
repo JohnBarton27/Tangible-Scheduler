@@ -58,6 +58,14 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
             } else {
                 event.hasHappened = false;
             }
+            $scope.event = event;
+            
+            var uEvent = $scope.event;
+
+			uEevent.$update(function() {
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
         };
         
         $scope.getDate = function(event) {

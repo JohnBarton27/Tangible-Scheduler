@@ -16,7 +16,7 @@ var SkillRequestSchema = new Schema({
 	},
 	numRequested: { 
 		type: Number, 
-		min: 1
+		min: 0
 	},
 	requiredUsers:[{
 		type: mongoose.Schema.Types.ObjectId,
