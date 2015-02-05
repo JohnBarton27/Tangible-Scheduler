@@ -5,6 +5,7 @@
  */
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors'),
+	Event = mongoose.model('Event'),
 	EventRequest = mongoose.model('EventRequest'),
 	SkillRequest = mongoose.model('SkillRequest'),
 	User = mongoose.model('User'),
@@ -155,6 +156,50 @@ exports.update = function(req, res) {
 					}
 				});
 			}
+			
+			User.findById(event.user, function(err, user) {
+				User.findById(eventRequest.user, function(err, evUser) {
+					var transporter = nodemailer.createTransport({
+						service: 'Gmail',
+						auth: {
+							user: 'tangiblescheduler@gmail.com',
+							pass: 'tangible123'
+						}
+					});
+					
+					var msgtext = '\n' + evUser.firstName + ' ' + evUser.lastName + ' has replied ' + eventRequest.response + ' to your event ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/';
+					var msgto = '';
+					var fullPhone = user.phone1 + user.phone2 + user.phone3;
+
+					if ( user.phoneProvider === undefined || user.phoneProvider === 'none') {
+						msgto = user.email;
+					} else if (user.phoneProvider.toLowerCase() === 'verizon') {
+						msgto = fullPhone + '@vtext.com';
+					} else if (user.phoneProvider.toLowerCase() === 'att') {
+						msgto = fullPhone + '@txt.att.net';
+					} else if (user.phoneProvider.toLowerCase() === 'tmobile') {
+						msgto = fullPhone + '@tmomail.net';
+					} else if (user.phoneProvider.toLowerCase() === 'sprint') {
+						msgto = fullPhone + '@messaging.sprintpcs.com';
+					}
+
+					var mailOptions = {
+						from: 'tangibletesting@gmail.com',
+						to: msgto,
+						subject: 'Event Request',
+						text: msgtext
+					};
+
+					transporter.sendMail(mailOptions, function(err, info) {
+						if (err) {
+							console.log(err);
+						} else {
+							console.log('Message send: ' + info.response);
+						}
+					});
+					transporter.close();
+				});
+			});
 			res.jsonp(eventRequest);
 		}
 	});
