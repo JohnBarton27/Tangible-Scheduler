@@ -18,7 +18,7 @@ _ = require('lodash');
 
 
 /**
- * Create a Event
+ * Create an Event
  */
 
 exports.create = function(req, res) {
@@ -308,7 +308,7 @@ exports.create = function(req, res) {
 												}
 											});
 
-											var msgtext = 'You are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
+											var msgtext = '\nYou are requested for an event - ' + event.name + '. Check it out at http://tangiblescheduler.com/#!/event-requests/'+erequest._id;
 											var msgto = '';
 											var fullPhone = user.phone1 + user.phone2 + user.phone3;
 

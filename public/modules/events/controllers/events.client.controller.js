@@ -38,37 +38,26 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 		$scope.authentication = Authentication;
  		
 		//used with event skills
-		$scope.models = {};       
-		//Date
-        var d = new Date();
-        var curr_date = d.getDate();
-        var curr_month = d.getMonth()+1;
-        var curr_year = d.getFullYear();
-
-        $scope.dateToday = Date.parse(curr_month + '/' + curr_date + '/' + curr_year);
+		$scope.models = {};
         
-        $scope.eventDateFilter = function() {
-            $scope.dateRange = $scope.dateToday;
-        };
-        
-        
-        $scope.updatePastEvents = function(event) {            
-            if(new Date(event.date) <= new Date()) {
-                event.hasHappened = true;
-            } else {
-                event.hasHappened = false;
-            }
-        };
+		var today = new Date();
+		//$scope.dateToday = d;
+		
+		$scope.futureEventFilter = function(evnt) {
+			return new Date(evnt.date) >= today;
+		}
+		
+		$scope.pastEventFilter = function(evnt) {
+			return new Date(evnt.date) < today;
+		}
         
         $scope.getDate = function(event) {
             return event.date;
         };
-        
-		//$scope.projects = Projects.query();
 
 		// Create new Event
 		$scope.create = function() {
-			var chosenSkills = getSkills($scope.models);	
+			var chosenSkills = getSkills($scope.models);
 			//console.log("ChosenSkills: " + chosenSkills);
 			// Create new Event object
 			var event = new Events ({
@@ -95,7 +84,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
                 $scope.project = '';
                 $scope.skill = '';
                 $scope.requsers = '';
-                $scope.dateRange = ''; 
+                $scope.dateRange = '';
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -138,6 +127,7 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 		$scope.find = function() {
 			$scope.events = Events.query();
 		};
+		
 		// Find a list of Projects
 		$scope.findProjects = function() {
 			$scope.projects = Projects.query();
@@ -166,10 +156,15 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 				eventId: $stateParams.eventId
 			});
 		};
+		
+		$scope.mytime = new Date();
     
         //Calendar Controller
         $scope.today = function() {
             $scope.date = new Date();
+			$scope.date.setHours($scope.mytime.getHours());
+			$scope.date.setMinutes($scope.mytime.getMinutes());
+			$scope.date.setSeconds($scope.mytime.getSeconds());
         };
         
         $scope.today();
@@ -202,9 +197,9 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
         };
 
         $scope.formats = ['dd/MMMM/yyyy', 'yyyy/MM/dd', 'dd/MM/yyyy', 'MM/dd/yyyy', 'shortDate'];
-        $scope.format = $scope.formats[3];        
+        $scope.format = $scope.formats[3];
         
-        $scope.mytime = new Date();
+		//Stuff for Time Picker
 
 		$scope.hstep = 1;
 		$scope.mstep = 1;
@@ -214,5 +209,9 @@ angular.module('events').controller('EventsController', ['$scope', '$filter', '$
 		$scope.ismeridian = true;
 		$scope.timeChanged = function () {
 			$scope.time = $filter('date')($scope.mytime, 'shortTime');
+			//updates date with time from time date object
+			$scope.date.setHours($scope.mytime.getHours());
+			$scope.date.setMinutes($scope.mytime.getMinutes());
+			$scope.date.setSeconds($scope.mytime.getSeconds());
 		};
 }]);

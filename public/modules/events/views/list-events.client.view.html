@@ -3,7 +3,7 @@
         <div class="col-md-8">
 			<div class="page-header">
 				<h3>Events</h3>
-                <a data-ng-repeat="event in events" data-ng-init="updatePastEvents(event)"></a>
+                <!--<a data-ng-repeat="event in events" data-ng-init="updatePastEvents(event)"></a>-->
 			</div>
 		</div>
 	</div>
@@ -12,7 +12,7 @@
 		<div class="col-md-8">
             <h5>Upcoming Events</h5>
 			<div class="list-group">
-				<a data-ng-repeat="event in upcomingEvents = (events | orderBy: 'date' | filter: {'hasHappened' : false})" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+				<a data-ng-repeat="event in upcomingEvents = (events | orderBy: 'date' | filter: futureEventFilter)" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
 					<div id="info">
                         <span class="event-title" data-ng-bind="event.name"></span>
                         <span class="event-project" data-ng-bind="event.project.name"></span>
@@ -42,7 +42,7 @@
 		<div class="col-md-8">
             <h5>Past Events</h5>
 			<div class="list-group">
-				<a data-ng-repeat="event in pastEvents = (events | orderBy: '-date' | filter: {'hasHappened' : true})" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
+				<a data-ng-repeat="event in pastEvents = (events | orderBy: '-date' | filter: pastEventFilter)" data-ng-href="#!/events/{{event._id}}" class="list-group-item">
 					<div id="info">
                         <span class="event-title" data-ng-bind="event.name"></span>
                         <span class="event-project" data-ng-bind="event.project.name"></span>
