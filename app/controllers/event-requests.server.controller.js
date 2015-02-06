@@ -184,9 +184,9 @@ exports.update = function(req, res) {
 					}
 
 					var mailOptions = {
-						from: 'tangibletesting@gmail.com',
+						from: 'tangiblescheduler@gmail.com',
 						to: msgto,
-						subject: 'Event Request',
+						subject: 'Event RSVP',
 						text: msgtext
 					};
 
