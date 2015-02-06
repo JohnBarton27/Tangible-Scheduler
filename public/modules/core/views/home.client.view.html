@@ -40,7 +40,7 @@
             <div ng-if="allEventRequests.user._id === authentication.user._id">
                 
                 <div id="Event Info" data-ng-init="findEvents()">
-                    <span data-ng-repeat="thisEvent in events">
+                    <span data-ng-repeat="thisEvent in events | orderBy: 'date' | filter: {'hasHappened' : false}" data-ng-init="updatePastEvents(thisEvent)">
                         <div class="list-group-item" ng-if="thisEvent._id === allEventRequests.event" style="margin-top:5px; margin-bottom:5px; padding:0px">
                             
                             <a class="list-group-item" data-ng-href="#!/events/{{allEventRequests.event}}">
@@ -56,7 +56,7 @@
                                 <span data-ng-bind="thisEvent.date | date: 'shortDate'"></span>
                                 at
                                 <span data-ng-bind="thisEvent.location"></span>
-                                
+                                <span data-ng-bind="thisEvent.hasHappened"></span>
                                 
                             </small>
                             </a>
